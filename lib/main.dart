@@ -1,6 +1,6 @@
-import 'package:ecommerse/malak_market.dart';
+import 'package:ecommerse/marketi_app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MalakMarket());
+  runApp(const MarketiApp());
 }
