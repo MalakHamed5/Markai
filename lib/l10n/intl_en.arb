@@ -1,1 +1,24 @@
-{}
+{
+    "orContinueWith": "Or Continue With",
+    "remeberMe": "Remember Me",
+    "forgotPassword": "Forgot Password?",
+    "login": "Log In",
+    "areYouNewInMarketi": "Are you new in Marketi",
+    "register": "register?",
+    "usernameOrEmail": "Username or Email",
+    "password": "Password",
+    "skip": "Skip",
+    "fullName": "Full Name",
+    "phoneNumber": "Phone Number",
+    "confirmPassword": "Confirm Password",
+    "createAccount": "Create Account",
+    "username": "Username",
+    "email": "Email",
+    "urName": "Your Name",
+    "urPhone": "Your Phone Number",
+    "urEmail": "Your Email",
+    "urPassword": "Your Password",
+    "signup": "Sign Up",
+    "haveAnAccount": "have an account?",
+    "signIn": "Sign In"
+}

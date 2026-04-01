@@ -5,7 +5,7 @@ final globalTheme = ThemeData(useMaterial3: true, fontFamily: 'Poppins');
 
 final lightTheme = globalTheme.copyWith(
   brightness: Brightness.light,
-  scaffoldBackgroundColor: AppColors.lightBg,
+  scaffoldBackgroundColor: AppColors.lightSurface,
 
   colorScheme: const ColorScheme.light(
     primary: AppColors.primary,
