@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 final sl = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
-  // database
-  sl.registerLazySingleton<CacheHelper>(() => CacheHelper.init());
-  sl.registerLazySingleton<SecureTokenStore>(() => SecureTokenStore());
+  await CacheHelper.init();
+  sl.registerLazySingleton<CacheHelper>(CacheHelper.new);
+  sl.registerLazySingleton<SecureTokenStore>(SecureTokenStore.new);
 }

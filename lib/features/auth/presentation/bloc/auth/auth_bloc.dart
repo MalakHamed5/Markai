@@ -49,7 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             await sl<SecureTokenStore>().save(userModel!.token);
             await sl<CacheHelper>().saveData(key: ApiKeys.id, value: id);
 
-            emit(AuthState.success());
+            emit(const AuthState.success());
           } on ServerException catch (e) {
             emit(AuthState.failure(error: e.errorModel.message));
           }

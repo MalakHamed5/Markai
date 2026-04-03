@@ -1,7 +1,7 @@
 import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
-import 'package:ecommerse/core/routes/route_names.dart';
-import 'package:ecommerse/core/shared/bottons/custom_button.dart';
+import 'package:ecommerse/core/routes/routes_name.dart';
+import 'package:ecommerse/core/shared/bottons/primary_button.dart';
 import 'package:ecommerse/core/theme/app_colors.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:ecommerse/features/auth/presentation/widgets/custom_text_field.dart';
@@ -36,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           state.maybeWhen(
@@ -69,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(
-                              color: AppColors.primary.withOpacity(0.4),
+                              color: AppColors.primary.withValues(alpha: 0.4),
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(14),
@@ -80,18 +79,17 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                            context.go(RouteNames.root);
+                            context.go(RoutesName.root);
                           },
                           child: Text(
                             tr.skip,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: AppColors.primary,
                               fontSize: 16,
                             ),
                           ),
                         ),
                       ),
-
                       vSpace(60),
 
                       /// Logo
@@ -138,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                           hSpace(8),
                           Text(
                             tr.remeberMe,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               color: AppColors.textPrimary,
                             ),
@@ -148,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () {},
                             child: Text(
                               tr.forgotPassword,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 14,
                               ),
@@ -159,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       vSpace(20),
 
-                      /// Login Button
+                      //! Login Button
                       PrimaryButton(
                         child: state.maybeWhen(
                           loading: () => const CircularProgressIndicator(
@@ -167,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           orElse: () => Text(
                             tr.login,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                               color: AppColors.textSecondary,
@@ -188,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       Text(
                         tr.orContinueWith,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: AppColors.textPrimary,
                           fontSize: 12,
                         ),
@@ -197,13 +195,13 @@ class _LoginPageState extends State<LoginPage> {
                       vSpace(18),
 
                       /// Social Buttons
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SocialButton(text: "G"),
-                          const SizedBox(width: 10),
+                          SizedBox(width: 10),
                           SocialButton(text: ""),
-                          const SizedBox(width: 10),
+                          SizedBox(width: 10),
                           SocialButton(text: "f"),
                         ],
                       ),
@@ -216,15 +214,15 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Text(
                             tr.areYouNewInMarketi,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: AppColors.textPrimary,
                               fontSize: 12,
                             ),
                           ),
-                          Text('? '),
+                          const Text('? '),
                           Text(
                             tr.register,
-                            style: TextStyle(color: AppColors.primary),
+                            style: const TextStyle(color: AppColors.primary),
                           ),
                         ],
                       ),
@@ -239,8 +237,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
 
 class SocialButton extends StatelessWidget {
   const SocialButton({super.key, required this.text});
@@ -277,7 +273,7 @@ void showNotifyMsg({
         content: Text(text),
         backgroundColor: bgColor,
         behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.only(bottom: 30, left: 30, right: 30),
+        margin: const EdgeInsets.only(bottom: 30, left: 30, right: 30),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         duration: const Duration(seconds: 2),
       ),

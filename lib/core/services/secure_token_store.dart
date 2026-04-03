@@ -5,14 +5,13 @@ class SecureTokenStore {
   static const _storage = FlutterSecureStorage();
   static const String _key = "auth_token";
 
-  static final AndroidOptions _androidOptions = const AndroidOptions(
-    encryptedSharedPreferences: true,
+  static const AndroidOptions _androidOptions = AndroidOptions(
     resetOnError: true,
   );
-  static final IOSOptions _iosOptions = IOSOptions(
+  static const IOSOptions _iosOptions = IOSOptions(
     accessibility: KeychainAccessibility.first_unlock_this_device,
   );
-  static final MacOsOptions _macOsOptions = MacOsOptions(
+  static const MacOsOptions _macOsOptions = MacOsOptions(
     accessibility: KeychainAccessibility.first_unlock_this_device,
   );
 

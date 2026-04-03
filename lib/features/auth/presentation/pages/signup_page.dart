@@ -52,9 +52,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
-                        color: AppColors.primary.withOpacity(0.4),
+                        color: AppColors.primary.withValues(alpha: 0.4),
                       ),
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 18,
                         vertical: 12,
@@ -63,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back_ios_new_rounded,
                       color: AppColors.black,
                     ),
@@ -136,7 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () {},
                     child: Text(
                       tr.signup,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                         color: AppColors.textSecondary,
@@ -149,19 +149,19 @@ class _SignUpPageState extends State<SignUpPage> {
 
                 Text(
                   tr.orContinueWith,
-                  style: TextStyle(color: AppColors.textPrimary, fontSize: 12),
+                  style: const TextStyle(color: AppColors.textPrimary, fontSize: 12),
                 ),
 
                 const SizedBox(height: 18),
 
                 /// Social Buttons
-                Row(
+              const  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SocialButton(text: "G"),
-                    const SizedBox(width: 10),
+                     SizedBox(width: 10),
                     SocialButton(text: ""),
-                    const SizedBox(width: 10),
+                     SizedBox(width: 10),
                     SocialButton(text: "f"),
                   ],
                 ),
@@ -174,13 +174,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Text(
                       tr.haveAnAccount,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: AppColors.textPrimary,
                         fontSize: 12,
                       ),
                     ),
-                    Text('? '),
-                    Text(tr.signIn, style: TextStyle(color: AppColors.primary)),
+                    const Text('? '),
+                    Text(tr.signIn, style: const TextStyle(color: AppColors.primary)),
                   ],
                 ),
               ],

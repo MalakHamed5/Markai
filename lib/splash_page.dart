@@ -1,6 +1,5 @@
-
 import 'package:ecommerse/core/constants/assets.dart';
-import 'package:ecommerse/core/routes/route_names.dart';
+import 'package:ecommerse/core/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,9 +13,9 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
-      context.go(RouteNames.login);
+      context.go(RoutesName.login);
     });
     super.initState();
   }

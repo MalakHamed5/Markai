@@ -21,7 +21,7 @@ class MarketiApp extends StatelessWidget {
       theme: lightTheme,
 
       // localizations
-      localizationsDelegates: [
+      localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

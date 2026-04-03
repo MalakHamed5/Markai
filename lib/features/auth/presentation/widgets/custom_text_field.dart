@@ -45,7 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       children: [
         Text(
           widget.title ?? "",
-          style: TextStyle(
+          style: const TextStyle(
             color: AppColors.textPrimary,
             fontWeight: FontWeight.w400,
           ),
@@ -71,7 +71,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             contentPadding: const EdgeInsets.symmetric(vertical: 18),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(color: AppColors.primary.withOpacity(0.4)),
+              borderSide: BorderSide(color: AppColors.primary.withValues(alpha: 0.4)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),

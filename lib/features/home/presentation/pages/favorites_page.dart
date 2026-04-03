@@ -1,3 +1,5 @@
+import 'package:ecommerse/features/home/presentation/widget/category_card.dart';
+import 'package:ecommerse/features/home/presentation/widget/custom_card.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesPage extends StatelessWidget {
@@ -13,9 +15,9 @@ class FavoritesPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'Hi Yousef !',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -57,20 +59,30 @@ class FavoritesPage extends StatelessWidget {
               _sectionTitle('Popular Product'),
               const SizedBox(height: 10),
               Row(
-                children: const [
+                children: [
                   Expanded(
-                    child: ProductCard(
-                      title: 'Smart Watch',
-                      price: '499 LE',
-                      image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600',
+                    child: CustomCard(
+                      model: CustomCardModel(
+                        name: 'Smart Watch',
+                        price: '499 LE',
+                        rating: '4.5',
+                        off: '25% off',
+                        image:
+                            'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600',
+                      ),
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
-                    child: ProductCard(
-                      title: 'iPhone 11 Pro',
-                      price: '19999 LE',
-                      image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
+                    child: CustomCard(
+                      model: CustomCardModel(
+                        name: 'iPhone 11 Pro',
+                        price: '19999 LE',
+                        rating: '4.9',
+                        off: '10% off',
+                        image:
+                            'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
+                      ),
                     ),
                   ),
                 ],
@@ -85,13 +97,49 @@ class FavoritesPage extends StatelessWidget {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 childAspectRatio: 0.8,
-                children: const [
-                  CategoryCard('Pampers', 'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=600'),
-                  CategoryCard('Electronics', 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600'),
-                  CategoryCard('Plants', 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=600'),
-                  CategoryCard('Phones', 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600'),
-                  CategoryCard('Food', 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?q=80&w=600'),
-                  CategoryCard('Fashion', 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=600'),
+                children: [
+                  CategoryCard(
+                    model: CategoryModel(
+                      title: 'Pampers',
+                      image:
+                          'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=600',
+                    ),
+                  ),
+                  CategoryCard(
+                    model: CategoryModel(
+                      title: 'Electronics',
+                      image:
+                          'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600',
+                    ),
+                  ),
+                  CategoryCard(
+                    model: CategoryModel(
+                      title: 'Plants',
+                      image:
+                          'https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=600',
+                    ),
+                  ),
+                  CategoryCard(
+                    model: CategoryModel(
+                      title: 'Phones',
+                      image:
+                          'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
+                    ),
+                  ),
+                  CategoryCard(
+                    model: CategoryModel(
+                      title: 'Food',
+                      image:
+                          'https://images.unsplash.com/photo-1566478989037-eec170784d0b?q=80&w=600',
+                    ),
+                  ),
+                  CategoryCard(
+                    model: CategoryModel(
+                      title: 'Fashion',
+                      image:
+                          'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=600',
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -109,98 +157,83 @@ class FavoritesPage extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        const Text(
-          'View all',
-          style: TextStyle(color: Colors.blue),
-        ),
+        const Text('View all', style: TextStyle(color: Colors.blue)),
       ],
     );
   }
 }
 
-Widget _brandChip(String title) {
-    return Container(
-      margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Text(title),
-    );
-  }
 
 
-class ProductCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String image;
+// class ProductCard extends StatelessWidget {
+//   final String title;
+//   final String price;
+//   final String image;
 
-  const ProductCard({
-    super.key,
-    required this.title,
-    required this.price,
-    required this.image,
-  });
+//   const ProductCard({
+//     super.key,
+//     required this.title,
+//     required this.price,
+//     required this.image,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 90,
-            width: double.infinity,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.network(image, fit: BoxFit.cover),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-          Text(price, style: const TextStyle(color: Colors.grey)),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.all(10),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(16),
+//         border: Border.all(color: Colors.grey.shade300),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           SizedBox(
+//             height: 90,
+//             width: double.infinity,
+//             child: ClipRRect(
+//               borderRadius: BorderRadius.circular(12),
+//               child: Image.network(image, fit: BoxFit.cover),
+//             ),
+//           ),
+//           const SizedBox(height: 8),
+//           Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+//           Text(price, style: const TextStyle(color: Colors.grey)),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-class CategoryCard extends StatelessWidget {
-  final String title;
-  final String image;
+// class CategoryCard extends StatelessWidget {
+//   final String title;
+//   final String image;
 
-  const CategoryCard(this.title, this.image, {super.key});
+//   const CategoryCard(this.title, this.image, {super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(image, fit: BoxFit.cover),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(title, overflow: TextOverflow.ellipsis),
-        ],
-      ),
-    );
-  }
-}
-
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.all(8),
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(14),
+//         border: Border.all(color: Colors.grey.shade300),
+//       ),
+//       child: Column(
+//         children: [
+//           Expanded(
+//             child: ClipRRect(
+//               borderRadius: BorderRadius.circular(10),
+//               child: Image.network(image, fit: BoxFit.cover),
+//             ),
+//           ),
+//           const SizedBox(height: 6),
+//           Text(title, overflow: TextOverflow.ellipsis),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 // Add this promo banner section inside your HomePage Column where needed
 Widget buildPromoBanner() {
@@ -220,13 +253,10 @@ Widget buildPromoBanner() {
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          colors: [
-            Colors.black54,
-            Colors.transparent,
-          ],
+          colors: [Colors.black54, Colors.transparent],
         ),
       ),
       padding: const EdgeInsets.all(16),

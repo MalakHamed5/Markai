@@ -11,24 +11,24 @@ class OnboardingPage extends StatefulWidget {
 
 class _OnboardingPageState extends State<OnboardingPage> {
   late PageController _pageController;
-  int _indext = 1;
+  int _currentIndex = 0;
 
   final List<OnboardingModel> _pages = [
-    OnboardingModel(
+    const OnboardingModel(
       image: Assets.imagesOnboarding1,
       title: "Welcome to Marketi",
       subtitle:
           "Discover a world of endless possibilities and shop from the comfort of your fingertips Browse through a wide range of products, from fashion and electronics to home.",
       index: 0,
     ),
-    OnboardingModel(
+    const OnboardingModel(
       image: Assets.imagesOnboarding2,
       title: "Welcome to Marketi",
       subtitle:
           "Discover a world of endless possibilities and shop from the comfort of your fingertips Browse through a wide range of products, from fashion and electronics to home.",
       index: 1,
     ),
-    OnboardingModel(
+    const OnboardingModel(
       image: Assets.imagesOnboarding3,
       title: "Welcome to Marketi",
       subtitle:
@@ -57,13 +57,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
           PageView.builder(
             onPageChanged: (v) {
               setState(() {
-                _indext = v;
+                _currentIndex = v;
               });
             },
             controller: _pageController,
             itemCount: _pages.length,
             itemBuilder: (_, i) {
-              return _pages[i];
+                return _pages[i].copyWithActiveIndex(_currentIndex);
             },
           ),
         ],
@@ -80,32 +80,45 @@ class OnboardingModel extends StatelessWidget {
     required this.subtitle,
     required this.index,
     this.total = 3,
+    this.activeIndex = 0,
   });
   final String image;
   final String title;
   final String subtitle;
   final int index;
   final int total;
+  final int activeIndex;
+
+  OnboardingModel copyWithActiveIndex(int active) {
+    return OnboardingModel(
+      image: image,
+      title: title,
+      subtitle: subtitle,
+      index: index,
+      total: total,
+      activeIndex: active,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
       child: Column(
         children: [
-          SizedBox(height: 100),
+          const SizedBox(height: 100),
           // Image
           Image.asset(image),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           // Indicators
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(total, (i) {
-              return CustomIndecator(active: i == index);
+              return CustomIndecator(active: i == activeIndex);
             }),
           ),
           // Title
           Text(title, style: Theme.of(context).textTheme.headlineMedium),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           // Subtitle
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 70),
@@ -114,7 +127,7 @@ class OnboardingModel extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           // Button
           CustomButton(text: "Next", onPressed: () {}),
         ],
@@ -134,7 +147,7 @@ class CustomButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.textPrimary,
-        minimumSize: Size(double.infinity, 50),
+        minimumSize: const Size(double.infinity, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       onPressed: onPressed,
@@ -156,7 +169,7 @@ class CustomIndecator extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           width: active ? 18 : 16,
           height: active ? 18 : 16,
-          margin: EdgeInsets.symmetric(horizontal: 4),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
             color: active
                 ? AppColors.secondary

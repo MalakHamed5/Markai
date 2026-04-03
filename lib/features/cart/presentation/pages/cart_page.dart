@@ -1,6 +1,6 @@
 import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
-import 'package:ecommerse/core/shared/bottons/custom_button.dart';
+import 'package:ecommerse/core/shared/bottons/primary_button.dart';
 import 'package:ecommerse/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -25,10 +25,10 @@ class CartPage extends StatelessWidget {
             vSpace(8),
 
             // Text
-            Text("Your Cart is Empty", style: TextStyle(fontSize: 24)),
+            const Text("Your Cart is Empty", style: TextStyle(fontSize: 24)),
 
             // details
-            Expanded(
+            const Expanded(
               child: Text(
                 "Check our big offers, fresh products and fill your cart with items",
               ),
@@ -38,7 +38,7 @@ class CartPage extends StatelessWidget {
 
             // button 
             PrimaryButton(
-              child: Text(
+              child: const Text(
                 "Start Shopping",
                 style: TextStyle(
                   fontSize: 20,

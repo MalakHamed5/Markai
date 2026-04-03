@@ -12,59 +12,50 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> {
-  late PageController _pageCtrl;
-
   int currentIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomePage(),
-    const CartPage(),
-    const FavoritePage(),
-    const MenuPage(),
-  ];
+  late List<Widget> _pages;
 
   @override
   void initState() {
     super.initState();
-    _pageCtrl = PageController();
-  }
-
-  @override
-  void dispose() {
-    _pageCtrl.dispose();
-    super.dispose();
+    _pages = [
+      const HomePage(),
+      const CartPage(),
+      const FavoritePage(),
+      const MenuPage(),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: _pageCtrl,
-        onPageChanged: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        children: _pages,
-      ),
-      backgroundColor: Colors.black,
-      drawerScrimColor: Colors.amber,
+      body: IndexedStack(index: currentIndex, children: _pages),
 
+      // bottom nav
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(color: Colors.grey, blurRadius: 20, spreadRadius: 0.01),
           ],
         ),
+
         child: BottomNavigationBar(
           elevation: 0,
           type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: TextStyle(fontSize: 16),
-          unselectedLabelStyle: TextStyle(fontSize: 16),
+          selectedLabelStyle: const TextStyle(fontSize: 16),
+          unselectedLabelStyle: const TextStyle(fontSize: 16),
           iconSize: 28,
-          items: [
+
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+
+          items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart),
@@ -76,14 +67,6 @@ class _RootState extends State<Root> {
             ),
             BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu'),
           ],
-          currentIndex: currentIndex,
-          onTap: (index) {
-            _pageCtrl.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            );
-          },
         ),
       ),
     );
