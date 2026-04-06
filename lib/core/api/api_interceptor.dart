@@ -1,16 +1,24 @@
 import 'package:dio/dio.dart';
 
-class ApiInterceptor extends Interceptor{
-  
+import '../services/secure_token_store.dart';
+import '../services/service_locator.dart';
 
+class ApiInterceptor extends Interceptor {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // TODO: implement onRequest
-    super.onRequest(options, handler);
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    final token = await sl<SecureTokenStore>().readToken();
+
+    if (token != null && token.isNotEmpty) {
+      options.headers['Authorization'] = "Bearer $token";
+    }
+
+    return handler.next(options);
   }
 
   @override
-  void onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) {
+  void onResponse(
+      Response<dynamic> response, ResponseInterceptorHandler handler) {
     // TODO: implement onResponse
     super.onResponse(response, handler);
   }

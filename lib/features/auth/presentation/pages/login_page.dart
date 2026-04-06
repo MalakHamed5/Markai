@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/helper/functions.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -39,8 +41,9 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           state.maybeWhen(
-            success: () {
-              showNotifyMsg(text: "تم تسجيل الدخول بنجاح", context: context);
+            success: (message) {
+              showNotifyMsg(text: message!, context: context);
+              context.go(RoutesName.root);
             },
             failure: (error) {
               showNotifyMsg(text: error, context: context, bgColor: Colors.red);
@@ -63,33 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                       vSpace(10),
 
                       //! Skip Button
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(
-                              color: AppColors.primary.withValues(alpha: 0.4),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 12,
-                            ),
-                          ),
-                          onPressed: () {
-                            context.go(RoutesName.root);
-                          },
-                          child: Text(
-                            tr.skip,
-                            style: const TextStyle(
-                              color: AppColors.primary,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
+                      const _SkipButton(),
                       vSpace(60),
 
                       /// Logo
@@ -101,17 +78,15 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       vSpace(70),
-
-                      /// Email Field
+                      // Email Field
                       CustomTextField(
                         hint: tr.usernameOrEmail,
                         icon: Icons.email_outlined,
                         controller: emailCtrl,
                       ),
-
                       vSpace(14),
 
-                      /// Password Field
+                      // Password Field
                       CustomTextField(
                         hint: tr.password,
                         icon: Icons.lock_outline,
@@ -121,18 +96,10 @@ class _LoginPageState extends State<LoginPage> {
 
                       vSpace(10),
 
-                      /// Remember + Forgot
+                      /// Remember & Forgot
                       Row(
                         children: [
-                          SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: Checkbox(
-                              value: true,
-                              activeColor: AppColors.primary,
-                              onChanged: (_) {},
-                            ),
-                          ),
+                         const _RememberMeButton(),
                           hSpace(8),
                           Text(
                             tr.remeberMe,
@@ -142,19 +109,9 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           const Spacer(),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              tr.forgotPassword,
-                              style: const TextStyle(
-                                color: AppColors.primary,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
+                          const _ForgotButton(),
                         ],
                       ),
-
                       vSpace(20),
 
                       //! Login Button
@@ -183,7 +140,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       vSpace(25),
-
                       Text(
                         tr.orContinueWith,
                         style: const TextStyle(
@@ -191,41 +147,12 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 12,
                         ),
                       ),
-
                       vSpace(18),
-
                       /// Social Buttons
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SocialButton(text: "G"),
-                          SizedBox(width: 10),
-                          SocialButton(text: ""),
-                          SizedBox(width: 10),
-                          SocialButton(text: "f"),
-                        ],
-                      ),
-
-                      const SizedBox(height: 25),
-
+                      const _SocialButtonsRow(),
+                      vSpace(25),
                       /// Register Text
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            tr.areYouNewInMarketi,
-                            style: const TextStyle(
-                              color: AppColors.textPrimary,
-                              fontSize: 12,
-                            ),
-                          ),
-                          const Text('? '),
-                          Text(
-                            tr.register,
-                            style: const TextStyle(color: AppColors.primary),
-                          ),
-                        ],
-                      ),
+                      const _RegisterText(),
                     ],
                   ),
                 ),
@@ -233,6 +160,124 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _RegisterText extends StatelessWidget {
+  const _RegisterText();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          tr.areYouNewInMarketi,
+          style: const TextStyle(
+            color: AppColors.textPrimary,
+            fontSize: 12,
+          ),
+        ),
+        const Text('? '),
+        TextButton(
+          onPressed: () {
+            context.go(RoutesName.signup);
+          },
+          child: Text(
+            tr.register,
+            style: const TextStyle(color: AppColors.primary),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _SocialButtonsRow extends StatelessWidget {
+  const _SocialButtonsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SocialButton(text: "G"),
+        SizedBox(width: 10),
+        SocialButton(text: ""),
+        SizedBox(width: 10),
+        SocialButton(text: "f"),
+      ],
+    );
+  }
+}
+
+class _ForgotButton extends StatelessWidget {
+  const _ForgotButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {},
+      child: Text(
+        tr.forgotPassword,
+        style: const TextStyle(
+          color: AppColors.primary,
+          fontSize: 14,
+        ),
+      ),
+    );
+  }
+}
+
+class _RememberMeButton extends StatelessWidget {
+  const _RememberMeButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 20,
+      height: 20,
+      child: Checkbox(
+        value: true,
+        activeColor: AppColors.primary,
+        onChanged: (_) {},
+      ),
+    );
+  }
+}
+
+class _SkipButton extends StatelessWidget {
+  const _SkipButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(
+            color: AppColors.primary.withValues(alpha: 0.4),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 18,
+            vertical: 12,
+          ),
+        ),
+        onPressed: () {
+          context.go(RoutesName.root);
+        },
+        child: Text(
+          tr.skip,
+          style: const TextStyle(
+            color: AppColors.primary,
+            fontSize: 16,
+          ),
+        ),
       ),
     );
   }
@@ -261,21 +306,3 @@ class SocialButton extends StatelessWidget {
   }
 }
 
-void showNotifyMsg({
-  Color bgColor = Colors.green,
-  required String text,
-  required BuildContext context,
-}) {
-  ScaffoldMessenger.of(context)
-    ..clearSnackBars() // optional: remove any current one
-    ..showSnackBar(
-      SnackBar(
-        content: Text(text),
-        backgroundColor: bgColor,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.only(bottom: 30, left: 30, right: 30),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-}

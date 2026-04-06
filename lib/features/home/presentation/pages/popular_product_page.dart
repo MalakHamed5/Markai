@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/shared/widgets/custom_page.dart';
+import '../../../../core/shared/widgets/base_page_layout.dart';
 import '../widget/custom_card.dart';
 
 class PopularProductPage extends StatelessWidget {
@@ -17,7 +17,6 @@ class PopularProductPage extends StatelessWidget {
         image:
             'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600',
       ),
-
       CustomCardModel(
         off: '25% off',
         name: 'iPhone 11 Pro',
@@ -27,7 +26,7 @@ class PopularProductPage extends StatelessWidget {
             'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
       ),
     ];
-    return CustomPage(
+    return BasePageLayout(
       title: 'Popular Product',
       detail: 'All Products',
       child: Column(
@@ -37,12 +36,13 @@ class PopularProductPage extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: 0,
+              mainAxisSpacing: 0,
+              childAspectRatio: 0.8,
             ),
             itemCount: products.length,
             itemBuilder: (context, i) {
-              return CustomCard(model: products[i]);
+              return CustomCard(model: products[i], isGrid: true);
             },
           ),
         ],

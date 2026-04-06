@@ -1,11 +1,11 @@
 import 'package:ecommerse/core/helper/tools.dart';
-import 'package:ecommerse/core/routes/routes_name.dart';
+import 'package:ecommerse/core/shared/bottons/custom_back_button.dart';
 import 'package:ecommerse/core/shared/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomPage extends StatelessWidget {
-  const CustomPage({
+class BasePageLayout extends StatelessWidget {
+  const BasePageLayout({
     super.key,
     required this.title,
     required this.detail,
@@ -28,19 +28,7 @@ class CustomPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () => context.go(RoutesName.root),
-                    child: Container(
-                      height: 44,
-                      width: 44,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xFF3F80FF)),
-                      ),
-                      child: const Icon(Icons.arrow_back_ios_new, size: 18),
-                    ),
-                  ),
-
+                  const CustomBackButton(),
                   Text(
                     title,
                     style: const TextStyle(

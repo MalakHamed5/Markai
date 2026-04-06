@@ -1,4 +1,5 @@
 import 'package:ecommerse/core/services/secure_token_store.dart';
+import 'package:ecommerse/core/services/service_locator.dart';
 import 'package:ecommerse/features/favorites/persentation/pages/favorite_page.dart';
 import 'package:ecommerse/features/home/presentation/pages/best_for_you_page.dart';
 import 'package:ecommerse/features/home/presentation/pages/brands_page.dart';
@@ -26,7 +27,7 @@ final GoRouter appRouter = GoRouter(
       debugPrint("No Internet");
     }
     // there is internet
-    final token = await SecureTokenStore.read();
+    final token = await sl<SecureTokenStore>().readToken();
     if (token != null && state.matchedLocation == RoutesName.splash) {
       return RoutesName.root;
     }

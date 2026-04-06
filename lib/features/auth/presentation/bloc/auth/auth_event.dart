@@ -12,12 +12,6 @@ abstract class AuthEvent with _$AuthEvent {
     required String email,
     required String password,
     required String phone,
+    required String confirmPassword,
   }) = _Register;
-  const factory AuthEvent.logout() = _Logout;
-
-  const factory AuthEvent.resendOtp() = _ResendOtp;
-  const factory AuthEvent.verifyOtp() = _VerifyOtp;
-
-  const factory AuthEvent.forgetPassword() = _ForgetPassword;
-  const factory AuthEvent.resetPassword() = _ResetPassword;
 }

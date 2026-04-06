@@ -1,7 +1,7 @@
 import 'package:ecommerse/features/cart/presentation/pages/cart_page.dart';
 import 'package:ecommerse/features/favorites/persentation/pages/favorite_page.dart';
 import 'package:ecommerse/features/home/presentation/pages/home_page.dart';
-import 'package:ecommerse/features/menu/persentation/page/menu_page.dart';
+import 'package:ecommerse/features/profile/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class Root extends StatefulWidget {
@@ -23,7 +23,8 @@ class _RootState extends State<Root> {
       const HomePage(),
       const CartPage(),
       const FavoritePage(),
-      const MenuPage(),
+      const ProfilePage()
+      // const MenuPage(),
     ];
   }
 
@@ -40,21 +41,18 @@ class _RootState extends State<Root> {
             BoxShadow(color: Colors.grey, blurRadius: 20, spreadRadius: 0.01),
           ],
         ),
-
         child: BottomNavigationBar(
           elevation: 0,
           type: BottomNavigationBarType.fixed,
           selectedLabelStyle: const TextStyle(fontSize: 16),
           unselectedLabelStyle: const TextStyle(fontSize: 16),
           iconSize: 28,
-
           currentIndex: currentIndex,
           onTap: (index) {
             setState(() {
               currentIndex = index;
             });
           },
-
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(

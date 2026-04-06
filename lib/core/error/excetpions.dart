@@ -4,18 +4,19 @@ import 'package:ecommerse/core/error/error_model.dart';
 class ServerException implements Exception {
   final ErrorModel errorModel;
   ServerException({required this.errorModel});
+
 }
 
 void handleDioException(DioException e) {
   switch (e.type) {
     // NOT arrive to server
     case DioExceptionType.connectionTimeout ||
-        DioExceptionType.sendTimeout ||
-        DioExceptionType.receiveTimeout ||
-        DioExceptionType.badCertificate ||
-        DioExceptionType.cancel ||
-        DioExceptionType.connectionError ||
-        DioExceptionType.unknown:
+          DioExceptionType.sendTimeout ||
+          DioExceptionType.receiveTimeout ||
+          DioExceptionType.badCertificate ||
+          DioExceptionType.cancel ||
+          DioExceptionType.connectionError ||
+          DioExceptionType.unknown:
       throw ServerException(errorModel: e.response!.data);
 
     // arrive to server & get status code

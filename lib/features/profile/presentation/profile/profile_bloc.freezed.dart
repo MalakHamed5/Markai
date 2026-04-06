@@ -1,0 +1,916 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'profile_bloc.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+// dart format off
+T _$identity<T>(T value) => value;
+
+/// @nodoc
+mixin _$ProfileState implements DiagnosticableTreeMixin {
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileState'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ProfileState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState()';
+  }
+}
+
+/// @nodoc
+class $ProfileStateCopyWith<$Res> {
+  $ProfileStateCopyWith(ProfileState _, $Res Function(ProfileState) __);
+}
+
+/// Adds pattern-matching-related methods to [ProfileState].
+extension ProfileStatePatterns on ProfileState {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Failure value)? failure,
+    TResult Function(_UpdateUI value)? updateUI,
+    TResult Function(_SeccessUI value)? seccessUI,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Initial() when initial != null:
+        return initial(_that);
+      case _Loading() when loading != null:
+        return loading(_that);
+      case _Success() when success != null:
+        return success(_that);
+      case _Failure() when failure != null:
+        return failure(_that);
+      case _UpdateUI() when updateUI != null:
+        return updateUI(_that);
+      case _SeccessUI() when seccessUI != null:
+        return seccessUI(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Failure value) failure,
+    required TResult Function(_UpdateUI value) updateUI,
+    required TResult Function(_SeccessUI value) seccessUI,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Initial():
+        return initial(_that);
+      case _Loading():
+        return loading(_that);
+      case _Success():
+        return success(_that);
+      case _Failure():
+        return failure(_that);
+      case _UpdateUI():
+        return updateUI(_that);
+      case _SeccessUI():
+        return seccessUI(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Failure value)? failure,
+    TResult? Function(_UpdateUI value)? updateUI,
+    TResult? Function(_SeccessUI value)? seccessUI,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Initial() when initial != null:
+        return initial(_that);
+      case _Loading() when loading != null:
+        return loading(_that);
+      case _Success() when success != null:
+        return success(_that);
+      case _Failure() when failure != null:
+        return failure(_that);
+      case _UpdateUI() when updateUI != null:
+        return updateUI(_that);
+      case _SeccessUI() when seccessUI != null:
+        return seccessUI(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String? message, UserModel? user)? success,
+    TResult Function(String error)? failure,
+    TResult Function()? updateUI,
+    TResult Function()? seccessUI,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Initial() when initial != null:
+        return initial();
+      case _Loading() when loading != null:
+        return loading();
+      case _Success() when success != null:
+        return success(_that.message, _that.user);
+      case _Failure() when failure != null:
+        return failure(_that.error);
+      case _UpdateUI() when updateUI != null:
+        return updateUI();
+      case _SeccessUI() when seccessUI != null:
+        return seccessUI();
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String? message, UserModel? user) success,
+    required TResult Function(String error) failure,
+    required TResult Function() updateUI,
+    required TResult Function() seccessUI,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Initial():
+        return initial();
+      case _Loading():
+        return loading();
+      case _Success():
+        return success(_that.message, _that.user);
+      case _Failure():
+        return failure(_that.error);
+      case _UpdateUI():
+        return updateUI();
+      case _SeccessUI():
+        return seccessUI();
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String? message, UserModel? user)? success,
+    TResult? Function(String error)? failure,
+    TResult? Function()? updateUI,
+    TResult? Function()? seccessUI,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Initial() when initial != null:
+        return initial();
+      case _Loading() when loading != null:
+        return loading();
+      case _Success() when success != null:
+        return success(_that.message, _that.user);
+      case _Failure() when failure != null:
+        return failure(_that.error);
+      case _UpdateUI() when updateUI != null:
+        return updateUI();
+      case _SeccessUI() when seccessUI != null:
+        return seccessUI();
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+class _Initial with DiagnosticableTreeMixin implements ProfileState {
+  const _Initial();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileState.initial'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Initial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState.initial()';
+  }
+}
+
+/// @nodoc
+
+class _Loading with DiagnosticableTreeMixin implements ProfileState {
+  const _Loading();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileState.loading'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Loading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState.loading()';
+  }
+}
+
+/// @nodoc
+
+class _Success with DiagnosticableTreeMixin implements ProfileState {
+  const _Success({this.message, required this.user});
+
+  final String? message;
+  final UserModel? user;
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$SuccessCopyWith<_Success> get copyWith =>
+      __$SuccessCopyWithImpl<_Success>(this, _$identity);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'ProfileState.success'))
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('user', user));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Success &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.user, user) || other.user == user));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message, user);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState.success(message: $message, user: $user)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$SuccessCopyWith<$Res>
+    implements $ProfileStateCopyWith<$Res> {
+  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
+      __$SuccessCopyWithImpl;
+  @useResult
+  $Res call({String? message, UserModel? user});
+}
+
+/// @nodoc
+class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
+  __$SuccessCopyWithImpl(this._self, this._then);
+
+  final _Success _self;
+  final $Res Function(_Success) _then;
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? message = freezed,
+    Object? user = freezed,
+  }) {
+    return _then(_Success(
+      message: freezed == message
+          ? _self.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      user: freezed == user
+          ? _self.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _Failure with DiagnosticableTreeMixin implements ProfileState {
+  const _Failure({required this.error});
+
+  final String error;
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$FailureCopyWith<_Failure> get copyWith =>
+      __$FailureCopyWithImpl<_Failure>(this, _$identity);
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties
+      ..add(DiagnosticsProperty('type', 'ProfileState.failure'))
+      ..add(DiagnosticsProperty('error', error));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Failure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState.failure(error: $error)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$FailureCopyWith<$Res>
+    implements $ProfileStateCopyWith<$Res> {
+  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) =
+      __$FailureCopyWithImpl;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
+  __$FailureCopyWithImpl(this._self, this._then);
+
+  final _Failure _self;
+  final $Res Function(_Failure) _then;
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_Failure(
+      error: null == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _UpdateUI with DiagnosticableTreeMixin implements ProfileState {
+  const _UpdateUI();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileState.updateUI'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _UpdateUI);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState.updateUI()';
+  }
+}
+
+/// @nodoc
+
+class _SeccessUI with DiagnosticableTreeMixin implements ProfileState {
+  const _SeccessUI();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileState.seccessUI'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _SeccessUI);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState.seccessUI()';
+  }
+}
+
+/// @nodoc
+mixin _$ProfileEvent implements DiagnosticableTreeMixin {
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileEvent'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ProfileEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileEvent()';
+  }
+}
+
+/// @nodoc
+class $ProfileEventCopyWith<$Res> {
+  $ProfileEventCopyWith(ProfileEvent _, $Res Function(ProfileEvent) __);
+}
+
+/// Adds pattern-matching-related methods to [ProfileEvent].
+extension ProfileEventPatterns on ProfileEvent {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SaveChanges value)? saveChanges,
+    TResult Function(_GetUserData value)? getUserData,
+    TResult Function(_PickImage value)? pickImage,
+    TResult Function(_ChangePhone value)? changePhone,
+    TResult Function(_ChangePassword value)? changePassword,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SaveChanges() when saveChanges != null:
+        return saveChanges(_that);
+      case _GetUserData() when getUserData != null:
+        return getUserData(_that);
+      case _PickImage() when pickImage != null:
+        return pickImage(_that);
+      case _ChangePhone() when changePhone != null:
+        return changePhone(_that);
+      case _ChangePassword() when changePassword != null:
+        return changePassword(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SaveChanges value) saveChanges,
+    required TResult Function(_GetUserData value) getUserData,
+    required TResult Function(_PickImage value) pickImage,
+    required TResult Function(_ChangePhone value) changePhone,
+    required TResult Function(_ChangePassword value) changePassword,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SaveChanges():
+        return saveChanges(_that);
+      case _GetUserData():
+        return getUserData(_that);
+      case _PickImage():
+        return pickImage(_that);
+      case _ChangePhone():
+        return changePhone(_that);
+      case _ChangePassword():
+        return changePassword(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SaveChanges value)? saveChanges,
+    TResult? Function(_GetUserData value)? getUserData,
+    TResult? Function(_PickImage value)? pickImage,
+    TResult? Function(_ChangePhone value)? changePhone,
+    TResult? Function(_ChangePassword value)? changePassword,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SaveChanges() when saveChanges != null:
+        return saveChanges(_that);
+      case _GetUserData() when getUserData != null:
+        return getUserData(_that);
+      case _PickImage() when pickImage != null:
+        return pickImage(_that);
+      case _ChangePhone() when changePhone != null:
+        return changePhone(_that);
+      case _ChangePassword() when changePassword != null:
+        return changePassword(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? saveChanges,
+    TResult Function()? getUserData,
+    TResult Function()? pickImage,
+    TResult Function()? changePhone,
+    TResult Function()? changePassword,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SaveChanges() when saveChanges != null:
+        return saveChanges();
+      case _GetUserData() when getUserData != null:
+        return getUserData();
+      case _PickImage() when pickImage != null:
+        return pickImage();
+      case _ChangePhone() when changePhone != null:
+        return changePhone();
+      case _ChangePassword() when changePassword != null:
+        return changePassword();
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() saveChanges,
+    required TResult Function() getUserData,
+    required TResult Function() pickImage,
+    required TResult Function() changePhone,
+    required TResult Function() changePassword,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SaveChanges():
+        return saveChanges();
+      case _GetUserData():
+        return getUserData();
+      case _PickImage():
+        return pickImage();
+      case _ChangePhone():
+        return changePhone();
+      case _ChangePassword():
+        return changePassword();
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? saveChanges,
+    TResult? Function()? getUserData,
+    TResult? Function()? pickImage,
+    TResult? Function()? changePhone,
+    TResult? Function()? changePassword,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SaveChanges() when saveChanges != null:
+        return saveChanges();
+      case _GetUserData() when getUserData != null:
+        return getUserData();
+      case _PickImage() when pickImage != null:
+        return pickImage();
+      case _ChangePhone() when changePhone != null:
+        return changePhone();
+      case _ChangePassword() when changePassword != null:
+        return changePassword();
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+
+class _SaveChanges with DiagnosticableTreeMixin implements ProfileEvent {
+  const _SaveChanges();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileEvent.saveChanges'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _SaveChanges);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileEvent.saveChanges()';
+  }
+}
+
+/// @nodoc
+
+class _GetUserData with DiagnosticableTreeMixin implements ProfileEvent {
+  const _GetUserData();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileEvent.getUserData'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _GetUserData);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileEvent.getUserData()';
+  }
+}
+
+/// @nodoc
+
+class _PickImage with DiagnosticableTreeMixin implements ProfileEvent {
+  const _PickImage();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileEvent.pickImage'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _PickImage);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileEvent.pickImage()';
+  }
+}
+
+/// @nodoc
+
+class _ChangePhone with DiagnosticableTreeMixin implements ProfileEvent {
+  const _ChangePhone();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileEvent.changePhone'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ChangePhone);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileEvent.changePhone()';
+  }
+}
+
+/// @nodoc
+
+class _ChangePassword with DiagnosticableTreeMixin implements ProfileEvent {
+  const _ChangePassword();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    properties..add(DiagnosticsProperty('type', 'ProfileEvent.changePassword'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ChangePassword);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileEvent.changePassword()';
+  }
+}
+
+// dart format on

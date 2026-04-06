@@ -19,6 +19,7 @@ class DioConsumer implements ApiConsumer {
         responseHeader: true,
         error: true,
       ),
+      
     );
   }
 

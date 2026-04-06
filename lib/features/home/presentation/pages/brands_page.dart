@@ -1,4 +1,4 @@
-import 'package:ecommerse/core/shared/widgets/custom_page.dart';
+import 'package:ecommerse/core/shared/widgets/base_page_layout.dart';
 import 'package:flutter/material.dart';
 
 class BrandsPage extends StatelessWidget {
@@ -6,13 +6,11 @@ class BrandsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomPage(
+    return const BasePageLayout(
       title: 'Brands',
       detail: 'All Brands',
       child: Column(
-        children: [
-         
-        ],
+        children: [],
       ),
     );
   }

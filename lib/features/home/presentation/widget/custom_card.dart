@@ -4,6 +4,7 @@ import '../../../../core/helper/tools.dart';
 import '../../../../core/shared/widgets/product_network_image.dart';
 import '../../../../core/theme/app_colors.dart';
 
+//---------------------- CUSTOM CARD MODEL----------------------
 class CustomCardModel {
   final String image;
   final String off;
@@ -22,16 +23,19 @@ class CustomCardModel {
   });
 }
 
+//---------------------- CUSTOM CARD----------------------
 class CustomCard extends StatefulWidget {
-  const CustomCard({required this.model, super.key});
+  const CustomCard({required this.model, super.key, this.isGrid = false});
 
   final CustomCardModel model;
+  final bool isGrid;
 
   @override
   State<CustomCard> createState() => _CustomCardState();
 }
 
 class _CustomCardState extends State<CustomCard> {
+
   void toggleFav() {
     setState(() {
       widget.model.isFav = !widget.model.isFav;
@@ -41,14 +45,14 @@ class _CustomCardState extends State<CustomCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
-      margin: const EdgeInsets.all(8),
+      width: widget.isGrid ? null : 200,
+      margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: Colors.grey.shade300),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min, //* so important line
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -67,44 +71,15 @@ class _CustomCardState extends State<CustomCard> {
                 ),
               ),
               // off button
-              Positioned(
-                top: 8,
-                left: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    color: AppColors.primary.withValues(alpha: 0.2),
-                  ),
-                  child: Text(
-                    widget.model.off,
-                    style: const TextStyle(color: AppColors.primary),
-                  ),
-                ),
-              ),
+              _OffButton(widget: widget),
               // favourit button
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
-                  child: IconButton(
-                    onPressed: toggleFav,
-                    icon: widget.model.isFav
-                        ? const Icon(Icons.favorite)
-                        : const Icon(Icons.favorite_border),
-                  ),
-                ),
-              ),
+              _FavouritButton(widget: widget , onFavPressed: toggleFav,),
             ],
           ),
-
+    
           // title and price
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -133,7 +108,7 @@ class _CustomCardState extends State<CustomCard> {
                     ),
                   ],
                 ),
-                vSpace(4),
+                vSpace(2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -146,40 +121,109 @@ class _CustomCardState extends State<CustomCard> {
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.fade,
                       ),
                     ),
-
+    
                     // add to cart button
                   ],
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(22),
-                      border: Border.all(color: AppColors.primary),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Add",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                vSpace(2),
+                const _AddButton(),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _AddButton extends StatelessWidget {
+  const _AddButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      final cardWidth = constraints.maxWidth;
+      return Center(
+        child: SizedBox(
+          width: cardWidth * 0.8,
+          height: 40,
+          child: TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: AppColors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(22),
+                side: const BorderSide(color: AppColors.primary),
+              ),
+            ),
+            onPressed: () {},
+            child: const Text(
+              "Add",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primary,
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}
+
+class _FavouritButton extends StatelessWidget {
+  const _FavouritButton({
+    required this.widget,
+    required this.onFavPressed,
+  });
+
+  final CustomCard widget;
+  final VoidCallback onFavPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 8,
+      right: 8,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: Colors.grey.shade300),
+        ),
+        child: IconButton(
+          onPressed: onFavPressed,
+          icon: widget.model.isFav
+              ? const Icon(Icons.favorite)
+              : const Icon(Icons.favorite_border),
+        ),
+      ),
+    );
+  }
+}
+
+class _OffButton extends StatelessWidget {
+  const _OffButton({required this.widget});
+
+  final CustomCard widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 8,
+      left: 8,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          color: AppColors.primary.withValues(alpha: 0.2),
+        ),
+        child: Text(
+          widget.model.off,
+          style: const TextStyle(color: AppColors.primary),
+        ),
       ),
     );
   }
