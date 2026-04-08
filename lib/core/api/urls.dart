@@ -26,6 +26,7 @@ class ApiKeys {
   static const String confirmPassword = "confirmPassword";
   static const String image = "image";
   static const String address = "address";
+  static const String user = "user";
 
 
 

@@ -3,16 +3,25 @@ import 'package:ecommerse/core/api/api_consumer.dart';
 import 'package:ecommerse/core/api/urls.dart';
 import 'package:ecommerse/core/error/error_model.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
+import 'package:ecommerse/core/services/secure_token_store.dart';
 
 import '../../../../core/cache/cache_helper.dart';
 import '../../../../core/services/service_locator.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRepo {
-  Future<Either<ErrorModel, UserModel>> login(String email, String password);
+  Future<Either<ErrorModel, UserModel>> login({
+    required String email,
+    required String password,
+  });
 
-  Future<Either<ErrorModel, UserModel>> register(String name, String email,
-      String password, String phone, String confirmPassword);
+  Future<Either<ErrorModel, UserModel>> register({
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
+    required String confirmPassword,
+  });
 
   Future<void> logout();
 
@@ -26,31 +35,38 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl({required this.api});
 
   @override
-  Future<Either<ErrorModel, UserModel>> login(
-      String email, String password) async {
+  Future<Either<ErrorModel, UserModel>> login({
+    required String email,
+    required String password,
+  }) async {
     try {
       // api call
       final response = await api.post(Urls.signIn,
           data: {ApiKeys.email: email, ApiKeys.password: password});
 
       // modeling response
-      final UserModel? user = UserModel.fromJson(response[ApiKeys.message]);
+      final UserModel? user = UserModel.fromJson(response[ApiKeys.user]);
 
       if (user != null) {
-        // save user
-        await sl<CacheHelper>().saveData(key: ApiKeys.token, value: user);
+        // save token
+        await sl<SecureTokenStore>().saveToken(response[ApiKeys.token]);
       }
       return right(user!);
     } on ServerException catch (e) {
-      throw left(ErrorModel(message: e.toString()));
+      return left(ErrorModel(message: e.toString()));
     } catch (e) {
-      throw left(ErrorModel(message: e.toString()));
+      return left(ErrorModel(message: e.toString()));
     }
   }
 
   @override
-  Future<Either<ErrorModel, UserModel>> register(String name, String email,
-      String password, String phone, confirmPassword) async {
+  Future<Either<ErrorModel, UserModel>> register({
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
+    required String confirmPassword,
+  }) async {
     try {
       // api call
       final response = await api.post(Urls.signUp, data: {
@@ -62,7 +78,9 @@ class AuthRepoImpl implements AuthRepo {
       });
 
       // modeling
-      final user = UserModel.fromJson(response[ApiKeys.message]);
+      final user = UserModel.fromJson(response[ApiKeys.user]);
+
+      await sl<SecureTokenStore>().saveToken(response[ApiKeys.token]);
 
       return right(user);
     } on ServerException catch (e) {

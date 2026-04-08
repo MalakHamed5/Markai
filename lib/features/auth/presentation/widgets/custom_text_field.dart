@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
     required this.controller,
     this.title,
     this.validator,
+    this.onChanged,
   });
 
   final String hint;
@@ -18,6 +19,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String? title;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -51,6 +53,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
         ),
         TextFormField(
+          onChanged: widget.onChanged,
           validator: widget.validator,
           controller: widget.controller,
           obscureText: _obscureText,

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/helper/functions.dart';
+import '../../../../core/helper/validation.dart';
 import '../widgets/custom_text_field.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -18,20 +19,23 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final emailCtrl = TextEditingController();
-  final passwordCtrl = TextEditingController();
-  final phoneCtrl = TextEditingController();
-  final nameCtrl = TextEditingController();
-  final confirmPasswordCtrl = TextEditingController();
+  late final AuthBloc bloc;
 
   @override
-  void dispose() {
-    emailCtrl.dispose();
-    passwordCtrl.dispose();
-    phoneCtrl.dispose();
-    nameCtrl.dispose();
-    confirmPasswordCtrl.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    bloc = context.read<AuthBloc>();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      bloc.emailOrPhone.clear();
+      bloc.password.clear();
+      bloc.confirmPassword.clear();
+      bloc.username.clear();
+    });
   }
 
   @override
@@ -48,169 +52,192 @@ class _SignUpPageState extends State<SignUpPage> {
             orElse: () {});
       },
       builder: (context, state) {
-        return Scaffold(
-          resizeToAvoidBottomInset: true,
-          backgroundColor: Colors.white,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              physics: isKeyboardOpen
-                  ? const BouncingScrollPhysics()
-                  : const NeverScrollableScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    vSpace(10),
+        return Form(
+          key: bloc.signupFormKey,
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            backgroundColor: Colors.white,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                physics: isKeyboardOpen
+                    ? const BouncingScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      vSpace(10),
 
-                    /// Skip Button
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                            color: AppColors.primary.withValues(alpha: 0.4),
+                      /// Skip Button
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(
+                              color: AppColors.primary.withValues(alpha: 0.4),
+                            ),
+                            shape: const CircleBorder(),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 12,
+                            ),
                           ),
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 12,
-                          ),
-                        ),
-                        onPressed: () {
-                          context.go(RoutesName.root);
-                        },
-                        child: const Icon(
-                          Icons.arrow_back_ios_new_rounded,
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ),
-
-                    /// Logo
-                    Image.asset(Assets.imagesMarketi),
-                    vSpace(8),
-// name
-                    CustomTextField(
-                      title: tr.urName,
-                      hint: tr.fullName,
-                      icon: Icons.person_outline,
-                      controller: nameCtrl,
-                    ),
-
-// phone number
-                    CustomTextField(
-                      title: tr.urPhone,
-                      hint: "01010039770",
-                      icon: Icons.phone_android,
-                      controller: phoneCtrl,
-                    ),
-
-// Email Field
-                    CustomTextField(
-                      title: tr.email,
-                      hint: "You@gmail.com",
-                      icon: Icons.email_outlined,
-                      controller: emailCtrl,
-                    ),
-
-// Password Field
-                    CustomTextField(
-                      title: tr.password,
-                      hint: "********",
-                      icon: Icons.lock_outline,
-                      isPassword: true,
-                      controller: passwordCtrl,
-                    ),
-
-// confirm password
-                    CustomTextField(
-                      title: tr.confirmPassword,
-                      hint: "********",
-                      icon: Icons.lock_outline,
-                      isPassword: true,
-                      controller: confirmPasswordCtrl,
-                    ),
-
-                    vSpace(10),
-
-                    /// SignUp Button
-                    SizedBox(
-                      width: double.infinity,
-                      height: 55,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () {
-                          context.read<AuthBloc>().add(AuthEvent.register(
-                              name: nameCtrl.text,
-                              email: emailCtrl.text,
-                              password: passwordCtrl.text,
-                              phone: phoneCtrl.text,
-                              confirmPassword: confirmPasswordCtrl.text));
-                        },
-                        child: Text(
-                          tr.signup,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    vSpace(25),
-
-                    Text(
-                      tr.orContinueWith,
-                      style: const TextStyle(
-                          color: AppColors.textPrimary, fontSize: 12),
-                    ),
-
-                    const SizedBox(height: 18),
-
-                    /// Social Buttons
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SocialButton(text: "G"),
-                        SizedBox(width: 10),
-                        SocialButton(text: ""),
-                        SizedBox(width: 10),
-                        SocialButton(text: "f"),
-                      ],
-                    ),
-
-                    vSpace(25),
-
-                    /// Register Text
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        
-                        Text(
-                          tr.haveAnAccount,
-                          style: const TextStyle(
-                            color: AppColors.textPrimary,
-                            fontSize: 12,
-                          ),
-                        ),
-                        const Text('? '),
-                        TextButton(
                           onPressed: () {
-                            context.go(RoutesName.login);
+                            context.go(RoutesName.root);
                           },
-                          child: Text(tr.signIn,
-                              style: const TextStyle(color: AppColors.primary)),
+                          child: const Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            color: AppColors.black,
+                          ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+
+                      /// Logo
+                      Image.asset(Assets.imagesMarketi),
+                      vSpace(8),
+                      // name
+                      CustomTextField(
+                        title: tr.urName,
+                        hint: tr.fullName,
+                        icon: Icons.person_outline,
+                        controller: bloc.username,
+                        validator: Validation.validateUsername,
+                        onChanged: (_) {
+                          bloc.signupFormKey.currentState?.validate();
+                        },
+                      ),
+
+                      // phone number
+                      CustomTextField(
+                        title: tr.urPhone,
+                        hint: "01010039770",
+                        icon: Icons.phone_android,
+                        controller: bloc.emailOrPhone,
+                        validator: Validation.validatePhone,
+                        onChanged: (_) {
+                          bloc.signupFormKey.currentState?.validate();
+                        },
+                      ),
+
+                      // Email Field
+                      CustomTextField(
+                        title: tr.email,
+                        hint: "You@gmail.com",
+                        icon: Icons.email_outlined,
+                        controller: bloc.emailOrPhone,
+                        validator: Validation.validateEmail,
+                        onChanged: (_) {
+                          bloc.signupFormKey.currentState?.validate();
+                        },
+                      ),
+
+                      // Password Field
+                      CustomTextField(
+                        title: tr.password,
+                        hint: "********",
+                        icon: Icons.lock_outline,
+                        isPassword: true,
+                        controller: bloc.password,
+                        validator: Validation.validatePassword,
+                        onChanged: (_) {
+                          bloc.signupFormKey.currentState?.validate();
+                        },
+                      ),
+
+                      // confirm password
+                      CustomTextField(
+                        title: tr.confirmPassword,
+                        hint: "********",
+                        icon: Icons.lock_outline,
+                        isPassword: true,
+                        controller: bloc.confirmPassword,
+                        validator: (value) {
+                          return Validation.validateConfirmPassword(
+                              value, bloc.password.text);
+                        },
+                        onChanged: (_) {
+                          bloc.signupFormKey.currentState?.validate();
+                        },
+                      ),
+
+                      vSpace(10),
+
+                      /// SignUp Button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 55,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            elevation: 0,
+                          ),
+                          onPressed: () {
+                            context
+                                .read<AuthBloc>()
+                                .add(const AuthEvent.register());
+                          },
+                          child: Text(
+                            tr.signup,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      vSpace(25),
+
+                      Text(
+                        tr.orContinueWith,
+                        style: const TextStyle(
+                            color: AppColors.textPrimary, fontSize: 12),
+                      ),
+
+                      const SizedBox(height: 18),
+
+                      /// Social Buttons
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SocialButton(text: "G"),
+                          SizedBox(width: 10),
+                          SocialButton(text: ""),
+                          SizedBox(width: 10),
+                          SocialButton(text: "f"),
+                        ],
+                      ),
+
+                      vSpace(25),
+
+                      /// Register Text
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            tr.haveAnAccount,
+                            style: const TextStyle(
+                              color: AppColors.textPrimary,
+                              fontSize: 12,
+                            ),
+                          ),
+                          const Text('? '),
+                          TextButton(
+                            onPressed: () {
+                              context.go(RoutesName.login);
+                            },
+                            child: Text(tr.signIn,
+                                style:
+                                    const TextStyle(color: AppColors.primary)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

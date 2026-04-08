@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/helper/functions.dart';
+import '../../../../core/helper/validation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,22 +20,27 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailCtrl = TextEditingController();
-  final TextEditingController passwordCtrl = TextEditingController();
+  late final AuthBloc bloc;
 
   @override
-  void dispose() {
-    emailCtrl.dispose();
-    passwordCtrl.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    bloc = context.read<AuthBloc>();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      bloc.emailOrPhone.clear();
+      bloc.password.clear();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     // variables need build method
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-
-    final bloc = context.read<AuthBloc>();
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -56,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
         },
         builder: (context, state) {
           return Form(
-            // key: bloc.loginFormKey,
+            key: bloc.loginFormKey,
             child: SafeArea(
               child: SingleChildScrollView(
                 physics: isKeyboardOpen
@@ -85,7 +91,11 @@ class _LoginPageState extends State<LoginPage> {
                       CustomTextField(
                         hint: tr.usernameOrEmail,
                         icon: Icons.email_outlined,
-                        controller: emailCtrl,
+                        controller: bloc.emailOrPhone,
+                        validator: Validation.validateEmail,
+                        onChanged: (value) {
+                          bloc.loginFormKey.currentState!.validate();
+                        },
                       ),
                       vSpace(14),
 
@@ -94,7 +104,11 @@ class _LoginPageState extends State<LoginPage> {
                         hint: tr.password,
                         icon: Icons.lock_outline,
                         isPassword: true,
-                        controller: passwordCtrl,
+                        controller: bloc.password,
+                        validator: Validation.validatePassword,
+                        onChanged: (value) {
+                          bloc.loginFormKey.currentState!.validate();
+                        },
                       ),
 
                       vSpace(10),
@@ -102,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                       /// Remember & Forgot
                       Row(
                         children: [
-                         const _RememberMeButton(),
+                          const _RememberMeButton(),
                           hSpace(8),
                           Text(
                             tr.remeberMe,
@@ -133,12 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         onPressed: () {
-                          bloc.add(
-                            AuthEvent.login(
-                              email: emailCtrl.text,
-                              password: passwordCtrl.text,
-                            ),
-                          );
+                          bloc.add(const AuthEvent.login());
                         },
                       ),
 
@@ -151,9 +160,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       vSpace(18),
+
                       /// Social Buttons
                       const _SocialButtonsRow(),
                       vSpace(25),
+
                       /// Register Text
                       const _RegisterText(),
                     ],
@@ -309,4 +320,3 @@ class SocialButton extends StatelessWidget {
     );
   }
 }
-
