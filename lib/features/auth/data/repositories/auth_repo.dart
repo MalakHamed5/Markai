@@ -16,9 +16,7 @@ abstract class AuthRepo {
 
   Future<void> logout();
 
-  Future<Either<ErrorModel, UserModel>> getProfileData();
-
-  Future<Either<ErrorModel, UserModel>> updateProfileData();
+  Future<Either<ErrorModel, void>> userGuest();
 }
 
 //------------------ Implementation ------------------
@@ -81,23 +79,12 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<ErrorModel, UserModel>> getProfileData() async {
+  Future<Either<ErrorModel, void>> userGuest() async {
     try {
-      final response = await api.get(Urls.getUserData);
-
-      final user = UserModel.fromJson(response[ApiKeys.message]);
-
-      return right(user);
-    } on ServerException catch (e) {
-      throw left(ErrorModel(message: e.toString()));
+      await sl<CacheHelper>().saveData(key: 'is_guest', value: true);
+      return right(null);
     } catch (e) {
-      throw left(e.toString());
+      throw left(ErrorModel(message: e.toString()));
     }
-  }
-
-  @override
-  Future<Either<ErrorModel, UserModel>> updateProfileData() {
-    // TODO: implement updateProfileData
-    throw UnimplementedError();
   }
 }

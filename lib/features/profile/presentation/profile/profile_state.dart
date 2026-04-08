@@ -10,4 +10,5 @@ abstract class ProfileState with _$ProfileState {
   const factory ProfileState.updateUI() = _UpdateUI;
   const factory ProfileState.seccessUI() = _SeccessUI;
 
+  const factory ProfileState.guest() = _Guest;
 }

@@ -14,4 +14,6 @@ abstract class AuthEvent with _$AuthEvent {
     required String phone,
     required String confirmPassword,
   }) = _Register;
+
+  const factory AuthEvent.skipLogin() = _SkipLogin;
 }

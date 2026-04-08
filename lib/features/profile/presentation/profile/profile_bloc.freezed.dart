@@ -13,12 +13,7 @@ part of 'profile_bloc.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$ProfileState implements DiagnosticableTreeMixin {
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileState'));
-  }
-
+mixin _$ProfileState {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -29,7 +24,7 @@ mixin _$ProfileState implements DiagnosticableTreeMixin {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState()';
   }
 }
@@ -61,6 +56,7 @@ extension ProfileStatePatterns on ProfileState {
     TResult Function(_Failure value)? failure,
     TResult Function(_UpdateUI value)? updateUI,
     TResult Function(_SeccessUI value)? seccessUI,
+    TResult Function(_Guest value)? guest,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -77,6 +73,8 @@ extension ProfileStatePatterns on ProfileState {
         return updateUI(_that);
       case _SeccessUI() when seccessUI != null:
         return seccessUI(_that);
+      case _Guest() when guest != null:
+        return guest(_that);
       case _:
         return orElse();
     }
@@ -103,6 +101,7 @@ extension ProfileStatePatterns on ProfileState {
     required TResult Function(_Failure value) failure,
     required TResult Function(_UpdateUI value) updateUI,
     required TResult Function(_SeccessUI value) seccessUI,
+    required TResult Function(_Guest value) guest,
   }) {
     final _that = this;
     switch (_that) {
@@ -118,6 +117,8 @@ extension ProfileStatePatterns on ProfileState {
         return updateUI(_that);
       case _SeccessUI():
         return seccessUI(_that);
+      case _Guest():
+        return guest(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -143,6 +144,7 @@ extension ProfileStatePatterns on ProfileState {
     TResult? Function(_Failure value)? failure,
     TResult? Function(_UpdateUI value)? updateUI,
     TResult? Function(_SeccessUI value)? seccessUI,
+    TResult? Function(_Guest value)? guest,
   }) {
     final _that = this;
     switch (_that) {
@@ -158,6 +160,8 @@ extension ProfileStatePatterns on ProfileState {
         return updateUI(_that);
       case _SeccessUI() when seccessUI != null:
         return seccessUI(_that);
+      case _Guest() when guest != null:
+        return guest(_that);
       case _:
         return null;
     }
@@ -183,6 +187,7 @@ extension ProfileStatePatterns on ProfileState {
     TResult Function(String error)? failure,
     TResult Function()? updateUI,
     TResult Function()? seccessUI,
+    TResult Function()? guest,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -199,6 +204,8 @@ extension ProfileStatePatterns on ProfileState {
         return updateUI();
       case _SeccessUI() when seccessUI != null:
         return seccessUI();
+      case _Guest() when guest != null:
+        return guest();
       case _:
         return orElse();
     }
@@ -225,6 +232,7 @@ extension ProfileStatePatterns on ProfileState {
     required TResult Function(String error) failure,
     required TResult Function() updateUI,
     required TResult Function() seccessUI,
+    required TResult Function() guest,
   }) {
     final _that = this;
     switch (_that) {
@@ -240,6 +248,8 @@ extension ProfileStatePatterns on ProfileState {
         return updateUI();
       case _SeccessUI():
         return seccessUI();
+      case _Guest():
+        return guest();
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -265,6 +275,7 @@ extension ProfileStatePatterns on ProfileState {
     TResult? Function(String error)? failure,
     TResult? Function()? updateUI,
     TResult? Function()? seccessUI,
+    TResult? Function()? guest,
   }) {
     final _that = this;
     switch (_that) {
@@ -280,6 +291,8 @@ extension ProfileStatePatterns on ProfileState {
         return updateUI();
       case _SeccessUI() when seccessUI != null:
         return seccessUI();
+      case _Guest() when guest != null:
+        return guest();
       case _:
         return null;
     }
@@ -288,13 +301,8 @@ extension ProfileStatePatterns on ProfileState {
 
 /// @nodoc
 
-class _Initial with DiagnosticableTreeMixin implements ProfileState {
+class _Initial implements ProfileState {
   const _Initial();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileState.initial'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -306,20 +314,15 @@ class _Initial with DiagnosticableTreeMixin implements ProfileState {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.initial()';
   }
 }
 
 /// @nodoc
 
-class _Loading with DiagnosticableTreeMixin implements ProfileState {
+class _Loading implements ProfileState {
   const _Loading();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileState.loading'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -331,14 +334,14 @@ class _Loading with DiagnosticableTreeMixin implements ProfileState {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.loading()';
   }
 }
 
 /// @nodoc
 
-class _Success with DiagnosticableTreeMixin implements ProfileState {
+class _Success implements ProfileState {
   const _Success({this.message, required this.user});
 
   final String? message;
@@ -350,14 +353,6 @@ class _Success with DiagnosticableTreeMixin implements ProfileState {
   @pragma('vm:prefer-inline')
   _$SuccessCopyWith<_Success> get copyWith =>
       __$SuccessCopyWithImpl<_Success>(this, _$identity);
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties
-      ..add(DiagnosticsProperty('type', 'ProfileState.success'))
-      ..add(DiagnosticsProperty('message', message))
-      ..add(DiagnosticsProperty('user', user));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -372,7 +367,7 @@ class _Success with DiagnosticableTreeMixin implements ProfileState {
   int get hashCode => Object.hash(runtimeType, message, user);
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.success(message: $message, user: $user)';
   }
 }
@@ -415,7 +410,7 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
 
 /// @nodoc
 
-class _Failure with DiagnosticableTreeMixin implements ProfileState {
+class _Failure implements ProfileState {
   const _Failure({required this.error});
 
   final String error;
@@ -426,13 +421,6 @@ class _Failure with DiagnosticableTreeMixin implements ProfileState {
   @pragma('vm:prefer-inline')
   _$FailureCopyWith<_Failure> get copyWith =>
       __$FailureCopyWithImpl<_Failure>(this, _$identity);
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties
-      ..add(DiagnosticsProperty('type', 'ProfileState.failure'))
-      ..add(DiagnosticsProperty('error', error));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -446,7 +434,7 @@ class _Failure with DiagnosticableTreeMixin implements ProfileState {
   int get hashCode => Object.hash(runtimeType, error);
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.failure(error: $error)';
   }
 }
@@ -484,13 +472,8 @@ class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
 
 /// @nodoc
 
-class _UpdateUI with DiagnosticableTreeMixin implements ProfileState {
+class _UpdateUI implements ProfileState {
   const _UpdateUI();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileState.updateUI'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -502,20 +485,15 @@ class _UpdateUI with DiagnosticableTreeMixin implements ProfileState {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.updateUI()';
   }
 }
 
 /// @nodoc
 
-class _SeccessUI with DiagnosticableTreeMixin implements ProfileState {
+class _SeccessUI implements ProfileState {
   const _SeccessUI();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileState.seccessUI'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -527,18 +505,33 @@ class _SeccessUI with DiagnosticableTreeMixin implements ProfileState {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.seccessUI()';
   }
 }
 
 /// @nodoc
-mixin _$ProfileEvent implements DiagnosticableTreeMixin {
+
+class _Guest implements ProfileState {
+  const _Guest();
+
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileEvent'));
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Guest);
   }
 
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'ProfileState.guest()';
+  }
+}
+
+/// @nodoc
+mixin _$ProfileEvent {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -549,7 +542,7 @@ mixin _$ProfileEvent implements DiagnosticableTreeMixin {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileEvent()';
   }
 }
@@ -790,13 +783,8 @@ extension ProfileEventPatterns on ProfileEvent {
 
 /// @nodoc
 
-class _SaveChanges with DiagnosticableTreeMixin implements ProfileEvent {
+class _SaveChanges implements ProfileEvent {
   const _SaveChanges();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileEvent.saveChanges'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -808,20 +796,15 @@ class _SaveChanges with DiagnosticableTreeMixin implements ProfileEvent {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileEvent.saveChanges()';
   }
 }
 
 /// @nodoc
 
-class _GetUserData with DiagnosticableTreeMixin implements ProfileEvent {
+class _GetUserData implements ProfileEvent {
   const _GetUserData();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileEvent.getUserData'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -833,20 +816,15 @@ class _GetUserData with DiagnosticableTreeMixin implements ProfileEvent {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileEvent.getUserData()';
   }
 }
 
 /// @nodoc
 
-class _PickImage with DiagnosticableTreeMixin implements ProfileEvent {
+class _PickImage implements ProfileEvent {
   const _PickImage();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileEvent.pickImage'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -858,20 +836,15 @@ class _PickImage with DiagnosticableTreeMixin implements ProfileEvent {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileEvent.pickImage()';
   }
 }
 
 /// @nodoc
 
-class _ChangePhone with DiagnosticableTreeMixin implements ProfileEvent {
+class _ChangePhone implements ProfileEvent {
   const _ChangePhone();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileEvent.changePhone'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -883,20 +856,15 @@ class _ChangePhone with DiagnosticableTreeMixin implements ProfileEvent {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileEvent.changePhone()';
   }
 }
 
 /// @nodoc
 
-class _ChangePassword with DiagnosticableTreeMixin implements ProfileEvent {
+class _ChangePassword implements ProfileEvent {
   const _ChangePassword();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties..add(DiagnosticsProperty('type', 'ProfileEvent.changePassword'));
-  }
 
   @override
   bool operator ==(Object other) {
@@ -908,7 +876,7 @@ class _ChangePassword with DiagnosticableTreeMixin implements ProfileEvent {
   int get hashCode => runtimeType.hashCode;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileEvent.changePassword()';
   }
 }

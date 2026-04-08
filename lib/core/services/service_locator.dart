@@ -5,6 +5,7 @@ import 'package:ecommerse/core/services/secure_token_store.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/auth/data/repositories/auth_repo.dart';
+import '../../features/profile/data/repositories/profile_repo.dart';
 
 final sl = GetIt.instance;
 
@@ -20,5 +21,6 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton<DioConsumer>(()=> DioConsumer(dio: sl<Dio>()));
 
   // Repos
-  sl.registerLazySingleton<AuthRepoImpl>(()=> AuthRepoImpl(api: sl<DioConsumer>()));
+  sl.registerLazySingleton<AuthRepo>(()=> AuthRepoImpl(api: sl<DioConsumer>()));
+  sl.registerLazySingleton<ProfileRepo>(()=> ProfileRepoImpl(api: sl<DioConsumer>()));
 }

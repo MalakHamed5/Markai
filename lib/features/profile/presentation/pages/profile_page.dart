@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:core';
 
 import 'package:ecommerse/core/shared/bottons/custom_back_button.dart';
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
@@ -20,6 +17,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  
   @override
   void initState() {
     super.initState();
@@ -143,6 +141,22 @@ class _ProfilePageState extends State<ProfilePage> {
               const _CustomDriver(),
             ],
           ),
+          guest: () => Center(
+            child:  Column(
+              children: [
+                vSpace(100),
+                const Text("Guest"),
+                vSpace(20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  child: const Text("Login"),
+                ),
+              ],
+            ),
+      
+          ),
           orElse: () => Container(
             color: Colors.amber,
           ),
@@ -213,7 +227,7 @@ class CustomListTile extends StatelessWidget {
                 border: Border.all(color: AppColors.textHint.withAlpha(100)),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_forward_ios,
                 size: 18,
                 color: Colors.grey,

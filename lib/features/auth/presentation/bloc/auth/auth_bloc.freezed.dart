@@ -54,6 +54,7 @@ extension AuthStatePatterns on AuthState {
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Guest value)? guest,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -66,6 +67,8 @@ extension AuthStatePatterns on AuthState {
         return success(_that);
       case _Failure() when failure != null:
         return failure(_that);
+      case _Guest() when guest != null:
+        return guest(_that);
       case _:
         return orElse();
     }
@@ -90,6 +93,7 @@ extension AuthStatePatterns on AuthState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Guest value) guest,
   }) {
     final _that = this;
     switch (_that) {
@@ -101,6 +105,8 @@ extension AuthStatePatterns on AuthState {
         return success(_that);
       case _Failure():
         return failure(_that);
+      case _Guest():
+        return guest(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -124,6 +130,7 @@ extension AuthStatePatterns on AuthState {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
+    TResult? Function(_Guest value)? guest,
   }) {
     final _that = this;
     switch (_that) {
@@ -135,6 +142,8 @@ extension AuthStatePatterns on AuthState {
         return success(_that);
       case _Failure() when failure != null:
         return failure(_that);
+      case _Guest() when guest != null:
+        return guest(_that);
       case _:
         return null;
     }
@@ -158,6 +167,7 @@ extension AuthStatePatterns on AuthState {
     TResult Function()? loading,
     TResult Function(String? message)? success,
     TResult Function(String error)? failure,
+    TResult Function()? guest,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -170,6 +180,8 @@ extension AuthStatePatterns on AuthState {
         return success(_that.message);
       case _Failure() when failure != null:
         return failure(_that.error);
+      case _Guest() when guest != null:
+        return guest();
       case _:
         return orElse();
     }
@@ -194,6 +206,7 @@ extension AuthStatePatterns on AuthState {
     required TResult Function() loading,
     required TResult Function(String? message) success,
     required TResult Function(String error) failure,
+    required TResult Function() guest,
   }) {
     final _that = this;
     switch (_that) {
@@ -205,6 +218,8 @@ extension AuthStatePatterns on AuthState {
         return success(_that.message);
       case _Failure():
         return failure(_that.error);
+      case _Guest():
+        return guest();
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -228,6 +243,7 @@ extension AuthStatePatterns on AuthState {
     TResult? Function()? loading,
     TResult? Function(String? message)? success,
     TResult? Function(String error)? failure,
+    TResult? Function()? guest,
   }) {
     final _that = this;
     switch (_that) {
@@ -239,6 +255,8 @@ extension AuthStatePatterns on AuthState {
         return success(_that.message);
       case _Failure() when failure != null:
         return failure(_that.error);
+      case _Guest() when guest != null:
+        return guest();
       case _:
         return null;
     }
@@ -410,6 +428,26 @@ class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
 }
 
 /// @nodoc
+
+class _Guest implements AuthState {
+  const _Guest();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Guest);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'AuthState.guest()';
+  }
+}
+
+/// @nodoc
 mixin _$AuthEvent {
   @override
   bool operator ==(Object other) {
@@ -450,6 +488,7 @@ extension AuthEventPatterns on AuthEvent {
     TResult Function(_Started value)? started,
     TResult Function(_Login value)? login,
     TResult Function(_Register value)? register,
+    TResult Function(_SkipLogin value)? skipLogin,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -460,6 +499,8 @@ extension AuthEventPatterns on AuthEvent {
         return login(_that);
       case _Register() when register != null:
         return register(_that);
+      case _SkipLogin() when skipLogin != null:
+        return skipLogin(_that);
       case _:
         return orElse();
     }
@@ -483,6 +524,7 @@ extension AuthEventPatterns on AuthEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_Login value) login,
     required TResult Function(_Register value) register,
+    required TResult Function(_SkipLogin value) skipLogin,
   }) {
     final _that = this;
     switch (_that) {
@@ -492,6 +534,8 @@ extension AuthEventPatterns on AuthEvent {
         return login(_that);
       case _Register():
         return register(_that);
+      case _SkipLogin():
+        return skipLogin(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -514,6 +558,7 @@ extension AuthEventPatterns on AuthEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_Login value)? login,
     TResult? Function(_Register value)? register,
+    TResult? Function(_SkipLogin value)? skipLogin,
   }) {
     final _that = this;
     switch (_that) {
@@ -523,6 +568,8 @@ extension AuthEventPatterns on AuthEvent {
         return login(_that);
       case _Register() when register != null:
         return register(_that);
+      case _SkipLogin() when skipLogin != null:
+        return skipLogin(_that);
       case _:
         return null;
     }
@@ -547,6 +594,7 @@ extension AuthEventPatterns on AuthEvent {
     TResult Function(String name, String email, String password, String phone,
             String confirmPassword)?
         register,
+    TResult Function()? skipLogin,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -558,6 +606,8 @@ extension AuthEventPatterns on AuthEvent {
       case _Register() when register != null:
         return register(_that.name, _that.email, _that.password, _that.phone,
             _that.confirmPassword);
+      case _SkipLogin() when skipLogin != null:
+        return skipLogin();
       case _:
         return orElse();
     }
@@ -583,6 +633,7 @@ extension AuthEventPatterns on AuthEvent {
     required TResult Function(String name, String email, String password,
             String phone, String confirmPassword)
         register,
+    required TResult Function() skipLogin,
   }) {
     final _that = this;
     switch (_that) {
@@ -593,6 +644,8 @@ extension AuthEventPatterns on AuthEvent {
       case _Register():
         return register(_that.name, _that.email, _that.password, _that.phone,
             _that.confirmPassword);
+      case _SkipLogin():
+        return skipLogin();
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -617,6 +670,7 @@ extension AuthEventPatterns on AuthEvent {
     TResult? Function(String name, String email, String password, String phone,
             String confirmPassword)?
         register,
+    TResult? Function()? skipLogin,
   }) {
     final _that = this;
     switch (_that) {
@@ -627,6 +681,8 @@ extension AuthEventPatterns on AuthEvent {
       case _Register() when register != null:
         return register(_that.name, _that.email, _that.password, _that.phone,
             _that.confirmPassword);
+      case _SkipLogin() when skipLogin != null:
+        return skipLogin();
       case _:
         return null;
     }
@@ -822,6 +878,26 @@ class __$RegisterCopyWithImpl<$Res> implements _$RegisterCopyWith<$Res> {
           : confirmPassword // ignore: cast_nullable_to_non_nullable
               as String,
     ));
+  }
+}
+
+/// @nodoc
+
+class _SkipLogin implements AuthEvent {
+  const _SkipLogin();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _SkipLogin);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'AuthEvent.skipLogin()';
   }
 }
 

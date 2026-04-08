@@ -48,6 +48,9 @@ class _LoginPageState extends State<LoginPage> {
             failure: (error) {
               showNotifyMsg(text: error, context: context, bgColor: Colors.red);
             },
+            guest: () {
+              context.go(RoutesName.root);
+            },
             orElse: () {},
           );
         },
@@ -269,6 +272,7 @@ class _SkipButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
+          context.read<AuthBloc>().add(const AuthEvent.skipLogin());
           context.go(RoutesName.root);
         },
         child: Text(
