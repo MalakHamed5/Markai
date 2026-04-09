@@ -213,6 +213,146 @@ class S {
   String get signIn {
     return Intl.message('Sign In', name: 'signIn', desc: '', args: []);
   }
+
+  /// `View All`
+  String get viewAll {
+    return Intl.message('View All', name: 'viewAll', desc: '', args: []);
+  }
+
+  /// `Popular Product`
+  String get popularProduct {
+    return Intl.message(
+      'Popular Product',
+      name: 'popularProduct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Category`
+  String get category {
+    return Intl.message('Category', name: 'category', desc: '', args: []);
+  }
+
+  /// `Best for you`
+  String get bestForYou {
+    return Intl.message('Best for you', name: 'bestForYou', desc: '', args: []);
+  }
+
+  /// `Brands`
+  String get brands {
+    return Intl.message('Brands', name: 'brands', desc: '', args: []);
+  }
+
+  /// `Buy again`
+  String get buyAgain {
+    return Intl.message('Buy again', name: 'buyAgain', desc: '', args: []);
+  }
+
+  /// `Hi`
+  String get hi {
+    return Intl.message('Hi', name: 'hi', desc: '', args: []);
+  }
+
+  /// `There`
+  String get there {
+    return Intl.message('There', name: 'there', desc: '', args: []);
+  }
+
+  /// `My Profile`
+  String get myProfile {
+    return Intl.message('My Profile', name: 'myProfile', desc: '', args: []);
+  }
+
+  /// `Guest`
+  String get guest {
+    return Intl.message('Guest', name: 'guest', desc: '', args: []);
+  }
+
+  /// `[EMAIL_ADDRESS]`
+  String get guestEmail {
+    return Intl.message(
+      '[EMAIL_ADDRESS]',
+      name: 'guestEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Notifications`
+  String get notifications {
+    return Intl.message(
+      'Notifications',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help & Support`
+  String get helpAndSupport {
+    return Intl.message(
+      'Help & Support',
+      name: 'helpAndSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message('Logout', name: 'logout', desc: '', args: []);
+  }
+
+  /// `Account Preferences`
+  String get accountPreferences {
+    return Intl.message(
+      'Account Preferences',
+      name: 'accountPreferences',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription & Payment`
+  String get subscriptionAndPayment {
+    return Intl.message(
+      'Subscription & Payment',
+      name: 'subscriptionAndPayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Notifications`
+  String get appNotifications {
+    return Intl.message(
+      'App Notifications',
+      name: 'appNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark Mode`
+  String get darkMode {
+    return Intl.message('Dark Mode', name: 'darkMode', desc: '', args: []);
+  }
+
+  /// `Rate Us`
+  String get rateUs {
+    return Intl.message('Rate Us', name: 'rateUs', desc: '', args: []);
+  }
+
+  /// `About Us`
+  String get aboutUs {
+    return Intl.message('About Us', name: 'aboutUs', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

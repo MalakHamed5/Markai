@@ -1,8 +1,9 @@
 
+import 'package:ecommerse/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../theme/app_colors.dart';
+import '../../helper/tools.dart';
 
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({super.key});
@@ -23,12 +24,12 @@ class CustomBackButton extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: AppColors.primary.withValues(alpha: 0.4),
+              color: theme.primary.withValues(alpha: 0.4),
             ),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: AppColors.black,
+            color: theme.onSurface,
           ),
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:ecommerse/core/api/api_consumer.dart';
 import 'package:ecommerse/core/error/error_model.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
 import 'package:ecommerse/features/auth/data/models/user_model.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../core/api/urls.dart';
 
@@ -12,11 +13,12 @@ abstract class ProfileRepo {
   Future<Either<ErrorModel, void>> userGuest();
 
   Future<Either<ErrorModel, UserModel>> getProfileData();
-
 }
 
-class ProfileRepoImpl implements ProfileRepo {
+//------------------ Implementation ------------------
 
+@LazySingleton(as: ProfileRepo)
+class ProfileRepoImpl implements ProfileRepo {
   final ApiConsumer api;
   ProfileRepoImpl({required this.api});
 
@@ -46,8 +48,4 @@ class ProfileRepoImpl implements ProfileRepo {
       throw left(e.toString());
     }
   }
-
-
-
-
 }

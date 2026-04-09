@@ -31,6 +31,9 @@ final GoRouter appRouter = GoRouter(
     if (token != null && state.matchedLocation == RoutesName.splash) {
       return RoutesName.root;
     }
+    if(token == null && state.matchedLocation == RoutesName.root){
+      return RoutesName.login;
+    }
     return null;
   },
   routes: [

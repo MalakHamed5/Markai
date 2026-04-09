@@ -1,4 +1,4 @@
-import 'package:ecommerse/core/theme/app_colors.dart';
+import 'package:ecommerse/core/helper/tools.dart';
 import 'package:flutter/material.dart';
 
 class CartButton extends StatelessWidget {
@@ -10,10 +10,10 @@ class CartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {},
-      icon: const Icon(
+      icon: Icon(
         Icons.shopping_cart_outlined,
         size: 20,
-        color: AppColors.primary,
+        color: theme.primary,
       ),
     );
   }

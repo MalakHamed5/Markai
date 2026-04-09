@@ -1,8 +1,10 @@
-
+import 'package:ecommerse/core/routes/routes_name.dart';
 import 'package:ecommerse/core/shared/bottons/custom_back_button.dart';
+import 'package:ecommerse/core/theme/cubit/theme_cubit.dart';
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/helper/tools.dart';
@@ -17,7 +19,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  
   @override
   void initState() {
     super.initState();
@@ -29,137 +30,139 @@ class _ProfilePageState extends State<ProfilePage> {
     return BlocConsumer<ProfileBloc, ProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return state.maybeWhen(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          success: (message, user) => Column(
+        final user = state.maybeWhen(
+          success: (_, u) => u,
+          orElse: () => null,
+        );
+
+        final isGuest = (user == null);
+
+        if (isGuest) {
+          return Stack(
             children: [
-              vSpace(50),
-
-              // Header
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomBackButton(),
-                  Center(
-                    child: Text(
-                      "My Profile",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  CartButton(),
-                ],
+              Container(
+                color: Colors.black.withOpacity(0.7),
+                width: double.infinity,
+                height: double.infinity,
               ),
-              vSpace(20),
-              // Profile info
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                  user?.image ??
-                      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300',
-                ),
-              ),
-              vSpace(20),
-              Text(
-                user?.name.capitalizeFirstLetter() ?? "",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-              Text(
-                user?.email.capitalizeFirstLetter() ?? "",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.textHint,
-                ),
-              ),
-              vSpace(20),
-
-              CustomListTile(
-                icon: Icons.person_outline,
-                title: "Account Preferences",
-                onTap: () {},
-              ),
-
-              const _CustomDriver(),
-
-              CustomListTile(
-                icon: Icons.payment,
-                title: "Subscription & Payment",
-                onTap: () {},
-              ),
-
-              const _CustomDriver(),
-
-              CustomListTile(
-                icon: Icons.notifications_none,
-                title: "App Notifications",
-                isToggle: true,
-                onChanged: (value) {},
-              ),
-
-              const _CustomDriver(),
-
-              CustomListTile(
-                icon: Icons.dark_mode,
-                title: "Dark Mode",
-                isToggle: true,
-                onChanged: (value) {},
-              ),
-
-              const _CustomDriver(),
-
-              CustomListTile(
-                icon: Icons.star_border,
-                title: "Rate Us",
-                onTap: () {},
-              ),
-
-              const _CustomDriver(),
-
-              CustomListTile(
-                icon: Icons.info_outline,
-                title: "About Us",
-                onTap: () {},
-              ),
-
-              const _CustomDriver(),
-
-              CustomListTile(
-                icon: Icons.logout,
-                title: "Logout",
-                onTap: () {},
-                isLogout: true,
-              ),
-
-              const _CustomDriver(),
-            ],
-          ),
-          guest: () => Center(
-            child:  Column(
-              children: [
-                vSpace(100),
-                const Text("Guest"),
-                vSpace(20),
-                ElevatedButton(
+              Center(
+                child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    context.go(RoutesName.login);
                   },
-                  child: const Text("Login"),
+                  child: Text(tr.login),
                 ),
+              ),
+            ],
+          );
+        }
+        return Column(
+          children: [
+            vSpace(50),
+            // Header
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const CustomBackButton(),
+                Center(
+                  child: Text(
+                    tr.myProfile,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const CartButton(),
               ],
             ),
-      
-          ),
-          orElse: () => Container(
-            color: Colors.amber,
-          ),
+            vSpace(20),
+            //--------------- Profile info
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: NetworkImage(user.image),
+            ),
+            vSpace(20),
+            Text(
+              user.name.capitalizeFirstLetter(),
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            Text(
+              user.email.capitalizeFirstLetter(),
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textHint,
+              ),
+            ),
+            vSpace(20),
+
+            CustomListTile(
+              icon: Icons.person_outline,
+              title: tr.accountPreferences,
+              onTap: () {},
+            ),
+
+            const _CustomDriver(),
+
+            CustomListTile(
+              icon: Icons.payment,
+              title: tr.subscriptionAndPayment,
+              onTap: () {},
+            ),
+
+            const _CustomDriver(),
+
+            CustomListTile(
+              icon: Icons.notifications_none,
+              title: tr.appNotifications,
+              isToggle: true,
+              onChanged: (value) {},
+            ),
+
+            const _CustomDriver(),
+
+            CustomListTile(
+              icon: Icons.dark_mode,
+              title: tr.darkMode,
+              isToggle: true,
+              onChanged: (value) {
+                final mode = value ? ThemeMode.dark : ThemeMode.light;
+                context.read<ThemeCubit>().toggleTheme(mode);
+              },
+            ),
+            const _CustomDriver(),
+
+            CustomListTile(
+              icon: Icons.star_border,
+              title: tr.rateUs,
+              onTap: () {},
+            ),
+
+            const _CustomDriver(),
+
+            CustomListTile(
+              icon: Icons.info_outline,
+              title: tr.aboutUs,
+              onTap: () {},
+            ),
+
+            const _CustomDriver(),
+
+            CustomListTile(
+              icon: Icons.logout,
+              title: tr.logout,
+              onTap: () {},
+              isLogout: true,
+            ),
+
+            const _CustomDriver(),
+          ],
         );
       },
     );
@@ -213,10 +216,10 @@ class CustomListTile extends StatelessWidget {
             ),
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: AppColors.textPrimary,
+          color: theme.onSurface,
         ),
       ),
       trailing: isToggle

@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerse/core/shared/widgets/custom_search_bar.dart';
-import 'package:ecommerse/core/theme/app_colors.dart';
 import 'package:ecommerse/dommy_data.dart';
 import 'package:ecommerse/features/home/presentation/widget/category_card.dart';
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
@@ -27,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     context.read<ProfileBloc>().add(const ProfileEvent.getUserData());
   }
 
-   final DommyData data = DommyData();
+  final DommyData data = DommyData();
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +56,9 @@ class _HomePageState extends State<HomePage> {
                 height: 200,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount:data.banners.length,
-                  itemBuilder: (context, i) => _BanarCard(image: data.banners[i]),
+                  itemCount: data.banners.length,
+                  itemBuilder: (context, i) =>
+                      _BanarCard(image: data.banners[i]),
                 ),
               ),
             ),
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _SectionTitle(
-                  title: 'Popular Product',
+                  title: tr.popularProduct,
                   onPressed: () {
                     context.go(RoutesName.productsPopular);
                   },
@@ -83,7 +83,8 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: data.products.length,
-                  itemBuilder: (context, i) => CustomCard(model: data.products[i]),
+                  itemBuilder: (context, i) =>
+                      CustomCard(model: data.products[i]),
                 ),
               ),
             ),
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _SectionTitle(
-                  title: 'Category',
+                  title: tr.category,
                   onPressed: () {
                     context.go(RoutesName.brands);
                   },
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _SectionTitle(
-                  title: "Best for you",
+                  title: tr.bestForYou,
                   onPressed: () {
                     context.go(RoutesName.bestForYou);
                   },
@@ -138,7 +139,8 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: data.products.length,
-                  itemBuilder: (context, i) => CustomCard(model: data.products[i]),
+                  itemBuilder: (context, i) =>
+                      CustomCard(model: data.products[i]),
                 ),
               ),
             ),
@@ -148,7 +150,7 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _SectionTitle(
-                  title: "Brands",
+                  title: tr.brands,
                   onPressed: () {
                     context.go(RoutesName.buyAgain);
                   },
@@ -163,7 +165,8 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: data.brands.length,
-                  itemBuilder: (context, i) => _BanarCard(image: data.brands[i]),
+                  itemBuilder: (context, i) =>
+                      _BanarCard(image: data.brands[i]),
                 ),
               ),
             ),
@@ -173,7 +176,7 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _SectionTitle(
-                  title: "Buy again",
+                  title: tr.buyAgain,
                   onPressed: () {
                     context.go(RoutesName.buyAgain);
                   },
@@ -188,7 +191,8 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: data.products.length,
-                  itemBuilder: (context, i) => CustomCard(model: data.products[i]),
+                  itemBuilder: (context, i) =>
+                      CustomCard(model: data.products[i]),
                 ),
               ),
             ),
@@ -218,9 +222,9 @@ class _SectionTitle extends StatelessWidget {
           ),
           TextButton(
             onPressed: onPressed,
-            child: const Text(
-              'View all',
-              style: TextStyle(color: AppColors.primary, fontSize: 16),
+            child: Text(
+              tr.viewAll,
+              style: TextStyle(color: theme.primary, fontSize: 16),
             ),
           ),
         ],
@@ -241,7 +245,7 @@ class _BanarCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: theme.outline),
       ),
       padding: const EdgeInsets.all(12),
       child: ProductNetworkImage(
@@ -259,51 +263,49 @@ class _HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-      return state.maybeWhen(
-        success: (message, user) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // user image
-              CircleAvatar(
-                radius: 25,
-                backgroundImage: CachedNetworkImageProvider(
-                  user?.image ??
-                      'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1200&auto=format&fit=crop',
-                ),
-              ),
-              hSpace(6),
-              // user name
-              Expanded(
-                child: Text(
-                  textAlign: TextAlign.start,
-                  // user
-                  'Hi ${user?.name ?? "User"}!',
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold),
-                  softWrap: false,
-                  overflow: TextOverflow.fade,
-                ),
-              ),
+      final user = state.maybeWhen(
+        success: (_, u) => u,
+        orElse: () => null,
+      );
+      final isGuest = (user == null);
 
-              const Spacer(),
-              // notification button
-              IconButton(
-                onPressed: () {
-                  // ToDo: context.go(RoutesName.notification);
-                },
-                icon: const Icon(
-                  Icons.notifications_outlined,
-                  size: 30,
-                  color: AppColors.primary,
-                ),
-              ),
-            ],
-          );
-        },
-        orElse: () {
-          return const SizedBox.shrink();
-        },
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // user image
+          CircleAvatar(
+            radius: 25,
+            backgroundImage: CachedNetworkImageProvider(
+              user?.image ??
+                  'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1200&auto=format&fit=crop',
+            ),
+          ),
+          hSpace(6),
+          // user name
+          Expanded(
+            child: Text(
+              textAlign: TextAlign.start,
+              // user
+              '${tr.hi} ${isGuest ? tr.there : user.name}!',
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              softWrap: false,
+              overflow: TextOverflow.fade,
+            ),
+          ),
+
+          const Spacer(),
+          // notification button
+          IconButton(
+            onPressed: () {
+              // ToDo: context.go(RoutesName.notification);
+            },
+            icon: Icon(
+              Icons.notifications_outlined,
+              size: 30,
+              color: theme.primary,
+            ),
+          ),
+        ],
       );
     });
   }

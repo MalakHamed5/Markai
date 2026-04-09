@@ -3,10 +3,11 @@ import 'package:ecommerse/core/api/api_consumer.dart';
 import 'package:ecommerse/core/api/api_interceptor.dart';
 import 'package:ecommerse/core/api/urls.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: ApiConsumer)
 class DioConsumer implements ApiConsumer {
   final Dio dio;
-
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = Urls.baseUrl;
     dio.interceptors.add(ApiInterceptor());
@@ -19,7 +20,6 @@ class DioConsumer implements ApiConsumer {
         responseHeader: true,
         error: true,
       ),
-      
     );
   }
 

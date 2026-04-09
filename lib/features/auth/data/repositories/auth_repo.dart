@@ -4,10 +4,12 @@ import 'package:ecommerse/core/api/urls.dart';
 import 'package:ecommerse/core/error/error_model.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
 import 'package:ecommerse/core/services/secure_token_store.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../core/cache/cache_helper.dart';
 import '../../../../core/services/service_locator.dart';
 import '../models/user_model.dart';
+
 
 abstract class AuthRepo {
   Future<Either<ErrorModel, UserModel>> login({
@@ -30,6 +32,7 @@ abstract class AuthRepo {
 
 //------------------ Implementation ------------------
 
+@LazySingleton(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
   final ApiConsumer api;
   AuthRepoImpl({required this.api});

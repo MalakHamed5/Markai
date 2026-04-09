@@ -22,24 +22,50 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
+    "accountPreferences": MessageLookupByLibrary.simpleMessage(
+      "Account Preferences",
+    ),
+    "appNotifications": MessageLookupByLibrary.simpleMessage(
+      "App Notifications",
+    ),
     "areYouNewInMarketi": MessageLookupByLibrary.simpleMessage(
       "Are you new in Marketi",
     ),
+    "bestForYou": MessageLookupByLibrary.simpleMessage("Best for you"),
+    "brands": MessageLookupByLibrary.simpleMessage("Brands"),
+    "buyAgain": MessageLookupByLibrary.simpleMessage("Buy again"),
+    "category": MessageLookupByLibrary.simpleMessage("Category"),
     "confirmPassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
+    "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
+    "guest": MessageLookupByLibrary.simpleMessage("Guest"),
+    "guestEmail": MessageLookupByLibrary.simpleMessage("[EMAIL_ADDRESS]"),
     "haveAnAccount": MessageLookupByLibrary.simpleMessage("have an account?"),
+    "helpAndSupport": MessageLookupByLibrary.simpleMessage("Help & Support"),
+    "hi": MessageLookupByLibrary.simpleMessage("Hi"),
     "login": MessageLookupByLibrary.simpleMessage("Log In"),
+    "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
+    "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
     "orContinueWith": MessageLookupByLibrary.simpleMessage("Or Continue With"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+    "popularProduct": MessageLookupByLibrary.simpleMessage("Popular Product"),
+    "rateUs": MessageLookupByLibrary.simpleMessage("Rate Us"),
     "register": MessageLookupByLibrary.simpleMessage("register?"),
     "remeberMe": MessageLookupByLibrary.simpleMessage("Remember Me"),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
     "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+    "subscriptionAndPayment": MessageLookupByLibrary.simpleMessage(
+      "Subscription & Payment",
+    ),
+    "there": MessageLookupByLibrary.simpleMessage("There"),
     "urEmail": MessageLookupByLibrary.simpleMessage("Your Email"),
     "urName": MessageLookupByLibrary.simpleMessage("Your Name"),
     "urPassword": MessageLookupByLibrary.simpleMessage("Your Password"),
@@ -48,5 +74,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "usernameOrEmail": MessageLookupByLibrary.simpleMessage(
       "Username or Email",
     ),
+    "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
   };
 }

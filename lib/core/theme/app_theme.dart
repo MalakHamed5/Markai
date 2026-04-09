@@ -10,12 +10,16 @@ final lightTheme = globalTheme.copyWith(
   colorScheme: const ColorScheme.light(
     primary: AppColors.primary,
     onPrimary: AppColors.white,
+
     surface: AppColors.lightSurface,
     onSurface: AppColors.textPrimary,
+    
+
+    shadow: Colors.grey,
+
     error: AppColors.error,
     onError: AppColors.white,
-    outline: AppColors.lightBorder,
-    surfaceContainerHighest: AppColors.lightCard,
+    outline: AppColors.lightBorder, // for borders
   ),
 );
 

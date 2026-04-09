@@ -6,5 +6,7 @@ final tr = S.of(appRouter.configuration.navigatorKey.currentContext!);
 
 final ctx = appRouter.configuration.navigatorKey.currentContext!;
 
+final theme = Theme.of(ctx).colorScheme;
+
 SizedBox vSpace(double height) => SizedBox(height: height);
 SizedBox hSpace(double width) => SizedBox(width: width);

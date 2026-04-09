@@ -1,5 +1,6 @@
-import 'package:ecommerse/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../core/helper/tools.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -47,9 +48,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       children: [
         Text(
           widget.title ?? "",
-          style: const TextStyle(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w400,
+          style: TextStyle(
+            color: theme.onPrimary,
           ),
         ),
         TextFormField(
@@ -59,7 +59,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           obscureText: _obscureText,
           decoration: InputDecoration(
             hintText: widget.hint,
-            prefixIcon: Icon(widget.icon, color: AppColors.black),
+            prefixIcon: Icon(widget.icon, color: theme.onPrimary),
             suffixIcon: widget.isPassword
                 ? IconButton(
                     onPressed: _toggleVisibility,
@@ -68,17 +68,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
                     ),
-                    color: AppColors.textHint,
+                    color: theme.onPrimary,
                   )
                 : null,
             contentPadding: const EdgeInsets.symmetric(vertical: 18),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(color: AppColors.primary.withValues(alpha: 0.4)),
+              borderSide: BorderSide(color: theme.primary.withValues(alpha: 0.4)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: AppColors.primary),
+              borderSide: BorderSide(color: theme.primary),
             ),
           ),
         ),

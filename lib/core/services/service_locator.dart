@@ -1,26 +1,27 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerse/core/api/dio_consumer.dart';
-import 'package:ecommerse/core/cache/cache_helper.dart';
-import 'package:ecommerse/core/services/secure_token_store.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../features/auth/data/repositories/auth_repo.dart';
-import '../../features/profile/data/repositories/profile_repo.dart';
+import 'service_locator.config.dart';
 
+// global get it
 final sl = GetIt.instance;
 
-Future<void> setupServiceLocator() async {
-  await CacheHelper.init();
+@InjectableInit()
+void setupServiceLocator() => sl.init();
 
-  // Atorage & Cache
-  sl.registerLazySingleton<CacheHelper>(()=> CacheHelper());
-  sl.registerLazySingleton<SecureTokenStore>(()=> SecureTokenStore());
+@module
+abstract class AppServices {
+  @LazySingleton()
+  Dio get dio => Dio();
 
-  // Api
-  sl.registerLazySingleton<Dio>(()=> Dio());
-  sl.registerLazySingleton<DioConsumer>(()=> DioConsumer(dio: sl<Dio>()));
+  @preResolve
+  @LazySingleton()
+  Future<SharedPreferences> get sharedPreferences =>
+      SharedPreferences.getInstance();
 
-  // Repos
-  sl.registerLazySingleton<AuthRepo>(()=> AuthRepoImpl(api: sl<DioConsumer>()));
-  sl.registerLazySingleton<ProfileRepo>(()=> ProfileRepoImpl(api: sl<DioConsumer>()));
+  @LazySingleton()
+  FlutterSecureStorage get flutterSecureStorage => const FlutterSecureStorage();
 }

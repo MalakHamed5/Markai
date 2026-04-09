@@ -2,7 +2,6 @@ import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
 import 'package:ecommerse/core/routes/routes_name.dart';
 import 'package:ecommerse/core/shared/bottons/primary_button.dart';
-import 'package:ecommerse/core/theme/app_colors.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:ecommerse/features/auth/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +21,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late final AuthBloc bloc;
 
+  final TextEditingController emailCtrl = TextEditingController();
+  final TextEditingController passwordCtrl = TextEditingController();
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -29,12 +32,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      bloc.emailOrPhone.clear();
-      bloc.password.clear();
-    });
+  void dispose() {
+    emailCtrl.dispose();
+    passwordCtrl.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,11 +49,11 @@ class _LoginPageState extends State<LoginPage> {
         listener: (context, state) {
           state.maybeWhen(
             success: (message) {
-              showNotifyMsg(text: message!, context: context);
+              // showNotifyMsg(text: message!, context: context);
               context.go(RoutesName.root);
             },
             failure: (error) {
-              showNotifyMsg(text: error, context: context, bgColor: Colors.red);
+              showNotifyMsg(text: error, context: context, bgColor: theme.error);
             },
             guest: () {
               context.go(RoutesName.root);
@@ -62,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
         },
         builder: (context, state) {
           return Form(
-            key: bloc.loginFormKey,
+            key: _loginFormKey,
             child: SafeArea(
               child: SingleChildScrollView(
                 physics: isKeyboardOpen
@@ -91,10 +92,10 @@ class _LoginPageState extends State<LoginPage> {
                       CustomTextField(
                         hint: tr.usernameOrEmail,
                         icon: Icons.email_outlined,
-                        controller: bloc.emailOrPhone,
+                        controller: emailCtrl,
                         validator: Validation.validateEmail,
                         onChanged: (value) {
-                          bloc.loginFormKey.currentState!.validate();
+                          _loginFormKey.currentState!.validate();
                         },
                       ),
                       vSpace(14),
@@ -104,10 +105,10 @@ class _LoginPageState extends State<LoginPage> {
                         hint: tr.password,
                         icon: Icons.lock_outline,
                         isPassword: true,
-                        controller: bloc.password,
+                        controller: passwordCtrl,
                         validator: Validation.validatePassword,
                         onChanged: (value) {
-                          bloc.loginFormKey.currentState!.validate();
+                          _loginFormKey.currentState!.validate();
                         },
                       ),
 
@@ -120,9 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                           hSpace(8),
                           Text(
                             tr.remeberMe,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
-                              color: AppColors.textPrimary,
+                              color: theme.onSurface,
                             ),
                           ),
                           const Spacer(),
@@ -134,28 +135,33 @@ class _LoginPageState extends State<LoginPage> {
                       //! Login Button
                       PrimaryButton(
                         child: state.maybeWhen(
-                          loading: () => const CircularProgressIndicator(
-                            color: Colors.white,
+                          loading: () => CircularProgressIndicator(
+                            color: theme.onPrimary,
                           ),
                           orElse: () => Text(
                             tr.login,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
-                              color: AppColors.textSecondary,
+                              color: theme.onPrimary,
                             ),
                           ),
                         ),
                         onPressed: () {
-                          bloc.add(const AuthEvent.login());
+                          if (_loginFormKey.currentState!.validate()) {
+                            bloc.add(AuthEvent.login(
+                              email: emailCtrl.text,
+                              password: passwordCtrl.text,
+                            ));
+                          }
                         },
                       ),
 
                       vSpace(25),
                       Text(
                         tr.orContinueWith,
-                        style: const TextStyle(
-                          color: AppColors.textPrimary,
+                        style: TextStyle(
+                          color: theme.onSurface,
                           fontSize: 12,
                         ),
                       ),
@@ -189,8 +195,8 @@ class _RegisterText extends StatelessWidget {
       children: [
         Text(
           tr.areYouNewInMarketi,
-          style: const TextStyle(
-            color: AppColors.textPrimary,
+          style: TextStyle(
+            color: theme.onSurface,
             fontSize: 12,
           ),
         ),
@@ -201,7 +207,7 @@ class _RegisterText extends StatelessWidget {
           },
           child: Text(
             tr.register,
-            style: const TextStyle(color: AppColors.primary),
+            style: TextStyle(color: theme.primary),
           ),
         ),
       ],
@@ -236,8 +242,8 @@ class _ForgotButton extends StatelessWidget {
       onPressed: () {},
       child: Text(
         tr.forgotPassword,
-        style: const TextStyle(
-          color: AppColors.primary,
+        style: TextStyle(
+          color: theme.primary,
           fontSize: 14,
         ),
       ),
@@ -255,7 +261,7 @@ class _RememberMeButton extends StatelessWidget {
       height: 20,
       child: Checkbox(
         value: true,
-        activeColor: AppColors.primary,
+        activeColor: theme.primary,
         onChanged: (_) {},
       ),
     );
@@ -272,7 +278,7 @@ class _SkipButton extends StatelessWidget {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           side: BorderSide(
-            color: AppColors.primary.withValues(alpha: 0.4),
+            color: theme.primary.withValues(alpha: 0.4),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
@@ -288,8 +294,8 @@ class _SkipButton extends StatelessWidget {
         },
         child: Text(
           tr.skip,
-          style: const TextStyle(
-            color: AppColors.primary,
+          style: TextStyle(
+            color: theme.primary,
             fontSize: 16,
           ),
         ),
@@ -309,12 +315,16 @@ class SocialButton extends StatelessWidget {
       width: 55,
       height: 55,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: theme.outline),
       ),
       child: Center(
         child: Text(
           text,
-          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: theme.onSurface,
+          ),
         ),
       ),
     );

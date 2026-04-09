@@ -1,7 +1,6 @@
 import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
 import 'package:ecommerse/core/routes/routes_name.dart';
-import 'package:ecommerse/core/theme/app_colors.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +20,13 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   late final AuthBloc bloc;
 
+  final TextEditingController nameCtrl = TextEditingController();
+  final TextEditingController emailCtrl = TextEditingController();
+  final TextEditingController phoneCtrl = TextEditingController();
+  final TextEditingController passwordCtrl = TextEditingController();
+  final TextEditingController confirmPasswordCtrl = TextEditingController();
+  final GlobalKey<FormState> _signupFormKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -28,21 +34,19 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      bloc.emailOrPhone.clear();
-      bloc.password.clear();
-      bloc.confirmPassword.clear();
-      bloc.username.clear();
-    });
+  void dispose() {
+    nameCtrl.dispose();
+    emailCtrl.dispose();
+    phoneCtrl.dispose();
+    passwordCtrl.dispose();
+    confirmPasswordCtrl.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // variables need build method
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -53,10 +57,10 @@ class _SignUpPageState extends State<SignUpPage> {
       },
       builder: (context, state) {
         return Form(
-          key: bloc.signupFormKey,
+          key: _signupFormKey,
           child: Scaffold(
             resizeToAvoidBottomInset: true,
-            backgroundColor: Colors.white,
+            backgroundColor: theme.surface,
             body: SafeArea(
               child: SingleChildScrollView(
                 physics: isKeyboardOpen
@@ -74,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(
-                              color: AppColors.primary.withValues(alpha: 0.4),
+                              color: theme.primary.withValues(alpha: 0.4),
                             ),
                             shape: const CircleBorder(),
                             padding: const EdgeInsets.symmetric(
@@ -85,9 +89,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           onPressed: () {
                             context.go(RoutesName.root);
                           },
-                          child: const Icon(
+                          child: Icon(
                             Icons.arrow_back_ios_new_rounded,
-                            color: AppColors.black,
+                            color: theme.onSurface,
                           ),
                         ),
                       ),
@@ -100,10 +104,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         title: tr.urName,
                         hint: tr.fullName,
                         icon: Icons.person_outline,
-                        controller: bloc.username,
+                        controller: nameCtrl,
                         validator: Validation.validateUsername,
                         onChanged: (_) {
-                          bloc.signupFormKey.currentState?.validate();
+                          _signupFormKey.currentState?.validate();
                         },
                       ),
 
@@ -112,10 +116,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         title: tr.urPhone,
                         hint: "01010039770",
                         icon: Icons.phone_android,
-                        controller: bloc.emailOrPhone,
+                        controller: phoneCtrl,
                         validator: Validation.validatePhone,
                         onChanged: (_) {
-                          bloc.signupFormKey.currentState?.validate();
+                          _signupFormKey.currentState?.validate();
                         },
                       ),
 
@@ -124,10 +128,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         title: tr.email,
                         hint: "You@gmail.com",
                         icon: Icons.email_outlined,
-                        controller: bloc.emailOrPhone,
+                        controller: emailCtrl,
                         validator: Validation.validateEmail,
                         onChanged: (_) {
-                          bloc.signupFormKey.currentState?.validate();
+                          _signupFormKey.currentState?.validate();
                         },
                       ),
 
@@ -137,10 +141,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         hint: "********",
                         icon: Icons.lock_outline,
                         isPassword: true,
-                        controller: bloc.password,
+                        controller: passwordCtrl,
                         validator: Validation.validatePassword,
                         onChanged: (_) {
-                          bloc.signupFormKey.currentState?.validate();
+                          _signupFormKey.currentState?.validate();
                         },
                       ),
 
@@ -150,13 +154,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         hint: "********",
                         icon: Icons.lock_outline,
                         isPassword: true,
-                        controller: bloc.confirmPassword,
+                        controller: confirmPasswordCtrl,
                         validator: (value) {
                           return Validation.validateConfirmPassword(
-                              value, bloc.password.text);
+                              value, passwordCtrl.text);
                         },
                         onChanged: (_) {
-                          bloc.signupFormKey.currentState?.validate();
+                          _signupFormKey.currentState?.validate();
                         },
                       ),
 
@@ -168,23 +172,32 @@ class _SignUpPageState extends State<SignUpPage> {
                         height: 55,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
+                            backgroundColor: theme.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(14),
                             ),
                             elevation: 0,
                           ),
                           onPressed: () {
+                            if (!_signupFormKey.currentState!.validate()) {
+                              return;
+                            }
                             context
                                 .read<AuthBloc>()
-                                .add(const AuthEvent.register());
+                                .add(AuthEvent.register(
+                                  name: nameCtrl.text,
+                                  email: emailCtrl.text,
+                                  phone: phoneCtrl.text,
+                                  password: passwordCtrl.text,
+                                  confirmPassword: confirmPasswordCtrl.text,
+                                ));
                           },
                           child: Text(
                             tr.signup,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
-                              color: AppColors.textSecondary,
+                              color: theme.onPrimary,
                             ),
                           ),
                         ),
@@ -194,8 +207,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       Text(
                         tr.orContinueWith,
-                        style: const TextStyle(
-                            color: AppColors.textPrimary, fontSize: 12),
+                        style: TextStyle(
+                            color: theme.onSurface, fontSize: 12),
                       ),
 
                       const SizedBox(height: 18),
@@ -220,8 +233,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: [
                           Text(
                             tr.haveAnAccount,
-                            style: const TextStyle(
-                              color: AppColors.textPrimary,
+                            style: TextStyle(
+                              color: theme.onSurface,
                               fontSize: 12,
                             ),
                           ),
@@ -231,8 +244,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               context.go(RoutesName.login);
                             },
                             child: Text(tr.signIn,
-                                style:
-                                    const TextStyle(color: AppColors.primary)),
+                                style: TextStyle(color: theme.primary)),
                           ),
                         ],
                       ),
@@ -259,12 +271,16 @@ class SocialButton extends StatelessWidget {
       width: 55,
       height: 55,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: theme.outline),
       ),
       child: Center(
         child: Text(
           text,
-          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: theme.onSurface,
+          ),
         ),
       ),
     );

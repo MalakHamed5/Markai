@@ -590,8 +590,10 @@ extension AuthEventPatterns on AuthEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? login,
-    TResult Function()? register,
+    TResult Function(String email, String password)? login,
+    TResult Function(String name, String email, String password, String phone,
+            String confirmPassword)?
+        register,
     TResult Function()? skipLogin,
     required TResult orElse(),
   }) {
@@ -600,9 +602,10 @@ extension AuthEventPatterns on AuthEvent {
       case _Started() when started != null:
         return started();
       case _Login() when login != null:
-        return login();
+        return login(_that.email, _that.password);
       case _Register() when register != null:
-        return register();
+        return register(_that.name, _that.email, _that.password, _that.phone,
+            _that.confirmPassword);
       case _SkipLogin() when skipLogin != null:
         return skipLogin();
       case _:
@@ -626,8 +629,10 @@ extension AuthEventPatterns on AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() login,
-    required TResult Function() register,
+    required TResult Function(String email, String password) login,
+    required TResult Function(String name, String email, String password,
+            String phone, String confirmPassword)
+        register,
     required TResult Function() skipLogin,
   }) {
     final _that = this;
@@ -635,9 +640,10 @@ extension AuthEventPatterns on AuthEvent {
       case _Started():
         return started();
       case _Login():
-        return login();
+        return login(_that.email, _that.password);
       case _Register():
-        return register();
+        return register(_that.name, _that.email, _that.password, _that.phone,
+            _that.confirmPassword);
       case _SkipLogin():
         return skipLogin();
       case _:
@@ -660,8 +666,10 @@ extension AuthEventPatterns on AuthEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? login,
-    TResult? Function()? register,
+    TResult? Function(String email, String password)? login,
+    TResult? Function(String name, String email, String password, String phone,
+            String confirmPassword)?
+        register,
     TResult? Function()? skipLogin,
   }) {
     final _that = this;
@@ -669,9 +677,10 @@ extension AuthEventPatterns on AuthEvent {
       case _Started() when started != null:
         return started();
       case _Login() when login != null:
-        return login();
+        return login(_that.email, _that.password);
       case _Register() when register != null:
-        return register();
+        return register(_that.name, _that.email, _that.password, _that.phone,
+            _that.confirmPassword);
       case _SkipLogin() when skipLogin != null:
         return skipLogin();
       case _:
@@ -703,40 +712,172 @@ class _Started implements AuthEvent {
 /// @nodoc
 
 class _Login implements AuthEvent {
-  const _Login();
+  const _Login({required this.email, required this.password});
+
+  final String email;
+  final String password;
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$LoginCopyWith<_Login> get copyWith =>
+      __$LoginCopyWithImpl<_Login>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Login);
+        (other.runtimeType == runtimeType &&
+            other is _Login &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email, password);
 
   @override
   String toString() {
-    return 'AuthEvent.login()';
+    return 'AuthEvent.login(email: $email, password: $password)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$LoginCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+  factory _$LoginCopyWith(_Login value, $Res Function(_Login) _then) =
+      __$LoginCopyWithImpl;
+  @useResult
+  $Res call({String email, String password});
+}
+
+/// @nodoc
+class __$LoginCopyWithImpl<$Res> implements _$LoginCopyWith<$Res> {
+  __$LoginCopyWithImpl(this._self, this._then);
+
+  final _Login _self;
+  final $Res Function(_Login) _then;
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_Login(
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _self.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
   }
 }
 
 /// @nodoc
 
 class _Register implements AuthEvent {
-  const _Register();
+  const _Register(
+      {required this.name,
+      required this.email,
+      required this.password,
+      required this.phone,
+      required this.confirmPassword});
+
+  final String name;
+  final String email;
+  final String password;
+  final String phone;
+  final String confirmPassword;
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$RegisterCopyWith<_Register> get copyWith =>
+      __$RegisterCopyWithImpl<_Register>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Register);
+        (other.runtimeType == runtimeType &&
+            other is _Register &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.confirmPassword, confirmPassword) ||
+                other.confirmPassword == confirmPassword));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, name, email, password, phone, confirmPassword);
 
   @override
   String toString() {
-    return 'AuthEvent.register()';
+    return 'AuthEvent.register(name: $name, email: $email, password: $password, phone: $phone, confirmPassword: $confirmPassword)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$RegisterCopyWith<$Res>
+    implements $AuthEventCopyWith<$Res> {
+  factory _$RegisterCopyWith(_Register value, $Res Function(_Register) _then) =
+      __$RegisterCopyWithImpl;
+  @useResult
+  $Res call(
+      {String name,
+      String email,
+      String password,
+      String phone,
+      String confirmPassword});
+}
+
+/// @nodoc
+class __$RegisterCopyWithImpl<$Res> implements _$RegisterCopyWith<$Res> {
+  __$RegisterCopyWithImpl(this._self, this._then);
+
+  final _Register _self;
+  final $Res Function(_Register) _then;
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? password = null,
+    Object? phone = null,
+    Object? confirmPassword = null,
+  }) {
+    return _then(_Register(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _self.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone: null == phone
+          ? _self.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      confirmPassword: null == confirmPassword
+          ? _self.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
   }
 }
 

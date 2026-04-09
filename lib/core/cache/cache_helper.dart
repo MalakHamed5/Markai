@@ -1,11 +1,11 @@
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@LazySingleton()
 class CacheHelper {
-  static late SharedPreferences sharedPref;
+  final SharedPreferences sharedPref;
 
-  static Future<void> init() async {
-    sharedPref = await SharedPreferences.getInstance();
-  }
+  CacheHelper({required this.sharedPref}); 
 
   String? getDataString(String key) {
     return sharedPref.getString(key);

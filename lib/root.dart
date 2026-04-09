@@ -4,6 +4,8 @@ import 'package:ecommerse/features/home/presentation/pages/home_page.dart';
 import 'package:ecommerse/features/profile/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
+import 'core/helper/tools.dart';
+
 class Root extends StatefulWidget {
   const Root({super.key});
 
@@ -37,8 +39,8 @@ class _RootState extends State<Root> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          boxShadow: const [
-            BoxShadow(color: Colors.grey, blurRadius: 20, spreadRadius: 0.01),
+          boxShadow:  [
+            BoxShadow(color: theme.shadow, blurRadius: 20, spreadRadius: 0.01),
           ],
         ),
         child: BottomNavigationBar(
