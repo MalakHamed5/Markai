@@ -10,18 +10,19 @@ import 'service_locator.config.dart';
 final sl = GetIt.instance;
 
 @InjectableInit()
-void setupServiceLocator() => sl.init();
+Future<void> setupServiceLocator() async => await sl.init();
 
 @module
 abstract class AppServices {
+  // Dio
   @LazySingleton()
   Dio get dio => Dio();
-
+  // SharedPreferences
   @preResolve
   @LazySingleton()
   Future<SharedPreferences> get sharedPreferences =>
       SharedPreferences.getInstance();
-
+  // FlutterSecureStorage
   @LazySingleton()
   FlutterSecureStorage get flutterSecureStorage => const FlutterSecureStorage();
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/helper/tools.dart';
-import '../../../../core/shared/widgets/product_network_image.dart';
 import '../../../../core/theme/app_colors.dart';
 
 //---------------------- CUSTOM CARD MODEL----------------------
-class CustomCardModel {
+class ProductModel {
   final String image;
   final String off;
   final String name;
@@ -13,7 +12,7 @@ class CustomCardModel {
   final String rating;
   bool isFav;
 
-  CustomCardModel({
+  ProductModel({
     required this.image,
     required this.off,
     required this.name,
@@ -24,18 +23,17 @@ class CustomCardModel {
 }
 
 //---------------------- CUSTOM CARD----------------------
-class CustomCard extends StatefulWidget {
-  const CustomCard({required this.model, super.key, this.isGrid = false});
+class ProductCard extends StatefulWidget {
+  const ProductCard({required this.model, super.key, this.isGrid = false});
 
-  final CustomCardModel model;
+  final ProductModel model;
   final bool isGrid;
 
   @override
-  State<CustomCard> createState() => _CustomCardState();
+  State<ProductCard> createState() => _ProductCardState();
 }
 
-class _CustomCardState extends State<CustomCard> {
-
+class _ProductCardState extends State<ProductCard> {
   void toggleFav() {
     setState(() {
       widget.model.isFav = !widget.model.isFav;
@@ -64,19 +62,24 @@ class _CustomCardState extends State<CustomCard> {
                 borderRadius: BorderRadius.circular(14),
                 child: AspectRatio(
                   aspectRatio: 1.3,
-                  child: ProductNetworkImage(
-                    image: widget.model.image,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.asset(widget.model.image),
+                  // child: ProductNetworkImage(
+                  //   image: widget.model.image,
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
               ),
               // off button
-              _OffButton(widget: widget),
+              // add it after backend 
+              //* _OffButton(widget: widget),
               // favourit button
-              _FavouritButton(widget: widget , onFavPressed: toggleFav,),
+              _FavouritButton(
+                widget: widget,
+                onFavPressed: toggleFav,
+              ),
             ],
           ),
-    
+
           // title and price
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -124,7 +127,7 @@ class _CustomCardState extends State<CustomCard> {
                         overflow: TextOverflow.fade,
                       ),
                     ),
-    
+
                     // add to cart button
                   ],
                 ),
@@ -180,7 +183,7 @@ class _FavouritButton extends StatelessWidget {
     required this.onFavPressed,
   });
 
-  final CustomCard widget;
+  final ProductCard widget;
   final VoidCallback onFavPressed;
 
   @override
@@ -204,27 +207,27 @@ class _FavouritButton extends StatelessWidget {
   }
 }
 
-class _OffButton extends StatelessWidget {
-  const _OffButton({required this.widget});
+// class _OffButton extends StatelessWidget {
+//   const _OffButton({required this.widget});
 
-  final CustomCard widget;
+//   final ProductCard widget;
 
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 8,
-      left: 8,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          color: AppColors.primary.withValues(alpha: 0.2),
-        ),
-        child: Text(
-          widget.model.off,
-          style: const TextStyle(color: AppColors.primary),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Positioned(
+//       top: 8,
+//       left: 8,
+//       child: Container(
+//         padding: const EdgeInsets.all(8),
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(14),
+//           color: AppColors.primary.withValues(alpha: 0.2),
+//         ),
+//         child: Text(
+//           widget.model.off,
+//           style: const TextStyle(color: AppColors.primary),
+//         ),
+//       ),
+//     );
+//   }
+// }

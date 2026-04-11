@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerse/core/shared/widgets/custom_search_bar.dart';
 import 'package:ecommerse/dommy_data.dart';
+import 'package:ecommerse/features/home/presentation/widget/brand_card.dart';
 import 'package:ecommerse/features/home/presentation/widget/category_card.dart';
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/helper/tools.dart';
-import '../../../../core/routes/routes_name.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/widgets/product_network_image.dart';
 import '../widget/custom_card.dart';
 
@@ -51,14 +53,21 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // Banner
+
             SliverToBoxAdapter(
-              child: SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: data.banners.length,
-                  itemBuilder: (context, i) =>
-                      _BanarCard(image: data.banners[i]),
+              child: CarouselSlider.builder(
+                itemCount: data.banners.length,
+                itemBuilder: (context, i, _) =>
+                    _BanarCard(image: data.banners[i]),
+                options: CarouselOptions(
+                  height: 200,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  aspectRatio: 16 / 9,
+                  autoPlayCurve: Curves.easeInOut,
+                  enableInfiniteScroll: true,
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  viewportFraction: 0.8,
                 ),
               ),
             ),
@@ -70,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.popularProduct,
                   onPressed: () {
-                    context.go(RoutesName.productsPopular);
+                    context.go(Routes.productsPopular);
                   },
                 ),
               ),
@@ -84,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   itemCount: data.products.length,
                   itemBuilder: (context, i) =>
-                      CustomCard(model: data.products[i]),
+                      ProductCard(model: data.products[i]),
                 ),
               ),
             ),
@@ -96,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.category,
                   onPressed: () {
-                    context.go(RoutesName.brands);
+                    context.go(Routes.brands);
                   },
                 ),
               ),
@@ -114,7 +123,8 @@ class _HomePageState extends State<HomePage> {
                   crossAxisCount: 3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  mainAxisExtent: 120, // تقريباً ارتفاع الكارد
+                  mainAxisExtent: 150,
+                  childAspectRatio: 0.75,
                 ),
               ),
             ),
@@ -126,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.bestForYou,
                   onPressed: () {
-                    context.go(RoutesName.bestForYou);
+                    context.go(Routes.bestForYou);
                   },
                 ),
               ),
@@ -140,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   itemCount: data.products.length,
                   itemBuilder: (context, i) =>
-                      CustomCard(model: data.products[i]),
+                      ProductCard(model: data.products[i]),
                 ),
               ),
             ),
@@ -152,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.brands,
                   onPressed: () {
-                    context.go(RoutesName.buyAgain);
+                    context.go(Routes.buyAgain);
                   },
                 ),
               ),
@@ -165,8 +175,7 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: data.brands.length,
-                  itemBuilder: (context, i) =>
-                      _BanarCard(image: data.brands[i]),
+                  itemBuilder: (context, i) => BrandCard(model: data.brands[i]),
                 ),
               ),
             ),
@@ -178,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.buyAgain,
                   onPressed: () {
-                    context.go(RoutesName.buyAgain);
+                    context.go(Routes.buyAgain);
                   },
                 ),
               ),
@@ -192,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   itemCount: data.products.length,
                   itemBuilder: (context, i) =>
-                      CustomCard(model: data.products[i]),
+                      ProductCard(model: data.products[i]),
                 ),
               ),
             ),
@@ -273,11 +282,10 @@ class _HeaderWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // user image
-          CircleAvatar(
+          const CircleAvatar(
             radius: 25,
             backgroundImage: CachedNetworkImageProvider(
-              user?.image ??
-                  'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1200&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1200&auto=format&fit=crop',
             ),
           ),
           hSpace(6),

@@ -13,8 +13,10 @@ part 'profile_bloc.freezed.dart';
 
 @injectable
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+
   final ProfileRepo profileRepo;
   ProfileBloc({required this.profileRepo})
+
       : super(const ProfileState.initial()) {
     on<ProfileEvent>((event, emit) async {
       await event.maybeWhen(

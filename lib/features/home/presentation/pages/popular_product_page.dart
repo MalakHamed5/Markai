@@ -8,8 +8,8 @@ class PopularProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<CustomCardModel> products = [
-      CustomCardModel(
+    List<ProductModel> products = [
+      ProductModel(
         off: '25% off',
         name: 'Smart Watch',
         price: '499 LE',
@@ -17,7 +17,7 @@ class PopularProductPage extends StatelessWidget {
         image:
             'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600',
       ),
-      CustomCardModel(
+      ProductModel(
         off: '25% off',
         name: 'iPhone 11 Pro',
         price: '19999 LE',
@@ -42,7 +42,7 @@ class PopularProductPage extends StatelessWidget {
             ),
             itemCount: products.length,
             itemBuilder: (context, i) {
-              return CustomCard(model: products[i], isGrid: true);
+              return ProductCard(model: products[i], isGrid: true);
             },
           ),
         ],

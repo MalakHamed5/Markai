@@ -10,7 +10,6 @@ import '../../../../core/cache/cache_helper.dart';
 import '../../../../core/services/service_locator.dart';
 import '../models/user_model.dart';
 
-
 abstract class AuthRepo {
   Future<Either<ErrorModel, UserModel>> login({
     required String email,
@@ -25,7 +24,7 @@ abstract class AuthRepo {
     required String confirmPassword,
   });
 
-  Future<void> logout();
+  Future<Either<ErrorModel, void>> logout();
 
   Future<Either<ErrorModel, void>> userGuest();
 }
@@ -48,13 +47,12 @@ class AuthRepoImpl implements AuthRepo {
           data: {ApiKeys.email: email, ApiKeys.password: password});
 
       // modeling response
-      final UserModel? user = UserModel.fromJson(response[ApiKeys.user]);
+      final user = UserModel.fromJson(response[ApiKeys.user]);
 
-      if (user != null) {
-        // save token
-        await sl<SecureTokenStore>().saveToken(response[ApiKeys.token]);
-      }
-      return right(user!);
+      // save token
+      await sl<SecureTokenStore>().saveToken(response[ApiKeys.token]);
+
+      return right(user);
     } on ServerException catch (e) {
       return left(ErrorModel(message: e.toString()));
     } catch (e) {
@@ -87,16 +85,20 @@ class AuthRepoImpl implements AuthRepo {
 
       return right(user);
     } on ServerException catch (e) {
-      throw left(ErrorModel(message: e.toString()));
+      return left(ErrorModel(message: e.toString()));
     } catch (e) {
-      throw left(ErrorModel(message: e.toString()));
+      return left(ErrorModel(message: e.toString()));
     }
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Either<ErrorModel, void>> logout() async {
+    try {
+      await sl<SecureTokenStore>().deleteToken();
+      return right(null);
+    } catch (e) {
+      return left(ErrorModel(message: e.toString()));
+    }
   }
 
   @override
@@ -105,7 +107,7 @@ class AuthRepoImpl implements AuthRepo {
       await sl<CacheHelper>().saveData(key: 'is_guest', value: true);
       return right(null);
     } catch (e) {
-      throw left(ErrorModel(message: e.toString()));
+      return left(ErrorModel(message: e.toString()));
     }
   }
 }

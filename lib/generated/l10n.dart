@@ -353,6 +353,26 @@ class S {
   String get aboutUs {
     return Intl.message('About Us', name: 'aboutUs', desc: '', args: []);
   }
+
+  /// `Cart`
+  String get cart {
+    return Intl.message('Cart', name: 'cart', desc: '', args: []);
+  }
+
+  /// `Favorite`
+  String get favorite {
+    return Intl.message('Favorite', name: 'favorite', desc: '', args: []);
+  }
+
+  /// `Menu`
+  String get menu {
+    return Intl.message('Menu', name: 'menu', desc: '', args: []);
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

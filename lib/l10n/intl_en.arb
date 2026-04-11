@@ -41,5 +41,9 @@
     "appNotifications": "App Notifications",
     "darkMode": "Dark Mode",
     "rateUs": "Rate Us",
-    "aboutUs": "About Us"
+    "aboutUs": "About Us",
+    "cart": "Cart",
+    "favorite": "Favorite",
+    "menu": "Menu",
+    "home": "Home"
 }

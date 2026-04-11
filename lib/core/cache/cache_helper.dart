@@ -3,9 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @LazySingleton()
 class CacheHelper {
+  // SharedPreferences
   final SharedPreferences sharedPref;
-
-  CacheHelper({required this.sharedPref}); 
+  CacheHelper({required this.sharedPref});
 
   String? getDataString(String key) {
     return sharedPref.getString(key);

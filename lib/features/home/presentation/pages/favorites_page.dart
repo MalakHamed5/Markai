@@ -61,8 +61,8 @@ class FavoritesPage extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: CustomCard(
-                      model: CustomCardModel(
+                    child: ProductCard(
+                      model: ProductModel(
                         name: 'Smart Watch',
                         price: '499 LE',
                         rating: '4.5',
@@ -74,8 +74,8 @@ class FavoritesPage extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: CustomCard(
-                      model: CustomCardModel(
+                    child: ProductCard(
+                      model: ProductModel(
                         name: 'iPhone 11 Pro',
                         price: '19999 LE',
                         rating: '4.9',
@@ -162,8 +162,6 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 }
-
-
 
 // class ProductCard extends StatelessWidget {
 //   final String title;

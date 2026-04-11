@@ -1,45 +1,22 @@
-import 'package:ecommerse/features/cart/presentation/pages/cart_page.dart';
-import 'package:ecommerse/features/favorites/persentation/pages/favorite_page.dart';
-import 'package:ecommerse/features/home/presentation/pages/home_page.dart';
-import 'package:ecommerse/features/profile/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'core/helper/tools.dart';
 
-class Root extends StatefulWidget {
-  const Root({super.key});
-
-  @override
-  State<Root> createState() => _RootState();
-}
-
-class _RootState extends State<Root> {
-  int currentIndex = 0;
-
-  late List<Widget> _pages;
-
-  @override
-  void initState() {
-    super.initState();
-    _pages = [
-      const HomePage(),
-      const CartPage(),
-      const FavoritePage(),
-      const ProfilePage()
-      // const MenuPage(),
-    ];
-  }
+class RootShell extends StatelessWidget {
+  final StatefulNavigationShell statefulNavigationShell;
+  const RootShell({super.key, required this.statefulNavigationShell});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: currentIndex, children: _pages),
-
-      // bottom nav
+      body: statefulNavigationShell,
+      // ----- bottom nav -----
       bottomNavigationBar: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          boxShadow:  [
+          boxShadow: [
             BoxShadow(color: theme.shadow, blurRadius: 20, spreadRadius: 0.01),
           ],
         ),
@@ -49,23 +26,21 @@ class _RootState extends State<Root> {
           selectedLabelStyle: const TextStyle(fontSize: 16),
           unselectedLabelStyle: const TextStyle(fontSize: 16),
           iconSize: 28,
-          currentIndex: currentIndex,
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          currentIndex: statefulNavigationShell.currentIndex,
+          onTap: (index) => statefulNavigationShell.goBranch(index),
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              label: 'Cart',
+                icon: const Icon(Icons.home), label: tr.home),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.shopping_cart),
+              label: tr.cart,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorite',
+              icon: const Icon(Icons.favorite),
+              label: tr.favorite,
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu'),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.menu), label: tr.menu),
           ],
         ),
       ),

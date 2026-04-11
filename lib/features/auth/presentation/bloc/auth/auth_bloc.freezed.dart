@@ -488,6 +488,8 @@ extension AuthEventPatterns on AuthEvent {
     TResult Function(_Started value)? started,
     TResult Function(_Login value)? login,
     TResult Function(_Register value)? register,
+    TResult Function(_Logout value)? logout,
+    TResult Function(_CheckAuth value)? checkAuth,
     TResult Function(_SkipLogin value)? skipLogin,
     required TResult orElse(),
   }) {
@@ -499,6 +501,10 @@ extension AuthEventPatterns on AuthEvent {
         return login(_that);
       case _Register() when register != null:
         return register(_that);
+      case _Logout() when logout != null:
+        return logout(_that);
+      case _CheckAuth() when checkAuth != null:
+        return checkAuth(_that);
       case _SkipLogin() when skipLogin != null:
         return skipLogin(_that);
       case _:
@@ -524,6 +530,8 @@ extension AuthEventPatterns on AuthEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_Login value) login,
     required TResult Function(_Register value) register,
+    required TResult Function(_Logout value) logout,
+    required TResult Function(_CheckAuth value) checkAuth,
     required TResult Function(_SkipLogin value) skipLogin,
   }) {
     final _that = this;
@@ -534,6 +542,10 @@ extension AuthEventPatterns on AuthEvent {
         return login(_that);
       case _Register():
         return register(_that);
+      case _Logout():
+        return logout(_that);
+      case _CheckAuth():
+        return checkAuth(_that);
       case _SkipLogin():
         return skipLogin(_that);
       case _:
@@ -558,6 +570,8 @@ extension AuthEventPatterns on AuthEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_Login value)? login,
     TResult? Function(_Register value)? register,
+    TResult? Function(_Logout value)? logout,
+    TResult? Function(_CheckAuth value)? checkAuth,
     TResult? Function(_SkipLogin value)? skipLogin,
   }) {
     final _that = this;
@@ -568,6 +582,10 @@ extension AuthEventPatterns on AuthEvent {
         return login(_that);
       case _Register() when register != null:
         return register(_that);
+      case _Logout() when logout != null:
+        return logout(_that);
+      case _CheckAuth() when checkAuth != null:
+        return checkAuth(_that);
       case _SkipLogin() when skipLogin != null:
         return skipLogin(_that);
       case _:
@@ -594,6 +612,8 @@ extension AuthEventPatterns on AuthEvent {
     TResult Function(String name, String email, String password, String phone,
             String confirmPassword)?
         register,
+    TResult Function()? logout,
+    TResult Function()? checkAuth,
     TResult Function()? skipLogin,
     required TResult orElse(),
   }) {
@@ -606,6 +626,10 @@ extension AuthEventPatterns on AuthEvent {
       case _Register() when register != null:
         return register(_that.name, _that.email, _that.password, _that.phone,
             _that.confirmPassword);
+      case _Logout() when logout != null:
+        return logout();
+      case _CheckAuth() when checkAuth != null:
+        return checkAuth();
       case _SkipLogin() when skipLogin != null:
         return skipLogin();
       case _:
@@ -633,6 +657,8 @@ extension AuthEventPatterns on AuthEvent {
     required TResult Function(String name, String email, String password,
             String phone, String confirmPassword)
         register,
+    required TResult Function() logout,
+    required TResult Function() checkAuth,
     required TResult Function() skipLogin,
   }) {
     final _that = this;
@@ -644,6 +670,10 @@ extension AuthEventPatterns on AuthEvent {
       case _Register():
         return register(_that.name, _that.email, _that.password, _that.phone,
             _that.confirmPassword);
+      case _Logout():
+        return logout();
+      case _CheckAuth():
+        return checkAuth();
       case _SkipLogin():
         return skipLogin();
       case _:
@@ -670,6 +700,8 @@ extension AuthEventPatterns on AuthEvent {
     TResult? Function(String name, String email, String password, String phone,
             String confirmPassword)?
         register,
+    TResult? Function()? logout,
+    TResult? Function()? checkAuth,
     TResult? Function()? skipLogin,
   }) {
     final _that = this;
@@ -681,6 +713,10 @@ extension AuthEventPatterns on AuthEvent {
       case _Register() when register != null:
         return register(_that.name, _that.email, _that.password, _that.phone,
             _that.confirmPassword);
+      case _Logout() when logout != null:
+        return logout();
+      case _CheckAuth() when checkAuth != null:
+        return checkAuth();
       case _SkipLogin() when skipLogin != null:
         return skipLogin();
       case _:
@@ -878,6 +914,46 @@ class __$RegisterCopyWithImpl<$Res> implements _$RegisterCopyWith<$Res> {
           : confirmPassword // ignore: cast_nullable_to_non_nullable
               as String,
     ));
+  }
+}
+
+/// @nodoc
+
+class _Logout implements AuthEvent {
+  const _Logout();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Logout);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'AuthEvent.logout()';
+  }
+}
+
+/// @nodoc
+
+class _CheckAuth implements AuthEvent {
+  const _CheckAuth();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _CheckAuth);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'AuthEvent.checkAuth()';
   }
 }
 

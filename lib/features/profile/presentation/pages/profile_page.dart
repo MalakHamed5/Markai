@@ -1,6 +1,8 @@
-import 'package:ecommerse/core/routes/routes_name.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerse/core/routes/routes.dart';
 import 'package:ecommerse/core/shared/bottons/custom_back_button.dart';
 import 'package:ecommerse/core/theme/cubit/theme_cubit.dart';
+import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    context.go(RoutesName.login);
+                    context.go(Routes.login);
                   },
                   child: Text(tr.login),
                 ),
@@ -79,9 +81,11 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             vSpace(20),
             //--------------- Profile info
-            CircleAvatar(
+          const  CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage(user.image),
+              backgroundImage: CachedNetworkImageProvider(
+                'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+              ),
             ),
             vSpace(20),
             Text(
@@ -154,11 +158,27 @@ class _ProfilePageState extends State<ProfilePage> {
 
             const _CustomDriver(),
 
-            CustomListTile(
-              icon: Icons.logout,
-              title: tr.logout,
-              onTap: () {},
-              isLogout: true,
+            BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                  success: (message) {
+                    context.go(Routes.login);
+                  },
+                  orElse: () {},
+                );
+              },
+              child: BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  return CustomListTile(
+                    icon: Icons.logout,
+                    title: tr.logout,
+                    onTap: () {
+                      context.read<AuthBloc>().add(const AuthEvent.logout());
+                    },
+                    isLogout: true,
+                  );
+                },
+              ),
             ),
 
             const _CustomDriver(),

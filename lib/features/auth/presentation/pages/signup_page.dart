@@ -1,6 +1,6 @@
 import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
-import 'package:ecommerse/core/routes/routes_name.dart';
+import 'package:ecommerse/core/routes/routes.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,10 +50,19 @@ class _SignUpPageState extends State<SignUpPage> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         state.maybeWhen(
-            success: (message) {
-              showNotifyMsg(text: message!, context: context);
-            },
-            orElse: () {});
+          success: (message) {
+            showNotifyMsg(text: message ?? '', context: context);
+            context.go(Routes.root);
+          },
+          failure: (error) {
+            showNotifyMsg(
+              text: error,
+              context: context,
+              bgColor: theme.error,
+            );
+          },
+          orElse: () {},
+        );
       },
       builder: (context, state) {
         return Form(
@@ -87,7 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           onPressed: () {
-                            context.go(RoutesName.root);
+                            context.go(Routes.root);
                           },
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
@@ -156,8 +165,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         isPassword: true,
                         controller: confirmPasswordCtrl,
                         validator: (value) {
-                          return Validation.validateConfirmPassword(
-                              value, passwordCtrl.text);
+                          return Validation.validateConfirmPassword(value, passwordCtrl.text);
                         },
                         onChanged: (_) {
                           _signupFormKey.currentState?.validate();
@@ -182,9 +190,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (!_signupFormKey.currentState!.validate()) {
                               return;
                             }
-                            context
-                                .read<AuthBloc>()
-                                .add(AuthEvent.register(
+                            context.read<AuthBloc>().add(AuthEvent.register(
                                   name: nameCtrl.text,
                                   email: emailCtrl.text,
                                   phone: phoneCtrl.text,
@@ -192,12 +198,17 @@ class _SignUpPageState extends State<SignUpPage> {
                                   confirmPassword: confirmPasswordCtrl.text,
                                 ));
                           },
-                          child: Text(
-                            tr.signup,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
+                          child: state.maybeWhen(
+                            loading: () => CircularProgressIndicator(
                               color: theme.onPrimary,
+                            ),
+                            orElse: () => Text(
+                              tr.signup,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: theme.onPrimary,
+                              ),
                             ),
                           ),
                         ),
@@ -207,8 +218,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       Text(
                         tr.orContinueWith,
-                        style: TextStyle(
-                            color: theme.onSurface, fontSize: 12),
+                        style: TextStyle(color: theme.onSurface, fontSize: 12),
                       ),
 
                       const SizedBox(height: 18),
@@ -219,7 +229,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: [
                           SocialButton(text: "G"),
                           SizedBox(width: 10),
-                          SocialButton(text: ""),
+                          SocialButton(text: ""),
                           SizedBox(width: 10),
                           SocialButton(text: "f"),
                         ],
@@ -241,10 +251,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           const Text('? '),
                           TextButton(
                             onPressed: () {
-                              context.go(RoutesName.login);
+                              context.go(Routes.login);
                             },
-                            child: Text(tr.signIn,
-                                style: TextStyle(color: theme.primary)),
+                            child: Text(tr.signIn, style: TextStyle(color: theme.primary)),
                           ),
                         ],
                       ),

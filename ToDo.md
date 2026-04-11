@@ -1,18 +1,36 @@
-# Features 
-## UI
-### [] AUTH
-[] ui -> [] login [] register [] splash [] onboarding
+[✔] log out 
+[] fix redirect & go router (not really)
 
-### [] HOME 
-[] ui -> [] home [] categories [] products [] product details
 
-### [] CART 
-[] ui -> [] cart [] cart item [] cart total
+## Next commit 
+[] replace bottom navigation bar with navigation bar 
 
-### [] PROFILE 
-[] ui -> [] profile [] profile item [] profile total
+
+[] Performance video
+
+[] fix size all the project 
 
 
 
-# Topics
-[] sizer + responsive framwork 
+[] text theme 
+
+
+[] cart ui
+[] favouirt ui 
+
+[] add to cart 
+[] add to favourit 
+
+
+[] Payment
+
+
+[] register with google 
+[] register with facebook 
+[] regitster with apple 
+
+
+
+## EXPLAIN 
+[] go router 
+
