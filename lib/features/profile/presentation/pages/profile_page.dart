@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    context.go(Routes.login);
+                    context.go(AppPath.login);
                   },
                   child: Text(tr.login),
                 ),
@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             vSpace(20),
             //--------------- Profile info
-          const  CircleAvatar(
+            const CircleAvatar(
               radius: 50,
               backgroundImage: CachedNetworkImageProvider(
                 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
@@ -162,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
               listener: (context, state) {
                 state.maybeWhen(
                   success: (message) {
-                    context.go(Routes.login);
+                    context.go(AppPath.login);
                   },
                   orElse: () {},
                 );

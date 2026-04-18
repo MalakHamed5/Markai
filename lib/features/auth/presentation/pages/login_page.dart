@@ -48,15 +48,18 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           state.maybeWhen(
+            loading: () {
+              return;
+            },
             success: (message) {
-              context.go(Routes.root);
+              context.go(AppPath.home);
             },
             failure: (error) {
               showNotifyMsg(
                   text: error, context: context, bgColor: theme.error);
             },
             guest: () {
-              context.go(Routes.root);
+              context.go(AppPath.home);
             },
             orElse: () {},
           );
@@ -203,7 +206,7 @@ class _RegisterText extends StatelessWidget {
         const Text('? '),
         TextButton(
           onPressed: () {
-            context.go(Routes.signup);
+            context.push(AppPath.signup);
           },
           child: Text(
             tr.register,
@@ -290,7 +293,7 @@ class _SkipButton extends StatelessWidget {
         ),
         onPressed: () {
           context.read<AuthBloc>().add(const AuthEvent.skipLogin());
-          context.go(Routes.root);
+          context.go(AppPath.home);
         },
         child: Text(
           tr.skip,

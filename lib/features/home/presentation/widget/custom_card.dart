@@ -1,49 +1,34 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/helper/tools.dart';
+import '../../../../core/shared/widgets/product_network_image.dart';
 import '../../../../core/theme/app_colors.dart';
 
-//---------------------- CUSTOM CARD MODEL----------------------
-class ProductModel {
-  final String image;
-  final String off;
-  final String name;
-  final String price;
-  final String rating;
-  bool isFav;
-
-  ProductModel({
-    required this.image,
-    required this.off,
-    required this.name,
-    required this.price,
-    required this.rating,
-    this.isFav = false,
-  });
-}
-
 //---------------------- CUSTOM CARD----------------------
-class ProductCard extends StatefulWidget {
-  const ProductCard({required this.model, super.key, this.isGrid = false});
-
-  final ProductModel model;
+class ProductCard extends StatelessWidget {
+  final String image;
+  final double off;
+  final String name;
+  final double price;
+  final double rating;
   final bool isGrid;
+  final VoidCallback onFavPressed;
 
-  @override
-  State<ProductCard> createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
-  void toggleFav() {
-    setState(() {
-      widget.model.isFav = !widget.model.isFav;
-    });
-  }
+  const ProductCard(
+      {super.key,
+      required this.image,
+      required this.off,
+      required this.name,
+      required this.price,
+      required this.rating,
+      this.isGrid = false,
+      required this.onFavPressed
+      });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.isGrid ? null : 200,
+      width: isGrid ? null : 200,
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
@@ -62,20 +47,18 @@ class _ProductCardState extends State<ProductCard> {
                 borderRadius: BorderRadius.circular(14),
                 child: AspectRatio(
                   aspectRatio: 1.3,
-                  child: Image.asset(widget.model.image),
-                  // child: ProductNetworkImage(
-                  //   image: widget.model.image,
-                  //   fit: BoxFit.cover,
-                  // ),
+                  child: ProductNetworkImage(
+                    image: image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               // off button
-              // add it after backend 
+              // add it after backend
               //* _OffButton(widget: widget),
               // favourit button
               _FavouritButton(
-                widget: widget,
-                onFavPressed: toggleFav,
+                onFavPressed: onFavPressed,
               ),
             ],
           ),
@@ -91,7 +74,7 @@ class _ProductCardState extends State<ProductCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.model.price,
+                      price.toString(),
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -101,7 +84,7 @@ class _ProductCardState extends State<ProductCard> {
                       children: [
                         const Icon(Icons.star_border, size: 18),
                         Text(
-                          widget.model.rating,
+                          rating.toString(),
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -118,7 +101,7 @@ class _ProductCardState extends State<ProductCard> {
                     // name of product
                     Expanded(
                       child: Text(
-                        widget.model.name,
+                        name,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -179,11 +162,9 @@ class _AddButton extends StatelessWidget {
 
 class _FavouritButton extends StatelessWidget {
   const _FavouritButton({
-    required this.widget,
     required this.onFavPressed,
   });
 
-  final ProductCard widget;
   final VoidCallback onFavPressed;
 
   @override
@@ -198,9 +179,7 @@ class _FavouritButton extends StatelessWidget {
         ),
         child: IconButton(
           onPressed: onFavPressed,
-          icon: widget.model.isFav
-              ? const Icon(Icons.favorite)
-              : const Icon(Icons.favorite_border),
+          icon: const Icon(Icons.favorite_border),
         ),
       ),
     );

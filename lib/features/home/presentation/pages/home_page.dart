@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerse/core/shared/widgets/custom_search_bar.dart';
 import 'package:ecommerse/dommy_data.dart';
+import 'package:ecommerse/features/home/presentation/home/home_bloc.dart';
 import 'package:ecommerse/features/home/presentation/widget/brand_card.dart';
 import 'package:ecommerse/features/home/presentation/widget/category_card.dart';
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
@@ -9,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/assets.dart' show Assets;
 import '../../../../core/helper/tools.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/widgets/product_network_image.dart';
@@ -26,8 +30,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     context.read<ProfileBloc>().add(const ProfileEvent.getUserData());
+    context.read<HomeBloc>().getProducts();
   }
 
+  // fake
   final DommyData data = DommyData();
 
   @override
@@ -53,7 +59,6 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // Banner
-
             SliverToBoxAdapter(
               child: CarouselSlider.builder(
                 itemCount: data.banners.length,
@@ -79,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.popularProduct,
                   onPressed: () {
-                    context.go(Routes.productsPopular);
+                    context.go(AppPath.productPopular);
                   },
                 ),
               ),
@@ -87,14 +92,40 @@ class _HomePageState extends State<HomePage> {
 
             // Popular Product List
             SliverToBoxAdapter(
-              child: SizedBox(
-                height: 260,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: data.products.length,
-                  itemBuilder: (context, i) =>
-                      ProductCard(model: data.products[i]),
-                ),
+              child: BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  log('Home Page');
+                  log(state.toString());
+                  return state.when(
+                    initial: () => const SizedBox.shrink(
+                      child: Text('initial'),
+                    ),
+                    loading: () => const SizedBox.shrink(
+                      child: Text('loading'),
+                    ),
+                    success: (products) => SizedBox(
+                      height: 260,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: products.length,
+                        itemBuilder: (context, i) {
+                          final product = products[i];
+                          return ProductCard(
+                            image: product.thumbnail,
+                            name: product.title,
+                            price: product.price,
+                            rating: product.rating,
+                            onFavPressed: () {},
+                            off: product.discountPercentage,
+                          );
+                        },
+                      ),
+                    ),
+                    failure: (error) => const SizedBox.shrink(
+                      child: Text('failure'),
+                    ),
+                  );
+                },
               ),
             ),
 
@@ -105,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.category,
                   onPressed: () {
-                    context.go(Routes.brands);
+                    context.go(AppPath.brands);
                   },
                 ),
               ),
@@ -136,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.bestForYou,
                   onPressed: () {
-                    context.go(Routes.bestForYou);
+                    context.go(AppPath.bestForYou);
                   },
                 ),
               ),
@@ -149,8 +180,16 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: data.products.length,
-                  itemBuilder: (context, i) =>
-                      ProductCard(model: data.products[i]),
+                  itemBuilder: (context, i) {
+                    return ProductCard(
+                      image: '',
+                      name: 'Smart Watch Samsung a15',
+                      price: 400,
+                      rating: 4.5,
+                      onFavPressed: () {},
+                      off: 25,
+                    );
+                  },
                 ),
               ),
             ),
@@ -162,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.brands,
                   onPressed: () {
-                    context.go(Routes.buyAgain);
+                    context.go(AppPath.buyAgain);
                   },
                 ),
               ),
@@ -187,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.buyAgain,
                   onPressed: () {
-                    context.go(Routes.buyAgain);
+                    context.go(AppPath.buyAgain);
                   },
                 ),
               ),
@@ -200,8 +239,16 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: data.products.length,
-                  itemBuilder: (context, i) =>
-                      ProductCard(model: data.products[i]),
+                  itemBuilder: (context, i) {
+                    return ProductCard(
+                      off: 25,
+                      image: Assets.imagesAirpods,
+                      name: 'Smart Watch Samsung a15',
+                      price: 400,
+                      rating: 4.5,
+                      onFavPressed: () {},
+                    );
+                  },
                 ),
               ),
             ),

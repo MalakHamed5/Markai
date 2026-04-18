@@ -8,6 +8,9 @@ class Urls {
   static const String verficationOTP = "/auth/resetPassCode";
   static const String resetPW = "/auth/resetPassword";
   static const String getUserData = "/portfoilo/userData";
+
+  // Home
+  static const String getProducts = "/home/products";
 }
 
 class ApiKeys {
@@ -15,7 +18,6 @@ class ApiKeys {
   static const String statusCode = "statusCode";
   static const String token = "token";
   static const String id = "id";
-
 
   // User Data
   // static const String data = "data";
@@ -28,7 +30,6 @@ class ApiKeys {
   static const String address = "address";
   static const String user = "user";
 
-
-
-
+  // Home
+  static const String list = "list";
 }

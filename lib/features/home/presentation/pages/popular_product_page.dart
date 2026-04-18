@@ -8,22 +8,24 @@ class PopularProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ProductModel> products = [
-      ProductModel(
-        off: '25% off',
+    List<ProductCard> products = [
+      ProductCard(
+        off: 25,
         name: 'Smart Watch',
-        price: '499 LE',
-        rating: '4.5',
+        price: 499,
+        rating: 4.5,
         image:
             'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600',
+        onFavPressed: () {},
       ),
-      ProductModel(
-        off: '25% off',
+      ProductCard(
+        off: 25,
         name: 'iPhone 11 Pro',
-        price: '19999 LE',
-        rating: '4.9',
+        price: 19999,
+        rating: 4.9,
         image:
             'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
+        onFavPressed: () {},
       ),
     ];
     return BasePageLayout(
@@ -42,7 +44,14 @@ class PopularProductPage extends StatelessWidget {
             ),
             itemCount: products.length,
             itemBuilder: (context, i) {
-              return ProductCard(model: products[i], isGrid: true);
+              return ProductCard(
+                off: products[i].off,
+                name: products[i].name,
+                price: products[i].price,
+                rating: products[i].rating,
+                image: products[i].image,
+                onFavPressed: products[i].onFavPressed,
+              );
             },
           ),
         ],

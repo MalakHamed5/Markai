@@ -16,10 +16,18 @@ import 'package:ecommerse/core/cache/cache_helper.dart' as _i454;
 import 'package:ecommerse/core/services/secure_token_store.dart' as _i753;
 import 'package:ecommerse/core/services/service_locator.dart' as _i428;
 import 'package:ecommerse/core/theme/cubit/theme_cubit.dart' as _i888;
+import 'package:ecommerse/features/auth/data/datasources/auth_datasources.dart'
+    as _i109;
 import 'package:ecommerse/features/auth/data/repositories/auth_repo.dart'
     as _i619;
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart'
     as _i60;
+import 'package:ecommerse/features/home/data/data_source/home_remot_data_source.dart'
+    as _i241;
+import 'package:ecommerse/features/home/data/repositories/home_repo.dart'
+    as _i115;
+import 'package:ecommerse/features/home/presentation/home/home_bloc.dart'
+    as _i627;
 import 'package:ecommerse/features/profile/data/repositories/profile_repo.dart'
     as _i432;
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart'
@@ -55,13 +63,19 @@ extension GetItInjectableX on _i174.GetIt {
         _i753.SecureTokenStore(storage: gh<_i558.FlutterSecureStorage>()));
     gh.lazySingleton<_i454.CacheHelper>(
         () => _i454.CacheHelper(sharedPref: gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i241.HomeRemoteDataSource>(
+        () => _i241.HomeRemoteDataSourceImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i432.ProfileRepo>(
         () => _i432.ProfileRepoImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i619.AuthRepo>(
-        () => _i619.AuthRepoImpl(api: gh<_i915.ApiConsumer>()));
-    gh.factory<_i60.AuthBloc>(() => _i60.AuthBloc(repo: gh<_i619.AuthRepo>()));
+        () => _i619.AuthRepoImpl(dataSource: gh<_i109.AuthRemoteDataSource>()));
     gh.factory<_i858.ProfileBloc>(
         () => _i858.ProfileBloc(profileRepo: gh<_i432.ProfileRepo>()));
+    gh.lazySingleton<_i115.HomeRepo>(
+        () => _i115.HomeRepoImpl(dataSource: gh<_i241.HomeRemoteDataSource>()));
+    gh.factory<_i627.HomeBloc>(
+        () => _i627.HomeBloc(repo: gh<_i115.HomeRepo>()));
+    gh.factory<_i60.AuthBloc>(() => _i60.AuthBloc(repo: gh<_i619.AuthRepo>()));
     return this;
   }
 }

@@ -8,8 +8,8 @@ class ErrorModel {
 
   factory ErrorModel.fromJson(Map<String, dynamic> json) {
     return ErrorModel(
-      message: json[ApiKeys.message],
-      statusCode: json[ApiKeys.statusCode],
+      message: json[ApiKeys.message] ?? 'error message',
+      statusCode: json[ApiKeys.statusCode] ?? 0,
     );
   }
 }

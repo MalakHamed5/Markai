@@ -52,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
         state.maybeWhen(
           success: (message) {
             showNotifyMsg(text: message ?? '', context: context);
-            context.go(Routes.root);
+            context.go(AppPath.home);
           },
           failure: (error) {
             showNotifyMsg(
@@ -96,7 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           onPressed: () {
-                            context.go(Routes.root);
+                            context.go(AppPath.home);
                           },
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
@@ -165,7 +165,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         isPassword: true,
                         controller: confirmPasswordCtrl,
                         validator: (value) {
-                          return Validation.validateConfirmPassword(value, passwordCtrl.text);
+                          return Validation.validateConfirmPassword(
+                              value, passwordCtrl.text);
                         },
                         onChanged: (_) {
                           _signupFormKey.currentState?.validate();
@@ -251,9 +252,10 @@ class _SignUpPageState extends State<SignUpPage> {
                           const Text('? '),
                           TextButton(
                             onPressed: () {
-                              context.go(Routes.login);
+                              context.go(AppPath.login);
                             },
-                            child: Text(tr.signIn, style: TextStyle(color: theme.primary)),
+                            child: Text(tr.signIn,
+                                style: TextStyle(color: theme.primary)),
                           ),
                         ],
                       ),

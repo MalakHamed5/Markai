@@ -62,27 +62,25 @@ class FavoritesPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ProductCard(
-                      model: ProductModel(
-                        name: 'Smart Watch',
-                        price: '499 LE',
-                        rating: '4.5',
-                        off: '25% off',
-                        image:
-                            'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600',
-                      ),
+                      name: 'Smart Watch',
+                      price: 499,
+                      rating: 4.5,
+                      off: 25,
+                      image:
+                          'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600',
+                      onFavPressed: () {},
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: ProductCard(
-                      model: ProductModel(
-                        name: 'iPhone 11 Pro',
-                        price: '19999 LE',
-                        rating: '4.9',
-                        off: '10% off',
-                        image:
-                            'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
-                      ),
+                      name: 'iPhone 11 Pro',
+                      price: 19999,
+                      rating: 4.9,
+                      off: 10,
+                      image:
+                          'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
+                      onFavPressed: () {},
                     ),
                   ),
                 ],

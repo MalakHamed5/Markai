@@ -18,15 +18,12 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     Future.delayed(const Duration(seconds: 3), () async {
       if (!mounted) return;
-
       final token = await sl<SecureTokenStore>().readToken();
-
       if (!mounted) return;
-
       if (token != null) {
-        context.go(Routes.root);
+        context.go(AppPath.home);
       } else {
-        context.go(Routes.login);
+        context.go(AppPath.login);
       }
     });
     super.initState();

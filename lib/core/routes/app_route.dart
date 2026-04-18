@@ -1,4 +1,5 @@
 import 'package:ecommerse/core/routes/routes.dart';
+import 'package:ecommerse/features/auth/presentation/pages/verify_otp_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
@@ -23,7 +24,7 @@ import '../error/error_page.dart';
 // final InternetConnection _internet = InternetConnection.createInstance();
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: Routes.splash,
+  initialLocation: AppPath.splash,
   debugLogDiagnostics: kDebugMode,
 
   //----------------- redirect ----------------//
@@ -42,77 +43,82 @@ final GoRouter appRouter = GoRouter(
   errorBuilder: (context, state) => ErrorPage(uri: state.uri),
 
   //=============== routes =================
-
   routes: [
-    // ------------- ROOT & AUTH  -------------
+    // ------------- AUTH  -------------
 
     GoRoute(
-        path: Routes.splash, builder: (context, state) => const SplashPage()),
+        path: AppPath.splash, builder: (context, state) => const SplashPage()),
+
+    GoRoute(
+      path: AppPath.onBoarding,
+      builder: (context, state) => const OnboardingPage(),
+    ),
+
+    GoRoute(
+      path: AppPath.login,
+      builder: (context, state) => const LoginPage(),
+      routes: [
+        GoRoute(
+          path: PathName.verifyOtp,
+          builder: (context, state) => const VerifyOtpPage(),
+        ),
+        GoRoute(
+          path: PathName.signup,
+          builder: (context, state) => const SignUpPage(),
+        ),
+      ],
+    ),
+
+    // ------------- HOME  -------------
 
     StatefulShellRoute.indexedStack(
       builder: (contex, state, statefulNavigationShell) {
         return RootShell(statefulNavigationShell: statefulNavigationShell);
       },
       branches: [
-        // --------------- Home
+        // --- Home
         StatefulShellBranch(routes: [
           GoRoute(
-              path: Routes.home,
+              path: AppPath.home,
               builder: (context, state) => const HomePage(),
               routes: [
                 GoRoute(
-                  path: Routes.bestForYou,
+                  path: PathName.bestForYou,
                   builder: (context, state) => const BestForYouPage(),
                 ),
                 GoRoute(
-                  path: Routes.brands,
+                  path: PathName.brands,
                   builder: (context, state) => const BrandsPage(),
                 ),
                 GoRoute(
-                  path: Routes.favourites,
-                  builder: (context, state) => const FavoritePage(),
-                ),
-                GoRoute(
-                  path: Routes.productsPopular,
+                  path: PathName.productsPopular,
                   builder: (context, state) => const PopularProductPage(),
                 ),
                 GoRoute(
-                  path: Routes.buyAgain,
+                  path: PathName.buyAgain,
                   builder: (context, state) => const BuyAgainPage(),
                 ),
               ]),
         ]),
-        // ------------------------------- Cart
+        // --- Cart
         StatefulShellBranch(routes: [
           GoRoute(
-              path: Routes.cart, builder: (context, state) => const CartPage()),
+              path: AppPath.cart,
+              builder: (context, state) => const CartPage()),
         ]),
-        // ------------------------------- Favorite
+        // --- Favorite
         StatefulShellBranch(routes: [
           GoRoute(
-              path: Routes.favorite,
+              path: AppPath.favorite,
               builder: (context, state) => const FavoritePage()),
         ]),
-        // ------------------------------- Profile
+        // --- Profile
         StatefulShellBranch(routes: [
           GoRoute(
-              path: Routes.profile,
+              path: AppPath.profile,
               builder: (context, state) => const ProfilePage()),
         ]),
       ],
-    ),
-
-    GoRoute(
-      path: Routes.onBoarding,
-      builder: (context, state) => const OnboardingPage(),
-    ),
-    GoRoute(
-      path: Routes.login,
-      builder: (context, state) => const LoginPage(),
-    ),
-    GoRoute(
-      path: Routes.signup,
-      builder: (context, state) => const SignUpPage(),
     ),
   ],
 );

@@ -5,34 +5,38 @@ import 'package:ecommerse/features/home/presentation/widget/custom_card.dart';
 import 'features/home/presentation/widget/category_card.dart';
 
 class DommyData {
-  List<ProductModel> products = [
-    ProductModel(
+  List<ProductCard> products = [
+    ProductCard(
       image: Assets.imagesAirpods,
-      off: '25% off',
+      off: 25,
       name: 'Smart Watch Samsung a15',
-      price: '400 LE',
-      rating: '4.5',
+      price: 400,
+      rating: 4.5,
+      onFavPressed: () {},
     ),
-    ProductModel(
+    ProductCard(
       image: Assets.imagesHeadPhone,
-      off: '25% off',
+      off: 25,
       name: 'iPhone 11 Pro',
-      price: '19999 LE',
-      rating: '4.9',
+      price: 19999,
+      rating: 4.9,
+      onFavPressed: () {},
     ),
-    ProductModel(
+    ProductCard(
       image: Assets.imagesShoes,
-      off: '25% off',
+      off: 25,
       name: 'Smart Watch 2',
-      price: '500 LE',
-      rating: '4.6',
+      price: 500,
+      rating: 4.6,
+      onFavPressed: () {},
     ),
-    ProductModel(
+    ProductCard(
       image: Assets.imagesTv,
-      off: '25% off',
+      off: 25,
       name: 'iPhone 12',
-      price: '22000 LE',
-      rating: '4.8',
+      price: 22000,
+      rating: 4.8,
+      onFavPressed: () {},
     ),
   ];
 
@@ -67,7 +71,7 @@ class DommyData {
       title: 'Plants',
       image: Assets.imagesPlant,
     ),
-      CategoryModel(
+    CategoryModel(
       title: 'Pampers',
       image: Assets.imagesPampers,
     ),
@@ -81,4 +85,3 @@ class DommyData {
     ),
   ];
 }
-

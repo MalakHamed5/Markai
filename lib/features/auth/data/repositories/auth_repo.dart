@@ -1,13 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:ecommerse/core/api/api_consumer.dart';
-import 'package:ecommerse/core/api/urls.dart';
 import 'package:ecommerse/core/error/error_model.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
-import 'package:ecommerse/core/services/secure_token_store.dart';
+import 'package:ecommerse/features/auth/data/datasources/auth_datasources.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/cache/cache_helper.dart';
-import '../../../../core/services/service_locator.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRepo {
@@ -33,8 +29,9 @@ abstract class AuthRepo {
 
 @LazySingleton(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
-  final ApiConsumer api;
-  AuthRepoImpl({required this.api});
+  final AuthRemoteDataSource dataSource;
+
+  AuthRepoImpl({required this.dataSource});
 
   @override
   Future<Either<ErrorModel, UserModel>> login({
@@ -42,15 +39,7 @@ class AuthRepoImpl implements AuthRepo {
     required String password,
   }) async {
     try {
-      // api call
-      final response = await api.post(Urls.signIn,
-          data: {ApiKeys.email: email, ApiKeys.password: password});
-
-      // modeling response
-      final user = UserModel.fromJson(response[ApiKeys.user]);
-
-      // save token
-      await sl<SecureTokenStore>().saveToken(response[ApiKeys.token]);
+      final user = await dataSource.login(email: email, password: password);
 
       return right(user);
     } on ServerException catch (e) {
@@ -69,19 +58,13 @@ class AuthRepoImpl implements AuthRepo {
     required String confirmPassword,
   }) async {
     try {
-      // api call
-      final response = await api.post(Urls.signUp, data: {
-        ApiKeys.name: name,
-        ApiKeys.email: email,
-        ApiKeys.password: password,
-        ApiKeys.confirmPassword: confirmPassword,
-        ApiKeys.phone: phone,
-      });
-
-      // modeling
-      final user = UserModel.fromJson(response[ApiKeys.user]);
-
-      await sl<SecureTokenStore>().saveToken(response[ApiKeys.token]);
+      final user = await dataSource.register(
+        name: name,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        phone: phone,
+      );
 
       return right(user);
     } on ServerException catch (e) {
@@ -94,7 +77,7 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<ErrorModel, void>> logout() async {
     try {
-      await sl<SecureTokenStore>().deleteToken();
+      await dataSource.logout();
       return right(null);
     } catch (e) {
       return left(ErrorModel(message: e.toString()));
@@ -104,7 +87,7 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<ErrorModel, void>> userGuest() async {
     try {
-      await sl<CacheHelper>().saveData(key: 'is_guest', value: true);
+      await dataSource.userGuest();
       return right(null);
     } catch (e) {
       return left(ErrorModel(message: e.toString()));

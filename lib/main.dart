@@ -1,6 +1,7 @@
 import 'package:ecommerse/core/services/service_locator.dart';
 import 'package:ecommerse/core/theme/cubit/theme_cubit.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:ecommerse/features/home/presentation/home/home_bloc.dart';
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
 import 'package:ecommerse/marketi_app.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ void main() async {
         BlocProvider(create: (context) => sl<ThemeCubit>()..loadTheme()),
         BlocProvider(create: (context) => sl<AuthBloc>()),
         BlocProvider(create: (context) => sl<ProfileBloc>()),
+        BlocProvider(create: (context) => sl<HomeBloc>()..getProducts()),
       ],
       child: const MarketiApp(),
     ),
