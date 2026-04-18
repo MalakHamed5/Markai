@@ -1,10 +1,8 @@
-import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerse/core/shared/widgets/custom_search_bar.dart';
 import 'package:ecommerse/dommy_data.dart';
-import 'package:ecommerse/features/home/presentation/home/home_bloc.dart';
 import 'package:ecommerse/features/home/presentation/widget/brand_card.dart';
 import 'package:ecommerse/features/home/presentation/widget/category_card.dart';
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
@@ -14,8 +12,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/assets.dart' show Assets;
 import '../../../../core/helper/tools.dart';
-import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/widgets/product_network_image.dart';
+import '../bloc/product/product_bloc.dart';
 import '../widget/custom_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     context.read<ProfileBloc>().add(const ProfileEvent.getUserData());
-    context.read<HomeBloc>().getProducts();
+    context.read<ProductCubit>().getProducts();
   }
 
   // fake
@@ -84,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.popularProduct,
                   onPressed: () {
-                    context.go(AppPath.productPopular);
+                    context.goNamed('popularProduct');
                   },
                 ),
               ),
@@ -92,17 +90,11 @@ class _HomePageState extends State<HomePage> {
 
             // Popular Product List
             SliverToBoxAdapter(
-              child: BlocBuilder<HomeBloc, HomeState>(
+              child: BlocBuilder<ProductCubit, ProductState>(
                 builder: (context, state) {
-                  log('Home Page');
-                  log(state.toString());
-                  return state.when(
-                    initial: () => const SizedBox.shrink(
-                      child: Text('initial'),
-                    ),
-                    loading: () => const SizedBox.shrink(
-                      child: Text('loading'),
-                    ),
+                  return state.maybeWhen(
+                    initial: () => const SizedBox.shrink(),
+                    loading: () => const SizedBox.shrink(),
                     success: (products) => SizedBox(
                       height: 260,
                       child: ListView.builder(
@@ -117,13 +109,18 @@ class _HomePageState extends State<HomePage> {
                             rating: product.rating,
                             onFavPressed: () {},
                             off: product.discountPercentage,
+                            onTap: () {
+                              context.pushNamed('productDetails',
+                                  pathParameters: {
+                                    'id': product.id.toString()
+                                  });
+                            },
                           );
                         },
                       ),
                     ),
-                    failure: (error) => const SizedBox.shrink(
-                      child: Text('failure'),
-                    ),
+                    failure: (error) => const SizedBox.shrink(),
+                    orElse: () => const SizedBox.shrink(),
                   );
                 },
               ),
@@ -136,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.category,
                   onPressed: () {
-                    context.go(AppPath.brands);
+                    context.goNamed('brands');
                   },
                 ),
               ),
@@ -167,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.bestForYou,
                   onPressed: () {
-                    context.go(AppPath.bestForYou);
+                    context.goNamed('bestForYou');
                   },
                 ),
               ),
@@ -201,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.brands,
                   onPressed: () {
-                    context.go(AppPath.buyAgain);
+                    context.goNamed('buyAgain');
                   },
                 ),
               ),
@@ -226,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.buyAgain,
                   onPressed: () {
-                    context.go(AppPath.buyAgain);
+                    context.goNamed('buyAgain');
                   },
                 ),
               ),

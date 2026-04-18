@@ -13,7 +13,7 @@ class ProductCard extends StatelessWidget {
   final double rating;
   final bool isGrid;
   final VoidCallback onFavPressed;
-
+  final Function()? onTap;
   const ProductCard(
       {super.key,
       required this.image,
@@ -22,104 +22,107 @@ class ProductCard extends StatelessWidget {
       required this.price,
       required this.rating,
       this.isGrid = false,
-      required this.onFavPressed
-      });
+      required this.onFavPressed,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: isGrid ? null : 200,
-      margin: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Product
-          Stack(
-            children: [
-              // image
-              ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child: AspectRatio(
-                  aspectRatio: 1.3,
-                  child: ProductNetworkImage(
-                    image: image,
-                    fit: BoxFit.cover,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: isGrid ? null : 200,
+        margin: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: Colors.grey.shade300),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Product
+            Stack(
+              children: [
+                // image
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(14),
+                  child: AspectRatio(
+                    aspectRatio: 1.3,
+                    child: ProductNetworkImage(
+                      image: image,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              // off button
-              // add it after backend
-              //* _OffButton(widget: widget),
-              // favourit button
-              _FavouritButton(
-                onFavPressed: onFavPressed,
-              ),
-            ],
-          ),
-
-          // title and price
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      price.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.star_border, size: 18),
-                        Text(
-                          rating.toString(),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                // off button
+                // add it after backend
+                //* _OffButton(widget: widget),
+                // favourit button
+                _FavouritButton(
+                  onFavPressed: onFavPressed,
                 ),
-                vSpace(2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // name of product
-                    Expanded(
-                      child: Text(
-                        name,
+              ],
+            ),
+
+            // title and price
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        price.toString(),
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.fade,
                       ),
-                    ),
+                      Row(
+                        children: [
+                          const Icon(Icons.star_border, size: 18),
+                          Text(
+                            rating.toString(),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  vSpace(2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // name of product
+                      Expanded(
+                        child: Text(
+                          name,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                        ),
+                      ),
 
-                    // add to cart button
-                  ],
-                ),
-                vSpace(2),
-                const _AddButton(),
-              ],
+                      // add to cart button
+                    ],
+                  ),
+                  vSpace(2),
+                  const _AddButton(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

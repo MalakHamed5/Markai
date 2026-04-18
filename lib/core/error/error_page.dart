@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../routes/routes.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({
@@ -46,7 +45,7 @@ class ErrorPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 FilledButton.icon(
-                  onPressed: () => context.go(AppPath.splash),
+                  onPressed: () => context.goNamed('splash'),
                   icon: const Icon(Icons.home),
                   label: const Text('الرئيسية'),
                 ),

@@ -1,6 +1,6 @@
 import 'package:ecommerse/core/api/api_consumer.dart';
-import 'package:ecommerse/core/error/error_model.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
+import 'package:ecommerse/core/error/failure.dart';
 import 'package:ecommerse/core/services/secure_token_store.dart';
 import 'package:ecommerse/features/auth/data/models/user_model.dart';
 
@@ -27,7 +27,6 @@ abstract class AuthRemoteDataSource {
   Future<void> userGuest();
 }
 
-
 //------------------ Implementation ------------------
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -50,9 +49,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return user;
     } on ServerException catch (e) {
-      throw ErrorModel(message: e.toString());
+      throw ServerFailure(e.toString());
     } catch (e) {
-      throw ErrorModel(message: e.toString());
+      throw UnKnownFailure(e.toString());
     }
   }
 
@@ -79,9 +78,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return user;
     } on ServerException catch (e) {
-      throw ErrorModel(message: e.toString());
+      throw ServerFailure(e.toString());
     } catch (e) {
-      throw ErrorModel(message: e.toString());
+      throw UnKnownFailure(e.toString());
     }
   }
 
@@ -91,7 +90,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await sl<SecureTokenStore>().deleteToken();
       return;
     } catch (e) {
-      throw ErrorModel(message: e.toString());
+      throw UnKnownFailure(e.toString());
     }
   }
 
@@ -101,7 +100,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await sl<CacheHelper>().saveData(key: 'is_guest', value: true);
       return;
     } catch (e) {
-      throw ErrorModel(message: e.toString());
+      throw UnKnownFailure(e.toString());
     }
   }
 }

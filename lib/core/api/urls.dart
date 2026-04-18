@@ -11,6 +11,7 @@ class Urls {
 
   // Home
   static const String getProducts = "/home/products";
+  static String getProductById(int id) => "/home/products/$id";
 }
 
 class ApiKeys {

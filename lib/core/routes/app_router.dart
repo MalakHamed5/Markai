@@ -1,5 +1,5 @@
-import 'package:ecommerse/core/routes/routes.dart';
 import 'package:ecommerse/features/auth/presentation/pages/verify_otp_page.dart';
+import 'package:ecommerse/features/home/presentation/pages/product_detiles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
@@ -24,7 +24,7 @@ import '../error/error_page.dart';
 // final InternetConnection _internet = InternetConnection.createInstance();
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: AppPath.splash,
+  initialLocation: '/',
   debugLogDiagnostics: kDebugMode,
 
   //----------------- redirect ----------------//
@@ -46,24 +46,27 @@ final GoRouter appRouter = GoRouter(
   routes: [
     // ------------- AUTH  -------------
 
-    GoRoute(
-        path: AppPath.splash, builder: (context, state) => const SplashPage()),
+    GoRoute(path: '/', builder: (context, state) => const SplashPage()),
 
     GoRoute(
-      path: AppPath.onBoarding,
+      name: 'onBoarding',
+      path: '/onBoarding',
       builder: (context, state) => const OnboardingPage(),
     ),
 
     GoRoute(
-      path: AppPath.login,
+      name: 'login',
+      path: '/login',
       builder: (context, state) => const LoginPage(),
       routes: [
         GoRoute(
-          path: PathName.verifyOtp,
+          name: 'verifyOtp',
+          path: 'verifyOtp',
           builder: (context, state) => const VerifyOtpPage(),
         ),
         GoRoute(
-          path: PathName.signup,
+          name: 'signup',
+          path: 'signup',
           builder: (context, state) => const SignUpPage(),
         ),
       ],
@@ -79,23 +82,28 @@ final GoRouter appRouter = GoRouter(
         // --- Home
         StatefulShellBranch(routes: [
           GoRoute(
-              path: AppPath.home,
+              name: 'home',
+              path: '/home',
               builder: (context, state) => const HomePage(),
               routes: [
                 GoRoute(
-                  path: PathName.bestForYou,
+                  name: 'bestForYou',
+                  path: 'bestForYou',
                   builder: (context, state) => const BestForYouPage(),
                 ),
                 GoRoute(
-                  path: PathName.brands,
+                  name: 'brands',
+                  path: 'brands',
                   builder: (context, state) => const BrandsPage(),
                 ),
                 GoRoute(
-                  path: PathName.productsPopular,
+                  name: 'productsPopular',
+                  path: 'productsPopular',
                   builder: (context, state) => const PopularProductPage(),
                 ),
                 GoRoute(
-                  path: PathName.buyAgain,
+                  name: 'buyAgain',
+                  path: 'buyAgain',
                   builder: (context, state) => const BuyAgainPage(),
                 ),
               ]),
@@ -103,22 +111,33 @@ final GoRouter appRouter = GoRouter(
         // --- Cart
         StatefulShellBranch(routes: [
           GoRoute(
-              path: AppPath.cart,
+              name: 'cart',
+              path: '/cart',
               builder: (context, state) => const CartPage()),
         ]),
         // --- Favorite
         StatefulShellBranch(routes: [
           GoRoute(
-              path: AppPath.favorite,
+              name: 'favorite',
+              path: '/favorite',
               builder: (context, state) => const FavoritePage()),
         ]),
         // --- Profile
         StatefulShellBranch(routes: [
           GoRoute(
-              path: AppPath.profile,
+              name: 'profile',
+              path: '/profile',
               builder: (context, state) => const ProfilePage()),
         ]),
       ],
+    ),
+    GoRoute(
+      name: 'productDetails',
+      path: '/product/:id',
+      builder: (context, state) {
+        final int id = int.parse(state.pathParameters['id']!);
+        return ProductDetailsPage(id: id);
+      },
     ),
   ],
 );

@@ -1,6 +1,5 @@
 import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
-import 'package:ecommerse/core/routes/routes.dart';
 import 'package:ecommerse/core/shared/bottons/primary_button.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:ecommerse/features/auth/presentation/widgets/custom_text_field.dart';
@@ -52,14 +51,14 @@ class _LoginPageState extends State<LoginPage> {
               return;
             },
             success: (message) {
-              context.go(AppPath.home);
+              context.goNamed('home');
             },
             failure: (error) {
               showNotifyMsg(
                   text: error, context: context, bgColor: theme.error);
             },
             guest: () {
-              context.go(AppPath.home);
+              context.goNamed('home');
             },
             orElse: () {},
           );
@@ -206,7 +205,7 @@ class _RegisterText extends StatelessWidget {
         const Text('? '),
         TextButton(
           onPressed: () {
-            context.push(AppPath.signup);
+            context.pushNamed('signup');
           },
           child: Text(
             tr.register,
@@ -293,7 +292,7 @@ class _SkipButton extends StatelessWidget {
         ),
         onPressed: () {
           context.read<AuthBloc>().add(const AuthEvent.skipLogin());
-          context.go(AppPath.home);
+          context.goNamed('home');
         },
         child: Text(
           tr.skip,

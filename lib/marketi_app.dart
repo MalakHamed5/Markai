@@ -1,4 +1,4 @@
-import 'package:ecommerse/core/routes/app_route.dart';
+import 'package:ecommerse/core/routes/app_router.dart';
 import 'package:ecommerse/core/theme/app_theme.dart';
 import 'package:ecommerse/core/theme/cubit/theme_cubit.dart';
 import 'package:ecommerse/generated/l10n.dart';

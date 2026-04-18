@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:ecommerse/core/error/error_model.dart';
+import 'package:ecommerse/core/error/failure.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
 import 'package:ecommerse/features/auth/data/datasources/auth_datasources.dart';
 import 'package:injectable/injectable.dart';
@@ -7,12 +7,12 @@ import 'package:injectable/injectable.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRepo {
-  Future<Either<ErrorModel, UserModel>> login({
+  Future<Either<Failure, UserModel>> login({
     required String email,
     required String password,
   });
 
-  Future<Either<ErrorModel, UserModel>> register({
+  Future<Either<Failure, UserModel>> register({
     required String name,
     required String email,
     required String password,
@@ -20,9 +20,9 @@ abstract class AuthRepo {
     required String confirmPassword,
   });
 
-  Future<Either<ErrorModel, void>> logout();
+  Future<Either<Failure, void>> logout();
 
-  Future<Either<ErrorModel, void>> userGuest();
+  Future<Either<Failure, void>> userGuest();
 }
 
 //------------------ Implementation ------------------
@@ -34,7 +34,7 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl({required this.dataSource});
 
   @override
-  Future<Either<ErrorModel, UserModel>> login({
+  Future<Either<Failure, UserModel>> login({
     required String email,
     required String password,
   }) async {
@@ -43,14 +43,14 @@ class AuthRepoImpl implements AuthRepo {
 
       return right(user);
     } on ServerException catch (e) {
-      return left(ErrorModel(message: e.toString()));
+      return left(ServerFailure(e.toString()));
     } catch (e) {
-      return left(ErrorModel(message: e.toString()));
+      return left(UnKnownFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<ErrorModel, UserModel>> register({
+  Future<Either<Failure, UserModel>> register({
     required String name,
     required String email,
     required String password,
@@ -68,29 +68,29 @@ class AuthRepoImpl implements AuthRepo {
 
       return right(user);
     } on ServerException catch (e) {
-      return left(ErrorModel(message: e.toString()));
+      return left(ServerFailure(e.toString()));
     } catch (e) {
-      return left(ErrorModel(message: e.toString()));
+      return left(UnKnownFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<ErrorModel, void>> logout() async {
+  Future<Either<Failure, void>> logout() async {
     try {
       await dataSource.logout();
       return right(null);
     } catch (e) {
-      return left(ErrorModel(message: e.toString()));
+      return left(UnKnownFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<ErrorModel, void>> userGuest() async {
+  Future<Either<Failure, void>> userGuest() async {
     try {
       await dataSource.userGuest();
       return right(null);
     } catch (e) {
-      return left(ErrorModel(message: e.toString()));
+      return left(UnKnownFailure(e.toString()));
     }
   }
 }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'home_bloc.dart';
+part of 'product_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,11 +13,11 @@ part of 'home_bloc.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$HomeState {
+mixin _$ProductState {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is HomeState);
+        (other.runtimeType == runtimeType && other is ProductState);
   }
 
   @override
@@ -25,17 +25,17 @@ mixin _$HomeState {
 
   @override
   String toString() {
-    return 'HomeState()';
+    return 'ProductState()';
   }
 }
 
 /// @nodoc
-class $HomeStateCopyWith<$Res> {
-  $HomeStateCopyWith(HomeState _, $Res Function(HomeState) __);
+class $ProductStateCopyWith<$Res> {
+  $ProductStateCopyWith(ProductState _, $Res Function(ProductState) __);
 }
 
-/// Adds pattern-matching-related methods to [HomeState].
-extension HomeStatePatterns on HomeState {
+/// Adds pattern-matching-related methods to [ProductState].
+extension ProductStatePatterns on ProductState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -52,8 +52,8 @@ extension HomeStatePatterns on HomeState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Failure value)? failure,
+    TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -62,10 +62,10 @@ extension HomeStatePatterns on HomeState {
         return initial(_that);
       case _Loading() when loading != null:
         return loading(_that);
-      case _Success() when success != null:
-        return success(_that);
       case _Failure() when failure != null:
         return failure(_that);
+      case _Success() when success != null:
+        return success(_that);
       case _:
         return orElse();
     }
@@ -88,8 +88,8 @@ extension HomeStatePatterns on HomeState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Failure value) failure,
+    required TResult Function(_Success value) success,
   }) {
     final _that = this;
     switch (_that) {
@@ -97,10 +97,10 @@ extension HomeStatePatterns on HomeState {
         return initial(_that);
       case _Loading():
         return loading(_that);
-      case _Success():
-        return success(_that);
       case _Failure():
         return failure(_that);
+      case _Success():
+        return success(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -122,8 +122,8 @@ extension HomeStatePatterns on HomeState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Failure value)? failure,
+    TResult? Function(_Success value)? success,
   }) {
     final _that = this;
     switch (_that) {
@@ -131,10 +131,10 @@ extension HomeStatePatterns on HomeState {
         return initial(_that);
       case _Loading() when loading != null:
         return loading(_that);
-      case _Success() when success != null:
-        return success(_that);
       case _Failure() when failure != null:
         return failure(_that);
+      case _Success() when success != null:
+        return success(_that);
       case _:
         return null;
     }
@@ -156,8 +156,8 @@ extension HomeStatePatterns on HomeState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ProductModel> products)? success,
     TResult Function(String error)? failure,
+    TResult Function(List<ProductModel> products)? success,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -166,10 +166,10 @@ extension HomeStatePatterns on HomeState {
         return initial();
       case _Loading() when loading != null:
         return loading();
-      case _Success() when success != null:
-        return success(_that.products);
       case _Failure() when failure != null:
         return failure(_that.error);
+      case _Success() when success != null:
+        return success(_that.products);
       case _:
         return orElse();
     }
@@ -192,8 +192,8 @@ extension HomeStatePatterns on HomeState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductModel> products) success,
     required TResult Function(String error) failure,
+    required TResult Function(List<ProductModel> products) success,
   }) {
     final _that = this;
     switch (_that) {
@@ -201,10 +201,10 @@ extension HomeStatePatterns on HomeState {
         return initial();
       case _Loading():
         return loading();
-      case _Success():
-        return success(_that.products);
       case _Failure():
         return failure(_that.error);
+      case _Success():
+        return success(_that.products);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -226,8 +226,8 @@ extension HomeStatePatterns on HomeState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductModel> products)? success,
     TResult? Function(String error)? failure,
+    TResult? Function(List<ProductModel> products)? success,
   }) {
     final _that = this;
     switch (_that) {
@@ -235,10 +235,10 @@ extension HomeStatePatterns on HomeState {
         return initial();
       case _Loading() when loading != null:
         return loading();
-      case _Success() when success != null:
-        return success(_that.products);
       case _Failure() when failure != null:
         return failure(_that.error);
+      case _Success() when success != null:
+        return success(_that.products);
       case _:
         return null;
     }
@@ -247,7 +247,7 @@ extension HomeStatePatterns on HomeState {
 
 /// @nodoc
 
-class _Initial implements HomeState {
+class _Initial implements ProductState {
   const _Initial();
 
   @override
@@ -261,13 +261,13 @@ class _Initial implements HomeState {
 
   @override
   String toString() {
-    return 'HomeState.initial()';
+    return 'ProductState.initial()';
   }
 }
 
 /// @nodoc
 
-class _Loading implements HomeState {
+class _Loading implements ProductState {
   const _Loading();
 
   @override
@@ -281,13 +281,75 @@ class _Loading implements HomeState {
 
   @override
   String toString() {
-    return 'HomeState.loading()';
+    return 'ProductState.loading()';
   }
 }
 
 /// @nodoc
 
-class _Success implements HomeState {
+class _Failure implements ProductState {
+  const _Failure(this.error);
+
+  final String error;
+
+  /// Create a copy of ProductState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$FailureCopyWith<_Failure> get copyWith =>
+      __$FailureCopyWithImpl<_Failure>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Failure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @override
+  String toString() {
+    return 'ProductState.failure(error: $error)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$FailureCopyWith<$Res>
+    implements $ProductStateCopyWith<$Res> {
+  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) =
+      __$FailureCopyWithImpl;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
+  __$FailureCopyWithImpl(this._self, this._then);
+
+  final _Failure _self;
+  final $Res Function(_Failure) _then;
+
+  /// Create a copy of ProductState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_Failure(
+      null == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _Success implements ProductState {
   const _Success(final List<ProductModel> products) : _products = products;
 
   final List<ProductModel> _products;
@@ -297,7 +359,7 @@ class _Success implements HomeState {
     return EqualUnmodifiableListView(_products);
   }
 
-  /// Create a copy of HomeState
+  /// Create a copy of ProductState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
@@ -318,13 +380,13 @@ class _Success implements HomeState {
 
   @override
   String toString() {
-    return 'HomeState.success(products: $products)';
+    return 'ProductState.success(products: $products)';
   }
 }
 
 /// @nodoc
 abstract mixin class _$SuccessCopyWith<$Res>
-    implements $HomeStateCopyWith<$Res> {
+    implements $ProductStateCopyWith<$Res> {
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
       __$SuccessCopyWithImpl;
   @useResult
@@ -338,7 +400,7 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
   final _Success _self;
   final $Res Function(_Success) _then;
 
-  /// Create a copy of HomeState
+  /// Create a copy of ProductState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
@@ -349,68 +411,6 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
           ? _self._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<ProductModel>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _Failure implements HomeState {
-  const _Failure(this.error);
-
-  final String error;
-
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$FailureCopyWith<_Failure> get copyWith =>
-      __$FailureCopyWithImpl<_Failure>(this, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Failure &&
-            (identical(other.error, error) || other.error == error));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, error);
-
-  @override
-  String toString() {
-    return 'HomeState.failure(error: $error)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$FailureCopyWith<$Res>
-    implements $HomeStateCopyWith<$Res> {
-  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) =
-      __$FailureCopyWithImpl;
-  @useResult
-  $Res call({String error});
-}
-
-/// @nodoc
-class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
-  __$FailureCopyWithImpl(this._self, this._then);
-
-  final _Failure _self;
-  final $Res Function(_Failure) _then;
-
-  /// Create a copy of HomeState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? error = null,
-  }) {
-    return _then(_Failure(
-      null == error
-          ? _self.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }

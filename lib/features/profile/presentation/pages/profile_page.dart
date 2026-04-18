@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerse/core/routes/routes.dart';
 import 'package:ecommerse/core/shared/bottons/custom_back_button.dart';
 import 'package:ecommerse/core/theme/cubit/theme_cubit.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
@@ -50,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    context.go(AppPath.login);
+                    context.goNamed('login');
                   },
                   child: Text(tr.login),
                 ),
@@ -162,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
               listener: (context, state) {
                 state.maybeWhen(
                   success: (message) {
-                    context.go(AppPath.login);
+                    context.goNamed('login');
                   },
                   orElse: () {},
                 );

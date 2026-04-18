@@ -22,12 +22,14 @@ import 'package:ecommerse/features/auth/data/repositories/auth_repo.dart'
     as _i619;
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart'
     as _i60;
-import 'package:ecommerse/features/home/data/data_source/home_remot_data_source.dart'
-    as _i241;
-import 'package:ecommerse/features/home/data/repositories/home_repo.dart'
-    as _i115;
-import 'package:ecommerse/features/home/presentation/home/home_bloc.dart'
-    as _i627;
+import 'package:ecommerse/features/home/data/data_source/product_data_source.dart'
+    as _i404;
+import 'package:ecommerse/features/home/data/repositories/product_repository.dart'
+    as _i673;
+import 'package:ecommerse/features/home/presentation/bloc/product/product_bloc.dart'
+    as _i676;
+import 'package:ecommerse/features/home/presentation/bloc/product_details/product_details_bloc.dart'
+    as _i462;
 import 'package:ecommerse/features/profile/data/repositories/profile_repo.dart'
     as _i432;
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart'
@@ -63,19 +65,21 @@ extension GetItInjectableX on _i174.GetIt {
         _i753.SecureTokenStore(storage: gh<_i558.FlutterSecureStorage>()));
     gh.lazySingleton<_i454.CacheHelper>(
         () => _i454.CacheHelper(sharedPref: gh<_i460.SharedPreferences>()));
-    gh.lazySingleton<_i241.HomeRemoteDataSource>(
-        () => _i241.HomeRemoteDataSourceImpl(api: gh<_i915.ApiConsumer>()));
+    gh.lazySingleton<_i404.ProductDataSource>(
+        () => _i404.ProductDataSourceImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i432.ProfileRepo>(
         () => _i432.ProfileRepoImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i619.AuthRepo>(
         () => _i619.AuthRepoImpl(dataSource: gh<_i109.AuthRemoteDataSource>()));
     gh.factory<_i858.ProfileBloc>(
         () => _i858.ProfileBloc(profileRepo: gh<_i432.ProfileRepo>()));
-    gh.lazySingleton<_i115.HomeRepo>(
-        () => _i115.HomeRepoImpl(dataSource: gh<_i241.HomeRemoteDataSource>()));
-    gh.factory<_i627.HomeBloc>(
-        () => _i627.HomeBloc(repo: gh<_i115.HomeRepo>()));
+    gh.lazySingleton<_i673.ProdcutRepository>(() =>
+        _i673.ProductRepositoryImpl(dataSource: gh<_i404.ProductDataSource>()));
     gh.factory<_i60.AuthBloc>(() => _i60.AuthBloc(repo: gh<_i619.AuthRepo>()));
+    gh.factory<_i676.ProductCubit>(
+        () => _i676.ProductCubit(repo: gh<_i673.ProdcutRepository>()));
+    gh.factory<_i462.ProductDetailsCubit>(
+        () => _i462.ProductDetailsCubit(repo: gh<_i673.ProdcutRepository>()));
     return this;
   }
 }

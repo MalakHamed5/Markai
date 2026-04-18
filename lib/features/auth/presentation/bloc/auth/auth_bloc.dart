@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           );
           result.fold(
             (failure) {
-              emit(AuthState.failure(error: failure.message));
+              emit(AuthState.failure(error: failure.toString()));
             },
             (user) {
               emit(const AuthState.success(message: "Login Success"));
@@ -42,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           );
           result.fold(
             (failure) {
-              emit(AuthState.failure(error: failure.message));
+              emit(AuthState.failure(error: failure.toString()));
             },
             (user) {
               emit(const AuthState.success(message: "Register Success"));
@@ -54,7 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           final result = await repo.userGuest();
 
           result.fold(
-            (failure) => emit(AuthState.failure(error: failure.message)),
+            (failure) => emit(AuthState.failure(error: failure.toString())),
             (user) {
               emit(const AuthState.guest());
             },
@@ -65,7 +65,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           final result = await repo.logout();
           result.fold(
             (failure) {
-              emit(AuthState.failure(error: failure.message));
+              emit(AuthState.failure(error: failure.toString()));
             },
             (user) {
               emit(const AuthState.success(message: "Logout Success"));

@@ -1,6 +1,5 @@
 import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
-import 'package:ecommerse/core/routes/routes.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +51,7 @@ class _SignUpPageState extends State<SignUpPage> {
         state.maybeWhen(
           success: (message) {
             showNotifyMsg(text: message ?? '', context: context);
-            context.go(AppPath.home);
+            context.goNamed('home');
           },
           failure: (error) {
             showNotifyMsg(
@@ -96,7 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           onPressed: () {
-                            context.go(AppPath.home);
+                            context.goNamed('home');
                           },
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
@@ -252,7 +251,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           const Text('? '),
                           TextButton(
                             onPressed: () {
-                              context.go(AppPath.login);
+                              context.goNamed('login');
                             },
                             child: Text(tr.signIn,
                                 style: TextStyle(color: theme.primary)),

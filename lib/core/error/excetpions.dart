@@ -1,37 +1,36 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerse/core/error/error_model.dart';
+import 'package:ecommerse/core/api/urls.dart';
+import 'package:ecommerse/core/error/failure.dart';
 
 class ServerException implements Exception {
-  final ErrorModel errorModel;
-  ServerException({required this.errorModel});
-
+  final Failure failure;
+  ServerException(this.failure);
 }
 
 void handleDioException(DioException e) {
+  final errorData = e.response?.data;
+  final code = e.response?.statusCode;
+  String message = 'error';
+
+  if (errorData is Map<String, dynamic>) {
+    message = errorData[ApiKeys.message] ?? message;
+  }
+
   switch (e.type) {
     // NOT arrive to server
-    case DioExceptionType.connectionTimeout ||
-          DioExceptionType.sendTimeout ||
-          DioExceptionType.receiveTimeout ||
-          DioExceptionType.badCertificate ||
-          DioExceptionType.cancel ||
-          DioExceptionType.connectionError ||
-          DioExceptionType.unknown:
-      throw ServerException(errorModel: e.response!.data);
+    case DioExceptionType.connectionTimeout:
+    case DioExceptionType.sendTimeout:
+    case DioExceptionType.receiveTimeout:
+    case DioExceptionType.badCertificate:
+    case DioExceptionType.cancel:
+    case DioExceptionType.connectionError:
+      throw ServerException(NetworkFailure('No Internet Connection'));
 
     // arrive to server & get status code
     case DioExceptionType.badResponse:
-      switch (e.response?.statusCode) {
-        case 400:
-          throw ServerException(errorModel: e.response!.data);
-        case 401:
-          throw ServerException(errorModel: e.response!.data);
-        case 403:
-          throw ServerException(errorModel: e.response!.data);
-        case 404:
-          throw ServerException(errorModel: e.response!.data);
-        case 500:
-          throw ServerException(errorModel: e.response!.data);
-      }
+      throw ServerException(ServerFailure(message, statusCode: code));
+
+    default:
+      throw ServerException(UnKnownFailure(message));
   }
 }

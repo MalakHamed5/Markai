@@ -1,3 +1,7 @@
+import 'dimenstion_product.dart';
+import 'meta_product.dart';
+import 'review_product.dart';
+
 class ProductModel {
   /*   List<String> there is problem here!
   */
@@ -80,66 +84,3 @@ class ProductModel {
   }
 }
 
-class DimensionProduct {
-  final double width;
-  final double height;
-  final double depth;
-
-  const DimensionProduct(
-      {required this.width, required this.height, required this.depth});
-
-  factory DimensionProduct.fromJson(Map<String, dynamic> json) {
-    return DimensionProduct(
-      width: (json['width'] ?? 0).toDouble(),
-      height: (json['height'] ?? 0).toDouble(),
-      depth: (json['depth'] ?? 0).toDouble(),
-    );
-  }
-}
-
-class MetaProduct {
-  final String createdAt;
-  final String updatedAt;
-  final String barcode;
-  final String qrCode;
-
-  const MetaProduct(
-      {required this.createdAt,
-      required this.updatedAt,
-      required this.barcode,
-      required this.qrCode});
-
-  factory MetaProduct.fromJson(Map<String, dynamic> json) {
-    return MetaProduct(
-      createdAt: json['createdAt'] ?? "",
-      updatedAt: json['updatedAt'] ?? "",
-      barcode: json['barcode'] ?? "",
-      qrCode: json['qrCode'] ?? "",
-    );
-  }
-}
-
-class ReviewProduct {
-  final int rating;
-  final String comment;
-  final String date;
-  final String reviewerName;
-  final String reviewerEmail;
-
-  const ReviewProduct(
-      {required this.rating,
-      required this.comment,
-      required this.date,
-      required this.reviewerName,
-      required this.reviewerEmail});
-
-  factory ReviewProduct.fromJson(Map<String, dynamic> json) {
-    return ReviewProduct(
-      rating: json['rating'] ?? 0,
-      comment: json['comment'] ?? "",
-      date: json['date'] ?? "",
-      reviewerName: json['reviewerName'] ?? "",
-      reviewerEmail: json['reviewerEmail'] ?? "",
-    );
-  }
-}

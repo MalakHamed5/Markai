@@ -32,7 +32,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           emit(const ProfileState.loading());
           final result = await profileRepo.getProfileData();
           result.fold(
-            (failure) => emit(ProfileState.failure(error: failure.message)),
+            (failure) => emit(ProfileState.failure(error: failure.toString())),
             (user) => emit(ProfileState.success(user: user)),
           );
         },

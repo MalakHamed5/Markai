@@ -2,7 +2,6 @@ import 'package:ecommerse/core/constants/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'core/routes/routes.dart';
 import 'core/services/secure_token_store.dart';
 import 'core/services/service_locator.dart';
 
@@ -21,9 +20,9 @@ class _SplashPageState extends State<SplashPage> {
       final token = await sl<SecureTokenStore>().readToken();
       if (!mounted) return;
       if (token != null) {
-        context.go(AppPath.home);
+        context.goNamed('home');
       } else {
-        context.go(AppPath.login);
+        context.goNamed('login');
       }
     });
     super.initState();
