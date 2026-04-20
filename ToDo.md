@@ -1,11 +1,3 @@
-[✔] log out 
-[] fix redirect & go router (not really)
-
-
-## Next commit 
-[] replace bottom navigation bar with navigation bar 
-
-
 [] Performance video
 
 [] fix size all the project 
@@ -31,6 +23,13 @@
 
 
 
-## EXPLAIN 
-[] go router 
 
+
+## 19/4 
+[] catigory 
+[] brand 
+[] buy again 
+[] favorite prodcut 
+
+# Explain 
+[] error handling 

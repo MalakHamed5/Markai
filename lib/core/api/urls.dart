@@ -12,8 +12,13 @@ class Urls {
   // Home
   static const String getProducts = "/home/products";
   static String getProductById(int id) => "/home/products/$id";
+  static const String getCategories = "/home/categories";
 }
 
+
+
+
+//---------------------------- Api Keys ----------------------------------------------
 class ApiKeys {
   static const String message = "message";
   static const String statusCode = "statusCode";

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/cart/presentation/pages/cart_page.dart';
+import '../../features/home/presentation/pages/catagories.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/home/presentation/pages/popular_product_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
@@ -97,14 +98,19 @@ final GoRouter appRouter = GoRouter(
                   builder: (context, state) => const BrandsPage(),
                 ),
                 GoRoute(
-                  name: 'productsPopular',
-                  path: 'productsPopular',
+                  name: 'popularProduct',
+                  path: 'popularProduct',
                   builder: (context, state) => const PopularProductPage(),
                 ),
                 GoRoute(
                   name: 'buyAgain',
                   path: 'buyAgain',
                   builder: (context, state) => const BuyAgainPage(),
+                ),
+                GoRoute(
+                  name: 'catagories',
+                  path: 'catagories',
+                  builder: (context, state) => const CatagoriesPage(),
                 ),
               ]),
         ]),

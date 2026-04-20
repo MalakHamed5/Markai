@@ -58,28 +58,28 @@ class DommyData {
     Assets.imagesOffer1,
   ];
 
-  List<CategoryModel> categories = [
-    CategoryModel(
+  List<CategoryCard> categories = const [
+    CategoryCard(
       title: 'Pampers',
       image: Assets.imagesPampers,
     ),
-    CategoryModel(
+    CategoryCard(
       title: 'Electronics',
       image: Assets.imagesPampers,
     ),
-    CategoryModel(
+    CategoryCard(
       title: 'Plants',
       image: Assets.imagesPlant,
     ),
-    CategoryModel(
+    CategoryCard(
       title: 'Pampers',
       image: Assets.imagesPampers,
     ),
-    CategoryModel(
+    CategoryCard(
       title: 'Electronics',
       image: Assets.imagesPampers,
     ),
-    CategoryModel(
+    CategoryCard(
       title: 'Plants',
       image: Assets.imagesPlant,
     ),

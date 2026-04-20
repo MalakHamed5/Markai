@@ -95,48 +95,36 @@ class FavoritesPage extends StatelessWidget {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 childAspectRatio: 0.8,
-                children: [
+                children: const [
                   CategoryCard(
-                    model: CategoryModel(
-                      title: 'Pampers',
-                      image:
-                          'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=600',
-                    ),
+                    title: 'Pampers',
+                    image:
+                        'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=600',
                   ),
                   CategoryCard(
-                    model: CategoryModel(
-                      title: 'Electronics',
-                      image:
-                          'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600',
-                    ),
+                    title: 'Electronics',
+                    image:
+                        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600',
                   ),
                   CategoryCard(
-                    model: CategoryModel(
-                      title: 'Plants',
-                      image:
-                          'https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=600',
-                    ),
+                    title: 'Plants',
+                    image:
+                        'https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=600',
                   ),
                   CategoryCard(
-                    model: CategoryModel(
-                      title: 'Phones',
-                      image:
-                          'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
-                    ),
+                    title: 'Phones',
+                    image:
+                        'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600',
                   ),
                   CategoryCard(
-                    model: CategoryModel(
-                      title: 'Food',
-                      image:
-                          'https://images.unsplash.com/photo-1566478989037-eec170784d0b?q=80&w=600',
-                    ),
+                    title: 'Food',
+                    image:
+                        'https://images.unsplash.com/photo-1566478989037-eec170784d0b?q=80&w=600',
                   ),
                   CategoryCard(
-                    model: CategoryModel(
-                      title: 'Fashion',
-                      image:
-                          'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=600',
-                    ),
+                    title: 'Fashion',
+                    image:
+                        'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=600',
                   ),
                 ],
               ),

@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 
-
-class CategoryModel {
+class CategoryCard extends StatelessWidget {
   final String title;
   final String image;
-
-  CategoryModel({required this.title, required this.image});
-}
-
-class CategoryCard extends StatelessWidget {
-  final CategoryModel model;
-
-  const CategoryCard({required this.model, super.key});
+  const CategoryCard({required this.image, required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +21,16 @@ class CategoryCard extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(model.image, fit: BoxFit.cover),
+              child: Image.network(
+                image,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error, color: Colors.red);
+                },
+              ),
             ),
-
           ),
-          Text(model.title, overflow: TextOverflow.ellipsis),
+          Text(title, overflow: TextOverflow.ellipsis),
         ],
       ),
     );

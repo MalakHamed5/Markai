@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerse/core/shared/widgets/custom_search_bar.dart';
@@ -13,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/assets.dart' show Assets;
 import '../../../../core/helper/tools.dart';
 import '../../../../core/shared/widgets/product_network_image.dart';
+import '../bloc/catagory/catagory_bloc.dart';
 import '../bloc/product/product_bloc.dart';
 import '../widget/custom_card.dart';
 
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     context.read<ProfileBloc>().add(const ProfileEvent.getUserData());
     context.read<ProductCubit>().getProducts();
+    context.read<CatagoryBloc>().getCatagories();
   }
 
   // fake
@@ -81,14 +82,12 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _SectionTitle(
                   title: tr.popularProduct,
-                  onPressed: () {
-                    context.goNamed('popularProduct');
-                  },
+                  onPressed: () => context.pushNamed('popularProduct'),
                 ),
               ),
             ),
 
-            // Popular Product List
+            // Product List
             SliverToBoxAdapter(
               child: BlocBuilder<ProductCubit, ProductState>(
                 builder: (context, state) {
@@ -99,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                       height: 260,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: products.length,
+                        itemCount: 8,
                         itemBuilder: (context, i) {
                           final product = products[i];
                           return ProductCard(
@@ -133,26 +132,41 @@ class _HomePageState extends State<HomePage> {
                 child: _SectionTitle(
                   title: tr.category,
                   onPressed: () {
-                    context.goNamed('brands');
+                    context.goNamed('catagories');
                   },
                 ),
               ),
             ),
 
             // Category Grid
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) => CategoryCard(model: data.categories[i]),
-                  childCount: data.categories.length,
-                ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  mainAxisExtent: 150,
-                  childAspectRatio: 0.75,
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: BlocBuilder<CatagoryBloc, CatagoryState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      initial: () => const SizedBox.shrink(),
+                      loading: () => const SizedBox.shrink(),
+                      success: (catagories) => GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          mainAxisExtent: 150,
+                          childAspectRatio: 0.75,
+                        ),
+                        itemBuilder: (context, i) => CategoryCard(
+                          image: catagories[i].image,
+                          title: catagories[i].name,
+                        ),
+                        itemCount: 6,
+                      ),
+                      orElse: () => const SizedBox.shrink(),
+                    );
+                  },
                 ),
               ),
             ),
