@@ -22,14 +22,14 @@
 [] regitster with apple 
 
 
-
-
-
-## 19/4 
-[] catigory 
-[] brand 
-[] buy again 
-[] favorite prodcut 
-
 # Explain 
 [] error handling 
+
+
+
+# Today 23/4/2026
+[] fit home 
+     [✔] bloc 
+     [✔] bottom nav bar 
+     [] user state 
+     [] text 

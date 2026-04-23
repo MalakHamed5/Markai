@@ -57,7 +57,7 @@ class _SignUpPageState extends State<SignUpPage> {
             showNotifyMsg(
               text: error,
               context: context,
-              bgColor: theme.error,
+              bgColor: context.theme.error,
             );
           },
           orElse: () {},
@@ -68,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
           key: _signupFormKey,
           child: Scaffold(
             resizeToAvoidBottomInset: true,
-            backgroundColor: theme.surface,
+            backgroundColor: context.theme.surface,
             body: SafeArea(
               child: SingleChildScrollView(
                 physics: isKeyboardOpen
@@ -86,7 +86,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(
-                              color: theme.primary.withValues(alpha: 0.4),
+                              color:
+                                  context.theme.primary.withValues(alpha: 0.4),
                             ),
                             shape: const CircleBorder(),
                             padding: const EdgeInsets.symmetric(
@@ -99,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                           child: Icon(
                             Icons.arrow_back_ios_new_rounded,
-                            color: theme.onSurface,
+                            color: context.theme.onSurface,
                           ),
                         ),
                       ),
@@ -180,7 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         height: 55,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.primary,
+                            backgroundColor: context.theme.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(14),
                             ),
@@ -200,14 +201,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                           child: state.maybeWhen(
                             loading: () => CircularProgressIndicator(
-                              color: theme.onPrimary,
+                              color: context.theme.onPrimary,
                             ),
                             orElse: () => Text(
                               tr.signup,
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
-                                color: theme.onPrimary,
+                                color: context.theme.onPrimary,
                               ),
                             ),
                           ),
@@ -218,7 +219,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       Text(
                         tr.orContinueWith,
-                        style: TextStyle(color: theme.onSurface, fontSize: 12),
+                        style: TextStyle(
+                            color: context.theme.onSurface, fontSize: 12),
                       ),
 
                       const SizedBox(height: 18),
@@ -244,7 +246,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           Text(
                             tr.haveAnAccount,
                             style: TextStyle(
-                              color: theme.onSurface,
+                              color: context.theme.onSurface,
                               fontSize: 12,
                             ),
                           ),
@@ -254,7 +256,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               context.goNamed('login');
                             },
                             child: Text(tr.signIn,
-                                style: TextStyle(color: theme.primary)),
+                                style: TextStyle(color: context.theme.primary)),
                           ),
                         ],
                       ),
@@ -281,7 +283,7 @@ class SocialButton extends StatelessWidget {
       width: 55,
       height: 55,
       decoration: BoxDecoration(
-        border: Border.all(color: theme.outline),
+        border: Border.all(color: context.theme.outline),
       ),
       child: Center(
         child: Text(
@@ -289,7 +291,7 @@ class SocialButton extends StatelessWidget {
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: theme.onSurface,
+            color: context.theme.onSurface,
           ),
         ),
       ),

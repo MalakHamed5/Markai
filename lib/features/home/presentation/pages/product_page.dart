@@ -5,8 +5,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/shared/widgets/base_page_layout.dart';
 import '../widget/custom_card.dart';
 
-class PopularProductPage extends StatelessWidget {
-  const PopularProductPage({super.key});
+class ProductPage extends StatefulWidget {
+  const ProductPage({super.key});
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<ProductCubit>().getProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +32,8 @@ class PopularProductPage extends StatelessWidget {
               builder: (context, state) {
                 return state.maybeWhen(
                   initial: () => const SizedBox.shrink(),
-                  loading: () => const Center(child: CircularProgressIndicator()),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
                   success: (products) => GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -33,13 +46,15 @@ class PopularProductPage extends StatelessWidget {
                       ),
                       itemCount: products.length,
                       itemBuilder: (context, i) {
-                        return ProductCard(
-                          off: products[i].discountPercentage,
-                          name: products[i].title,
-                          price: products[i].price,
-                          rating: products[i].rating,
-                          image: products[i].thumbnail,
-                          onFavPressed: () {},
+                        final product = products[i];
+                        return CustomCard(
+                          off: product.discountPercentage,
+                          name: product.title,
+                          price: product.price,
+                          rating: product.rating,
+                          image: product.thumbnail,
+                          favId: product.id,
+                          isFav: true,
                         );
                       }),
                   orElse: () => const SizedBox.shrink(),

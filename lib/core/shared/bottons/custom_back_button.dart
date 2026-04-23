@@ -22,12 +22,12 @@ class CustomBackButton extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: theme.primary.withValues(alpha: 0.4),
+              color: context.theme.primary.withValues(alpha: 0.4),
             ),
           ),
           child: Icon(
             Icons.arrow_back_ios_new_rounded,
-            color: theme.onSurface,
+            color: context.theme.onSurface,
           ),
         ),
       ),

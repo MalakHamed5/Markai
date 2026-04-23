@@ -94,3 +94,6 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 }
+
+
+// sl.LazySingleton<AuthRepo>(()=> AuthRepoImpl(dataSource: sl()));

@@ -20,11 +20,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<ProfileBloc>().add(const ProfileEvent.getUserData());
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +31,9 @@ class _ProfilePageState extends State<ProfilePage> {
           success: (_, u) => u,
           orElse: () => null,
         );
-
+    
         final isGuest = (user == null);
-
+    
         if (isGuest) {
           return Stack(
             children: [
@@ -104,32 +100,32 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             vSpace(20),
-
+    
             CustomListTile(
               icon: Icons.person_outline,
               title: tr.accountPreferences,
               onTap: () {},
             ),
-
+    
             const _CustomDriver(),
-
+    
             CustomListTile(
               icon: Icons.payment,
               title: tr.subscriptionAndPayment,
               onTap: () {},
             ),
-
+    
             const _CustomDriver(),
-
+    
             CustomListTile(
               icon: Icons.notifications_none,
               title: tr.appNotifications,
               isToggle: true,
               onChanged: (value) {},
             ),
-
+    
             const _CustomDriver(),
-
+    
             CustomListTile(
               icon: Icons.dark_mode,
               title: tr.darkMode,
@@ -140,23 +136,23 @@ class _ProfilePageState extends State<ProfilePage> {
               },
             ),
             const _CustomDriver(),
-
+    
             CustomListTile(
               icon: Icons.star_border,
               title: tr.rateUs,
               onTap: () {},
             ),
-
+    
             const _CustomDriver(),
-
+    
             CustomListTile(
               icon: Icons.info_outline,
               title: tr.aboutUs,
               onTap: () {},
             ),
-
+    
             const _CustomDriver(),
-
+    
             BlocListener<AuthBloc, AuthState>(
               listener: (context, state) {
                 state.maybeWhen(
@@ -179,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
             ),
-
+    
             const _CustomDriver(),
           ],
         );
@@ -238,7 +234,7 @@ class CustomListTile extends StatelessWidget {
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: theme.onSurface,
+          color: context.theme.onSurface,
         ),
       ),
       trailing: isToggle

@@ -7,15 +7,15 @@ part 'auth_state.dart';
 part 'auth_event.dart';
 part 'auth_bloc.freezed.dart';
 
-@injectable
+@injectable // factory 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepo repo;
   AuthBloc({required this.repo}) : super(const AuthState.initial()) {
-
-    
     on<AuthEvent>((event, emit) async {
       await event.maybeWhen(
+
         started: () {},
+
         login: (email, password) async {
           emit(const AuthState.loading());
           final result = await repo.login(
@@ -31,6 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             },
           );
         },
+
         register: (name, email, phone, password, confirmPassword) async {
           emit(const AuthState.loading());
           final result = await repo.register(
@@ -49,6 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             },
           );
         },
+    
         skipLogin: () async {
           emit(const AuthState.loading());
           final result = await repo.userGuest();
@@ -60,6 +62,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             },
           );
         },
+      
         logout: () async {
           emit(const AuthState.loading());
           final result = await repo.logout();
@@ -72,8 +75,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             },
           );
         },
+    
         orElse: () {},
       );
     });
   }
 }
+
+

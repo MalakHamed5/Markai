@@ -12,6 +12,7 @@ final sl = GetIt.instance;
 @InjectableInit()
 Future<void> setupServiceLocator() async => await sl.init();
 
+
 @module
 abstract class AppServices {
   // Dio
@@ -23,6 +24,7 @@ abstract class AppServices {
   Future<SharedPreferences> get sharedPreferences =>
       SharedPreferences.getInstance();
   // FlutterSecureStorage
+  
   @LazySingleton()
   FlutterSecureStorage get flutterSecureStorage => const FlutterSecureStorage();
 }

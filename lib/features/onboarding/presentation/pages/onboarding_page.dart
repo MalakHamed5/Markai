@@ -63,7 +63,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             controller: _pageController,
             itemCount: _pages.length,
             itemBuilder: (_, i) {
-                return _pages[i].copyWithActiveIndex(_currentIndex);
+              return _pages[i].copyWithActiveIndex(_currentIndex);
             },
           ),
         ],
@@ -99,6 +99,7 @@ class OnboardingModel extends StatelessWidget {
       activeIndex: active,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -171,9 +172,8 @@ class CustomIndecator extends StatelessWidget {
           height: active ? 18 : 16,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-            color: active
-                ? AppColors.secondary
-                : AppColors.primary.withAlpha(100),
+            color:
+                active ? AppColors.secondary : AppColors.primary.withAlpha(100),
             borderRadius: BorderRadius.circular(8),
           ),
         ),

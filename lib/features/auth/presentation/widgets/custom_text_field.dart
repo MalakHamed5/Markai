@@ -49,7 +49,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Text(
           widget.title ?? "",
           style: TextStyle(
-            color: theme.onPrimary,
+            color: context.theme.onPrimary,
           ),
         ),
         TextFormField(
@@ -59,7 +59,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           obscureText: _obscureText,
           decoration: InputDecoration(
             hintText: widget.hint,
-            prefixIcon: Icon(widget.icon, color: theme.onPrimary),
+            prefixIcon: Icon(widget.icon, color: context.theme.onPrimary),
             suffixIcon: widget.isPassword
                 ? IconButton(
                     onPressed: _toggleVisibility,
@@ -68,17 +68,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
                     ),
-                    color: theme.onPrimary,
+                    color: context.theme.onPrimary,
                   )
                 : null,
             contentPadding: const EdgeInsets.symmetric(vertical: 18),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(color: theme.primary.withValues(alpha: 0.4)),
+              borderSide: BorderSide(
+                  color: context.theme.primary.withValues(alpha: 0.4)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(color: theme.primary),
+              borderSide: BorderSide(color: context.theme.primary),
             ),
           ),
         ),

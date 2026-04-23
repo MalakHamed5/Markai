@@ -3,6 +3,7 @@ import 'package:ecommerse/core/error/excetpions.dart';
 import 'package:ecommerse/core/error/failure.dart';
 import 'package:ecommerse/core/services/secure_token_store.dart';
 import 'package:ecommerse/features/auth/data/models/user_model.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../core/api/urls.dart';
 import '../../../../core/cache/cache_helper.dart';
@@ -29,6 +30,7 @@ abstract class AuthRemoteDataSource {
 
 //------------------ Implementation ------------------
 
+@LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final ApiConsumer api;
 
@@ -40,11 +42,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String password,
   }) async {
     try {
+      //api call
       final response = await api.post(Urls.signIn,
           data: {ApiKeys.email: email, ApiKeys.password: password});
 
+      // model
       final user = UserModel.fromJson(response[ApiKeys.user]);
 
+      // save token
       await sl<SecureTokenStore>().saveToken(response[ApiKeys.token]);
 
       return user;

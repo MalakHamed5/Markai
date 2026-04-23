@@ -16,7 +16,7 @@ class NoInternetPage extends StatelessWidget {
               Icon(
                 Icons.wifi_off,
                 size: 120,
-                color: theme.primary, // primary color
+                color: context.theme.primary, // primary color
               ),
               const SizedBox(height: 30),
               Text(
@@ -24,14 +24,14 @@ class NoInternetPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: theme.primary,
+                  color: context.theme.primary,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               Text(
                 'Please check your network settings and try again.',
-                style: TextStyle(fontSize: 16, color: theme.primary),
+                style: TextStyle(fontSize: 16, color: context.theme.primary),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
@@ -40,7 +40,7 @@ class NoInternetPage extends StatelessWidget {
                 icon: const Icon(Icons.refresh),
                 label: const Text('Retry', style: TextStyle(fontSize: 18)),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.primary,
+                  backgroundColor: context.theme.primary,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 32,
                     vertical: 12,

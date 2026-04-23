@@ -5,16 +5,17 @@ import '../../../../core/shared/widgets/product_network_image.dart';
 import '../../../../core/theme/app_colors.dart';
 
 //---------------------- CUSTOM CARD----------------------
-class ProductCard extends StatelessWidget {
+class CustomCard extends StatelessWidget {
   final String image;
   final double off;
   final String name;
   final double price;
   final double rating;
   final bool isGrid;
-  final VoidCallback onFavPressed;
-  final Function()? onTap;
-  const ProductCard(
+  final int? favId;
+  final bool isFav;
+  final Function()? navigate;
+  const CustomCard(
       {super.key,
       required this.image,
       required this.off,
@@ -22,13 +23,14 @@ class ProductCard extends StatelessWidget {
       required this.price,
       required this.rating,
       this.isGrid = false,
-      required this.onFavPressed,
-      this.onTap});
+      this.favId,
+      this.isFav = false,
+      this.navigate});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: navigate,
       child: Container(
         width: isGrid ? null : 200,
         margin: const EdgeInsets.all(6),
@@ -59,9 +61,7 @@ class ProductCard extends StatelessWidget {
                 // add it after backend
                 //* _OffButton(widget: widget),
                 // favourit button
-                _FavouritButton(
-                  onFavPressed: onFavPressed,
-                ),
+                isFav ? _FavouritButton() : const SizedBox(),
               ],
             ),
 
@@ -164,11 +164,7 @@ class _AddButton extends StatelessWidget {
 }
 
 class _FavouritButton extends StatelessWidget {
-  const _FavouritButton({
-    required this.onFavPressed,
-  });
-
-  final VoidCallback onFavPressed;
+  const _FavouritButton();
 
   @override
   Widget build(BuildContext context) {
@@ -180,10 +176,7 @@ class _FavouritButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
           border: Border.all(color: Colors.grey.shade300),
         ),
-        child: IconButton(
-          onPressed: onFavPressed,
-          icon: const Icon(Icons.favorite_border),
-        ),
+        child: IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
       ),
     );
   }

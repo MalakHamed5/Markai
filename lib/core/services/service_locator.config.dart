@@ -26,6 +26,8 @@ import 'package:ecommerse/features/home/data/data_source/product_data_source.dar
     as _i404;
 import 'package:ecommerse/features/home/data/repositories/product_repository.dart'
     as _i673;
+import 'package:ecommerse/features/home/presentation/bloc/brand/brand_bloc.dart'
+    as _i135;
 import 'package:ecommerse/features/home/presentation/bloc/catagory/catagory_bloc.dart'
     as _i124;
 import 'package:ecommerse/features/home/presentation/bloc/product/product_bloc.dart'
@@ -71,8 +73,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i404.ProductDataSourceImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i432.ProfileRepo>(
         () => _i432.ProfileRepoImpl(api: gh<_i915.ApiConsumer>()));
-    gh.lazySingleton<_i619.AuthRepo>(
-        () => _i619.AuthRepoImpl(dataSource: gh<_i109.AuthRemoteDataSource>()));
+    gh.lazySingleton<_i109.AuthRemoteDataSource>(
+        () => _i109.AuthRemoteDataSourceImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i673.ProdcutRepository>(() => _i673.ProductRepositoryImpl(
         productDataSource: gh<_i404.ProductDataSource>()));
     gh.factory<_i858.ProfileBloc>(
@@ -83,6 +85,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i462.ProductDetailsCubit(repo: gh<_i673.ProdcutRepository>()));
     gh.factory<_i124.CatagoryBloc>(() =>
         _i124.CatagoryBloc(prodcutRepository: gh<_i673.ProdcutRepository>()));
+    gh.factory<_i135.BrandBloc>(() =>
+        _i135.BrandBloc(productRepository: gh<_i673.ProdcutRepository>()));
+    gh.lazySingleton<_i619.AuthRepo>(
+        () => _i619.AuthRepoImpl(dataSource: gh<_i109.AuthRemoteDataSource>()));
     gh.factory<_i60.AuthBloc>(() => _i60.AuthBloc(repo: gh<_i619.AuthRepo>()));
     return this;
   }

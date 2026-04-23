@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 
-class BrandModel {
-  final String image;
-  BrandModel({required this.image});
-}
-
 class BrandCard extends StatelessWidget {
-  const BrandCard({required this.model, super.key});
+  const BrandCard({required this.emoji, required this.name, super.key});
 
-  final BrandModel model;
+  final String emoji;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +21,11 @@ class BrandCard extends StatelessWidget {
               border: Border.all(color: Colors.grey.shade300),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Image.asset(model.image, fit: BoxFit.cover),
+            child: Center(
+                child: Text(emoji, style: const TextStyle(fontSize: 35))),
           ),
         ),
+        Text(name),
       ],
     );
   }

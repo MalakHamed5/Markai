@@ -9,12 +9,13 @@ import '../../../../../core/error/failure.dart' show Failure;
 part 'catagory_state.dart';
 part 'catagory_bloc.freezed.dart';
 
-
 @injectable
 class CatagoryBloc extends Cubit<CatagoryState> {
   final ProdcutRepository prodcutRepository;
   CatagoryBloc({required this.prodcutRepository})
-      : super(const CatagoryState.initial()) {}
+      : super(const CatagoryState.initial()) {
+    getCatagories();
+  }
 
   Future<void> getCatagories() async {
     emit(const CatagoryState.loading());

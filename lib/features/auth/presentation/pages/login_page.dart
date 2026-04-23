@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
             },
             failure: (error) {
               showNotifyMsg(
-                  text: error, context: context, bgColor: theme.error);
+                  text: error, context: context, bgColor: context.theme.error);
             },
             guest: () {
               context.goNamed('home');
@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                             tr.remeberMe,
                             style: TextStyle(
                               fontSize: 14,
-                              color: theme.onSurface,
+                              color: context.theme.onSurface,
                             ),
                           ),
                           const Spacer(),
@@ -138,14 +138,14 @@ class _LoginPageState extends State<LoginPage> {
                       PrimaryButton(
                         child: state.maybeWhen(
                           loading: () => CircularProgressIndicator(
-                            color: theme.onPrimary,
+                            color: context.theme.onPrimary,
                           ),
                           orElse: () => Text(
                             tr.login,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
-                              color: theme.onPrimary,
+                              color: context.theme.onPrimary,
                             ),
                           ),
                         ),
@@ -159,11 +159,12 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
 
+
                       vSpace(25),
                       Text(
                         tr.orContinueWith,
                         style: TextStyle(
-                          color: theme.onSurface,
+                          color: context.theme.onSurface,
                           fontSize: 12,
                         ),
                       ),
@@ -198,7 +199,7 @@ class _RegisterText extends StatelessWidget {
         Text(
           tr.areYouNewInMarketi,
           style: TextStyle(
-            color: theme.onSurface,
+            color: context.theme.onSurface,
             fontSize: 12,
           ),
         ),
@@ -209,7 +210,7 @@ class _RegisterText extends StatelessWidget {
           },
           child: Text(
             tr.register,
-            style: TextStyle(color: theme.primary),
+            style: TextStyle(color: context.theme.primary),
           ),
         ),
       ],
@@ -245,7 +246,7 @@ class _ForgotButton extends StatelessWidget {
       child: Text(
         tr.forgotPassword,
         style: TextStyle(
-          color: theme.primary,
+          color: context.theme.primary,
           fontSize: 14,
         ),
       ),
@@ -263,7 +264,7 @@ class _RememberMeButton extends StatelessWidget {
       height: 20,
       child: Checkbox(
         value: true,
-        activeColor: theme.primary,
+        activeColor: context.theme.primary,
         onChanged: (_) {},
       ),
     );
@@ -280,7 +281,7 @@ class _SkipButton extends StatelessWidget {
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           side: BorderSide(
-            color: theme.primary.withValues(alpha: 0.4),
+            color: context.theme.primary.withValues(alpha: 0.4),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
@@ -297,7 +298,7 @@ class _SkipButton extends StatelessWidget {
         child: Text(
           tr.skip,
           style: TextStyle(
-            color: theme.primary,
+            color: context.theme.primary,
             fontSize: 16,
           ),
         ),
@@ -317,7 +318,7 @@ class SocialButton extends StatelessWidget {
       width: 55,
       height: 55,
       decoration: BoxDecoration(
-        border: Border.all(color: theme.outline),
+        border: Border.all(color: context.theme.outline),
       ),
       child: Center(
         child: Text(
@@ -325,7 +326,7 @@ class SocialButton extends StatelessWidget {
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: theme.onSurface,
+            color: context.theme.onSurface,
           ),
         ),
       ),

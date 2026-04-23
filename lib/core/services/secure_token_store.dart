@@ -3,12 +3,9 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton()
 class SecureTokenStore {
-  // create instance of secure storage
   final FlutterSecureStorage storage;
-
   SecureTokenStore({required this.storage});
-
-  static const String _key = "auth_token";
+  static const String _key = "token";
 
   Future<void> saveToken(String token) async {
     await storage.write(key: _key, value: token);

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerse/core/api/api_consumer.dart';
 import 'package:ecommerse/core/api/urls.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
+import 'package:ecommerse/features/home/data/model/brand_model.dart';
 import 'package:ecommerse/features/home/data/model/catagory_model.dart';
 import 'package:ecommerse/features/home/data/model/product_model.dart';
 import 'package:injectable/injectable.dart';
@@ -12,12 +13,14 @@ abstract class ProductDataSource {
   Future<List<ProductModel>> getProducts();
   Future<ProductModel> getProductById(int id);
   Future<List<CatagoryModel>> getCatagory();
+  Future<List<BrandModel>> getBrands(); 
 }
 
+
+// --------------- Implemenation --------------------
 @LazySingleton(as: ProductDataSource)
 class ProductDataSourceImpl implements ProductDataSource {
   final ApiConsumer api;
-
   ProductDataSourceImpl({required this.api});
 
   @override
@@ -53,10 +56,22 @@ class ProductDataSourceImpl implements ProductDataSource {
   Future<List<CatagoryModel>> getCatagory() async {
     try {
       final response = await api.get(Urls.getCategories);
+      final data = response[ApiKeys.list] as List<dynamic>;
+      return data.map((e) => CatagoryModel.fromJson(e)).toList();
+    } on DioException catch (e) {
+      handleDioException(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<BrandModel>> getBrands() async {
+    try {
+      final response = await api.get(Urls.getBrands);
       log("response is: ${response.toString()}");
       final data = response[ApiKeys.list] as List<dynamic>;
-      log('get catagories (remote data source)');
-      return data.map((e) => CatagoryModel.fromJson(e)).toList();
+      log('get brands (remote data source)');
+      return data.map((e) => BrandModel.fromJson(e)).toList();
     } on DioException catch (e) {
       handleDioException(e);
       rethrow;

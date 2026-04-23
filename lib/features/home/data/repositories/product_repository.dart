@@ -7,16 +7,17 @@ import 'package:ecommerse/features/home/data/model/product_model.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/error/excetpions.dart';
+import '../model/brand_model.dart';
 import '../model/catagory_model.dart';
 
 abstract class ProdcutRepository {
   Future<Either<Failure, List<ProductModel>>> getProducts();
   Future<Either<Failure, ProductModel>> getProductById(int id);
   Future<Either<Failure, List<CatagoryModel>>> getCatagory();
+  Future<Either<Failure, List<BrandModel>>> getBrands();
 }
 
 //--------------------------- Implementation ---------------------------
-
 @LazySingleton(as: ProdcutRepository)
 class ProductRepositoryImpl implements ProdcutRepository {
   final ProductDataSource productDataSource;
@@ -64,4 +65,21 @@ class ProductRepositoryImpl implements ProdcutRepository {
       return left(UnKnownFailure(e.toString()));
     }
   }
+  
+  @override
+  Future<Either<Failure, List<BrandModel>>> getBrands() async {
+    try {
+      log('get brands (reposatory)');
+      return right(await productDataSource.getBrands());
+    } on ServerException catch (e) {
+      log('${e.toString()} in brand repo');
+      return left(e.failure);
+    } catch (e) {
+      log('${e.toString()} in brand repo');
+      return left(UnKnownFailure(e.toString()));
+    }
+  }
+
+
+
 }

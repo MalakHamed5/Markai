@@ -1,6 +1,7 @@
 import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
 import 'package:ecommerse/core/shared/bottons/primary_button.dart';
+import 'package:ecommerse/core/shared/widgets/base_page_layout.dart';
 import 'package:ecommerse/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,11 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return BasePageLayout(
+      isSearch: false,
+      detail: "",
+      title: "Cart",
+      child: SafeArea(
         child: Column(
           children: [
             // Image
@@ -22,10 +26,13 @@ class CartPage extends StatelessWidget {
               ),
             ),
 
-            vSpace(8),
+            vSpace(12),
 
             // Text
-            const Text("Your Cart is Empty", style: TextStyle(fontSize: 24)),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: Text("Your Cart is Empty", style: TextStyle(fontSize: 28)),
+            ),
 
             // details
             const Expanded(
@@ -34,7 +41,6 @@ class CartPage extends StatelessWidget {
               ),
             ),
 
-            vSpace(16),
 
             // button 
             PrimaryButton(

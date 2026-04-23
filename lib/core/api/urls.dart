@@ -13,6 +13,7 @@ class Urls {
   static const String getProducts = "/home/products";
   static String getProductById(int id) => "/home/products/$id";
   static const String getCategories = "/home/categories";
+  static const String getBrands = "/home/brands";
 }
 
 

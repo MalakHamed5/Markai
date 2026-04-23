@@ -13,7 +13,7 @@ class CartButton extends StatelessWidget {
       icon: Icon(
         Icons.shopping_cart_outlined,
         size: 20,
-        color: theme.primary,
+        color: context.theme.primary,
       ),
     );
   }

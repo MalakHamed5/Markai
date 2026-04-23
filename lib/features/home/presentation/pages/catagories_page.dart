@@ -13,6 +13,7 @@ class CatagoriesPage extends StatefulWidget {
 }
 
 class _CatagoriesPageState extends State<CatagoriesPage> {
+  
   @override
   void initState() {
     super.initState();
@@ -31,11 +32,13 @@ class _CatagoriesPageState extends State<CatagoriesPage> {
               builder: (context, state) {
                 return state.maybeWhen(
                   initial: () => const SizedBox.shrink(),
-                  loading: () => const Center(child: CircularProgressIndicator()),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
                   success: (catagories) => GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
