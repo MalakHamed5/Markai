@@ -16,12 +16,20 @@ import 'package:ecommerse/core/cache/cache_helper.dart' as _i454;
 import 'package:ecommerse/core/services/secure_token_store.dart' as _i753;
 import 'package:ecommerse/core/services/service_locator.dart' as _i428;
 import 'package:ecommerse/core/theme/cubit/theme_cubit.dart' as _i888;
-import 'package:ecommerse/features/auth/data/datasources/auth_datasources.dart'
-    as _i109;
+import 'package:ecommerse/features/auth/data/datasources/auth_local_datasources.dart'
+    as _i749;
+import 'package:ecommerse/features/auth/data/datasources/auth_remote_datasources.dart'
+    as _i856;
 import 'package:ecommerse/features/auth/data/repositories/auth_repo.dart'
     as _i619;
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart'
     as _i60;
+import 'package:ecommerse/features/favorites/data/datasource/favorite_data_source.dart'
+    as _i502;
+import 'package:ecommerse/features/favorites/data/repository/favorite_repo.dart'
+    as _i920;
+import 'package:ecommerse/features/favorites/presentation/favorite/favorite_bloc.dart'
+    as _i624;
 import 'package:ecommerse/features/home/data/data_source/product_data_source.dart'
     as _i404;
 import 'package:ecommerse/features/home/data/repositories/product_repository.dart'
@@ -34,6 +42,8 @@ import 'package:ecommerse/features/home/presentation/bloc/product/product_bloc.d
     as _i676;
 import 'package:ecommerse/features/home/presentation/bloc/product_details/product_details_bloc.dart'
     as _i462;
+import 'package:ecommerse/features/profile/data/datasource/profile_remote_data_source.dart'
+    as _i429;
 import 'package:ecommerse/features/profile/data/repositories/profile_repo.dart'
     as _i432;
 import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart'
@@ -65,20 +75,32 @@ extension GetItInjectableX on _i174.GetIt {
         () => appServices.flutterSecureStorage);
     gh.lazySingleton<_i915.ApiConsumer>(
         () => _i1059.DioConsumer(dio: gh<_i361.Dio>()));
+    gh.lazySingleton<_i749.AuthLocalDataSource>(
+        () => _i749.AuthLocalDataSourceImpl());
     gh.lazySingleton<_i753.SecureTokenStore>(() =>
         _i753.SecureTokenStore(storage: gh<_i558.FlutterSecureStorage>()));
     gh.lazySingleton<_i454.CacheHelper>(
         () => _i454.CacheHelper(sharedPref: gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i429.ProfileRemoteDataSource>(
+        () => _i429.ProfileRemoteDataSourceImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i404.ProductDataSource>(
         () => _i404.ProductDataSourceImpl(api: gh<_i915.ApiConsumer>()));
-    gh.lazySingleton<_i432.ProfileRepo>(
-        () => _i432.ProfileRepoImpl(api: gh<_i915.ApiConsumer>()));
-    gh.lazySingleton<_i109.AuthRemoteDataSource>(
-        () => _i109.AuthRemoteDataSourceImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i673.ProdcutRepository>(() => _i673.ProductRepositoryImpl(
         productDataSource: gh<_i404.ProductDataSource>()));
-    gh.factory<_i858.ProfileBloc>(
-        () => _i858.ProfileBloc(profileRepo: gh<_i432.ProfileRepo>()));
+    gh.lazySingleton<_i502.FavoriteDataSource>(() =>
+        _i502.FavoriteDataSourceImpl(apiConsumer: gh<_i915.ApiConsumer>()));
+    gh.lazySingleton<_i920.FavoriteRepo>(() => _i920.FavoriteRepoImpl(
+        favoriteDataSource: gh<_i502.FavoriteDataSource>()));
+    gh.lazySingleton<_i856.AuthRemoteDataSource>(
+        () => _i856.AuthRemoteDataSourceImpl(api: gh<_i915.ApiConsumer>()));
+    gh.lazySingleton<_i619.AuthRepo>(() => _i619.AuthRepoImpl(
+          remote: gh<_i856.AuthRemoteDataSource>(),
+          local: gh<_i749.AuthLocalDataSource>(),
+        ));
+    gh.factory<_i624.FavoriteBloc>(
+        () => _i624.FavoriteBloc(repo: gh<_i920.FavoriteRepo>()));
+    gh.lazySingleton<_i432.ProfileRepo>(() =>
+        _i432.ProfileRepoImpl(remote: gh<_i429.ProfileRemoteDataSource>()));
     gh.factory<_i676.ProductCubit>(
         () => _i676.ProductCubit(repo: gh<_i673.ProdcutRepository>()));
     gh.factory<_i462.ProductDetailsCubit>(
@@ -87,9 +109,9 @@ extension GetItInjectableX on _i174.GetIt {
         _i124.CatagoryBloc(prodcutRepository: gh<_i673.ProdcutRepository>()));
     gh.factory<_i135.BrandBloc>(() =>
         _i135.BrandBloc(productRepository: gh<_i673.ProdcutRepository>()));
-    gh.lazySingleton<_i619.AuthRepo>(
-        () => _i619.AuthRepoImpl(dataSource: gh<_i109.AuthRemoteDataSource>()));
     gh.factory<_i60.AuthBloc>(() => _i60.AuthBloc(repo: gh<_i619.AuthRepo>()));
+    gh.factory<_i858.ProfileBloc>(
+        () => _i858.ProfileBloc(profileRepo: gh<_i432.ProfileRepo>()));
     return this;
   }
 }

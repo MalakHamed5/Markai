@@ -2,8 +2,8 @@ import 'package:ecommerse/core/constants/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'core/services/secure_token_store.dart';
-import 'core/services/service_locator.dart';
+import '../core/services/secure_token_store.dart';
+import '../core/services/service_locator.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

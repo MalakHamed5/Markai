@@ -1,4 +1,3 @@
-import 'package:ecommerse/core/shared/bottons/custom_back_button.dart';
 import 'package:ecommerse/core/shared/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +23,11 @@ class BasePageLayout extends StatelessWidget {
         child: SafeArea(
           child: CustomScrollView(
             slivers: [
+              // -- App Bar --
               SliverAppBar(
                 automaticallyImplyLeading: false,
                 floating: true,
+                centerTitle: true,
                 title: Text(
                   title,
                   style: const TextStyle(
@@ -43,36 +44,32 @@ class BasePageLayout extends StatelessWidget {
                   ),
                 ],
                 snap: true,
-                expandedHeight: isSearch ? 180 : 80,
-                centerTitle: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CustomBackButton(),
+              ),
 
-                      /// search
-                      const CustomSearchBar(),
-
-                      /// detail
-                      Text(
-                        detail,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    isSearch ? const CustomSearchBar() : const SizedBox(),
+                    Text(
+                      detail,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
                 ),
               ),
-              SliverToBoxAdapter(child: child),
+              // -- Content --
+              /// Have to be Sliver Type 
+              child,
             ],
           ),
         ),
       ),
-
-      /// المحتوى
     );
   }
 }

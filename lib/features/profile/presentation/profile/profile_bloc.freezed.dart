@@ -183,7 +183,7 @@ extension ProfileStatePatterns on ProfileState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String? message, UserModel? user)? success,
+    TResult Function(String? message, ProfileModel? user)? success,
     TResult Function(String error)? failure,
     TResult Function()? updateUI,
     TResult Function()? seccessUI,
@@ -228,7 +228,7 @@ extension ProfileStatePatterns on ProfileState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String? message, UserModel? user) success,
+    required TResult Function(String? message, ProfileModel? user) success,
     required TResult Function(String error) failure,
     required TResult Function() updateUI,
     required TResult Function() seccessUI,
@@ -271,7 +271,7 @@ extension ProfileStatePatterns on ProfileState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String? message, UserModel? user)? success,
+    TResult? Function(String? message, ProfileModel? user)? success,
     TResult? Function(String error)? failure,
     TResult? Function()? updateUI,
     TResult? Function()? seccessUI,
@@ -345,7 +345,7 @@ class _Success implements ProfileState {
   const _Success({this.message, required this.user});
 
   final String? message;
-  final UserModel? user;
+  final ProfileModel? user;
 
   /// Create a copy of ProfileState
   /// with the given fields replaced by the non-null parameter values.
@@ -378,7 +378,7 @@ abstract mixin class _$SuccessCopyWith<$Res>
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
       __$SuccessCopyWithImpl;
   @useResult
-  $Res call({String? message, UserModel? user});
+  $Res call({String? message, ProfileModel? user});
 }
 
 /// @nodoc
@@ -403,7 +403,7 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
       user: freezed == user
           ? _self.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
+              as ProfileModel?,
     ));
   }
 }

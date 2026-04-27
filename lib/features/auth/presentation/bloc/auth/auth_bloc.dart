@@ -7,10 +7,11 @@ part 'auth_state.dart';
 part 'auth_event.dart';
 part 'auth_bloc.freezed.dart';
 
-@injectable // factory 
+@injectable 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepo repo;
   AuthBloc({required this.repo}) : super(const AuthState.initial()) {
+    
     on<AuthEvent>((event, emit) async {
       await event.maybeWhen(
 
@@ -54,12 +55,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         skipLogin: () async {
           emit(const AuthState.loading());
           final result = await repo.userGuest();
-
           result.fold(
             (failure) => emit(AuthState.failure(error: failure.toString())),
-            (user) {
-              emit(const AuthState.guest());
-            },
+            (_) => emit(const AuthState.guest()),
           );
         },
       

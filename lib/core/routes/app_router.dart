@@ -1,5 +1,5 @@
 import 'package:ecommerse/features/auth/presentation/pages/verify_otp_page.dart';
-import 'package:ecommerse/features/home/presentation/pages/brands_page.dart' show BrandsPage;
+import 'package:ecommerse/features/home/presentation/pages/brands_page.dart' ;
 import 'package:ecommerse/features/home/presentation/pages/product_detiles_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
@@ -14,8 +14,8 @@ import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/home/presentation/pages/product_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
-import '../../root_shell.dart';
-import '../../splash_page.dart';
+import '../../app/root_shell.dart';
+import '../../app/splash_page.dart';
 // import '../error/error_page.dart';
 // import '../services/secure_token_store.dart';
 // import '../services/service_locator.dart';
@@ -71,13 +71,11 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const LoginPage(),
       routes: [
         GoRoute(
-          //* /login/verifyOtp
           name: 'verifyOtp',
           path: 'verifyOtp',
           builder: (context, state) => const VerifyOtpPage(),
         ),
         GoRoute(
-          //* /login/signup
           name: 'signup',
           path: 'signup',
           builder: (context, state) => const SignUpPage(),
@@ -105,7 +103,7 @@ final GoRouter appRouter = GoRouter(
                   builder: (context, state) => const ProductPage(),
                 ),
                 GoRoute(
-                  name: 'catagories', //   /home/catagories
+                  name: 'catagories',
                   path: 'catagories',
                   builder: (context, state) => const CatagoriesPage(),
                 ),
@@ -142,7 +140,7 @@ final GoRouter appRouter = GoRouter(
 
     GoRoute(
       name: 'productDetails',
-      path: '/product/:id', //     */product/1
+      path: '/product/:id',
       builder: (context, state) {
         final int id = int.parse(state.pathParameters['id']!);
         return ProductDetailsPage(id: id);

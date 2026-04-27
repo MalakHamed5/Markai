@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerse/core/shared/widgets/custom_search_bar.dart';
+import 'package:ecommerse/features/profile/presentation/profile/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -26,9 +27,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<ProductCubit>().getProducts();
     context.read<CatagoryBloc>().getCatagories();
+    context.read<ProductCubit>().getProducts();
     context.read<BrandBloc>().getBrands();
+
+    context.read<ProfileBloc>().add(const ProfileEvent.getUserData());
   }
 
   @override

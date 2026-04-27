@@ -373,6 +373,21 @@ class S {
   String get home {
     return Intl.message('Home', name: 'home', desc: '', args: []);
   }
+
+  /// `All Products`
+  String get allProducts {
+    return Intl.message(
+      'All Products',
+      name: 'allProducts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorites`
+  String get favorites {
+    return Intl.message('Favorites', name: 'favorites', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

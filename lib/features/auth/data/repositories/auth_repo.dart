@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerse/core/error/failure.dart';
 import 'package:ecommerse/core/error/excetpions.dart';
-import 'package:ecommerse/features/auth/data/datasources/auth_datasources.dart';
+import 'package:ecommerse/features/auth/data/datasources/auth_remote_datasources.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/shared/enums/user_enums.dart';
+import '../datasources/auth_local_datasources.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRepo {
@@ -29,9 +31,10 @@ abstract class AuthRepo {
 
 @LazySingleton(as: AuthRepo)
 class AuthRepoImpl implements AuthRepo {
-  final AuthRemoteDataSource dataSource;
+  final AuthRemoteDataSource remote;
+  final AuthLocalDataSource local;
 
-  AuthRepoImpl({required this.dataSource});
+  AuthRepoImpl({required this.remote, required this.local});
 
   @override
   Future<Either<Failure, UserModel>> login({
@@ -39,7 +42,9 @@ class AuthRepoImpl implements AuthRepo {
     required String password,
   }) async {
     try {
-      final user = await dataSource.login(email: email, password: password);
+      final user = await remote.login(email: email, password: password);
+
+      await local.saveUserType(userType: UserTypeEnum.authenticated.name);
 
       return right(user);
     } on ServerException catch (e) {
@@ -58,13 +63,15 @@ class AuthRepoImpl implements AuthRepo {
     required String confirmPassword,
   }) async {
     try {
-      final user = await dataSource.register(
+      final user = await remote.register(
         name: name,
         email: email,
         password: password,
         confirmPassword: confirmPassword,
         phone: phone,
       );
+
+      await local.saveUserType(userType: UserTypeEnum.authenticated.name);
 
       return right(user);
     } on ServerException catch (e) {
@@ -77,7 +84,8 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failure, void>> logout() async {
     try {
-      await dataSource.logout();
+      await local.logout();
+      await local.saveUserType(userType: UserTypeEnum.unAuthenticated.name);
       return right(null);
     } catch (e) {
       return left(UnKnownFailure(e.toString()));
@@ -87,13 +95,12 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failure, void>> userGuest() async {
     try {
-      await dataSource.userGuest();
+      await local.userGuest();
+      await local.saveUserType(userType: UserTypeEnum.guest.name);
       return right(null);
     } catch (e) {
+      print("error in userGuest: $e");
       return left(UnKnownFailure(e.toString()));
     }
   }
 }
-
-
-// sl.LazySingleton<AuthRepo>(()=> AuthRepoImpl(dataSource: sl()));

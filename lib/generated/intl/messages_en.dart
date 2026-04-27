@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "accountPreferences": MessageLookupByLibrary.simpleMessage(
       "Account Preferences",
     ),
+    "allProducts": MessageLookupByLibrary.simpleMessage("All Products"),
     "appNotifications": MessageLookupByLibrary.simpleMessage(
       "App Notifications",
     ),
@@ -42,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "favorite": MessageLookupByLibrary.simpleMessage("Favorite"),
+    "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
     "forgotPassword": MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "guest": MessageLookupByLibrary.simpleMessage("Guest"),

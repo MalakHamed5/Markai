@@ -22,10 +22,8 @@ class _CatagoriesPageState extends State<CatagoriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePageLayout(
-      title: 'Categories',
-      detail: 'All Categories',
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             BlocBuilder<CatagoryBloc, CatagoryState>(

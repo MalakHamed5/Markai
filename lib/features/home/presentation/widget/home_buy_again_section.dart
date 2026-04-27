@@ -24,11 +24,12 @@ class HomeBuyAgainSection extends StatelessWidget {
                 itemCount: 8,
                 itemBuilder: (context, i) {
                   return const CustomCard(
+                    isShowFav: false,
                     off: 25,
                     image: Assets.imagesAirpods,
                     name: 'Smart Watch Samsung a15',
                     price: 400,
-                    rating: 4.5,
+                    rating: 4.5, 
                   );
                 },
               ),

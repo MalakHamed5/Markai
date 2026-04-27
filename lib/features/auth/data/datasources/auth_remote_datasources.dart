@@ -6,7 +6,6 @@ import 'package:ecommerse/features/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/api/urls.dart';
-import '../../../../core/cache/cache_helper.dart';
 import '../../../../core/services/service_locator.dart';
 
 abstract class AuthRemoteDataSource {
@@ -22,10 +21,6 @@ abstract class AuthRemoteDataSource {
     required String phone,
     required String confirmPassword,
   });
-
-  Future<void> logout();
-
-  Future<void> userGuest();
 }
 
 //------------------ Implementation ------------------
@@ -84,26 +79,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return user;
     } on ServerException catch (e) {
       throw ServerFailure(e.toString());
-    } catch (e) {
-      throw UnKnownFailure(e.toString());
-    }
-  }
-
-  @override
-  Future<void> logout() async {
-    try {
-      await sl<SecureTokenStore>().deleteToken();
-      return;
-    } catch (e) {
-      throw UnKnownFailure(e.toString());
-    }
-  }
-
-  @override
-  Future<void> userGuest() async {
-    try {
-      await sl<CacheHelper>().saveData(key: 'is_guest', value: true);
-      return;
     } catch (e) {
       throw UnKnownFailure(e.toString());
     }

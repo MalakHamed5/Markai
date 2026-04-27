@@ -22,10 +22,8 @@ class _BrandsPageState extends State<BrandsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePageLayout(
-      title: 'Popular Product',
-      detail: 'All Products',
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             BlocBuilder<BrandBloc, BrandState>(

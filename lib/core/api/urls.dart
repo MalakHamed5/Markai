@@ -7,6 +7,8 @@ class Urls {
   static const String signUp = "/auth/signUp";
   static const String verficationOTP = "/auth/resetPassCode";
   static const String resetPW = "/auth/resetPassword";
+
+  // Profile 
   static const String getUserData = "/portfoilo/userData";
 
   // Home
@@ -14,10 +16,12 @@ class Urls {
   static String getProductById(int id) => "/home/products/$id";
   static const String getCategories = "/home/categories";
   static const String getBrands = "/home/brands";
+
+  // Fav
+  static const String getFav = "/user/getFavorite";
+  static const String addToFav = "/user/addFavorite";
+  static const String removeFav = "/user/deleteFavorite";
 }
-
-
-
 
 //---------------------------- Api Keys ----------------------------------------------
 class ApiKeys {
@@ -39,4 +43,7 @@ class ApiKeys {
 
   // Home
   static const String list = "list";
+
+  // favorite
+  static const String productId = "productId";
 }

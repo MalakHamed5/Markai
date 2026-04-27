@@ -1,8 +1,6 @@
 import 'package:ecommerse/core/constants/assets.dart';
 import 'package:ecommerse/core/helper/tools.dart';
-import 'package:ecommerse/core/shared/bottons/primary_button.dart';
-import 'package:ecommerse/core/shared/widgets/base_page_layout.dart';
-import 'package:ecommerse/core/theme/app_colors.dart';
+// import 'package:ecommerse/core/shared/widgets/base_page_layout.dart';
 import 'package:flutter/material.dart';
 
 class CartPage extends StatelessWidget {
@@ -10,11 +8,8 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BasePageLayout(
-      isSearch: false,
-      detail: "",
-      title: "Cart",
-      child: SafeArea(
+    return Scaffold(
+      body: SafeArea(
         child: Column(
           children: [
             // Image
@@ -39,22 +34,6 @@ class CartPage extends StatelessWidget {
               child: Text(
                 "Check our big offers, fresh products and fill your cart with items",
               ),
-            ),
-
-
-            // button 
-            PrimaryButton(
-              child: const Text(
-                "Start Shopping",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.textSecondary,
-                ),
-              ),
-              onPressed: () {
-                // context.go(RouteNames.home);
-              },
             ),
           ],
         ),

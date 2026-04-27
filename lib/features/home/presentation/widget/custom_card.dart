@@ -1,8 +1,10 @@
+import 'package:ecommerse/features/home/data/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/helper/tools.dart';
 import '../../../../core/shared/widgets/product_network_image.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../favorites/presentation/widgets/favorite_button.dart';
 
 //---------------------- CUSTOM CARD----------------------
 class CustomCard extends StatelessWidget {
@@ -12,8 +14,11 @@ class CustomCard extends StatelessWidget {
   final double price;
   final double rating;
   final bool isGrid;
-  final int? favId;
-  final bool isFav;
+  // favorite params
+  final bool isShowFav;
+  final ProductModel? product;
+
+  // navigate params
   final Function()? navigate;
   const CustomCard(
       {super.key,
@@ -23,8 +28,8 @@ class CustomCard extends StatelessWidget {
       required this.price,
       required this.rating,
       this.isGrid = false,
-      this.favId,
-      this.isFav = false,
+      this.isShowFav = true,
+       this.product,
       this.navigate});
 
   @override
@@ -57,11 +62,9 @@ class CustomCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                // off button
-                // add it after backend
-                //* _OffButton(widget: widget),
+
                 // favourit button
-                isFav ? _FavouritButton() : const SizedBox(),
+                if (isShowFav) FavouritButton(product: product!),
               ],
             ),
 
@@ -160,25 +163,6 @@ class _AddButton extends StatelessWidget {
         ),
       );
     });
-  }
-}
-
-class _FavouritButton extends StatelessWidget {
-  const _FavouritButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 8,
-      right: 8,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: Colors.grey.shade300),
-        ),
-        child: IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
-      ),
-    );
   }
 }
 

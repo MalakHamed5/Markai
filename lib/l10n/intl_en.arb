@@ -45,5 +45,7 @@
     "cart": "Cart",
     "favorite": "Favorite",
     "menu": "Menu",
-    "home": "Home"
+    "home": "Home",
+    "allProducts": "All Products",
+    "favorites": "Favorites"
 }
