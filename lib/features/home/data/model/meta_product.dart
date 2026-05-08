@@ -1,3 +1,5 @@
+import '../../../../core/api/urls.dart';
+
 class MetaProduct {
   final String createdAt;
   final String updatedAt;
@@ -12,10 +14,10 @@ class MetaProduct {
 
   factory MetaProduct.fromJson(Map<String, dynamic> json) {
     return MetaProduct(
-      createdAt: json['createdAt']??"",
-      updatedAt: json['updatedAt']??"",
-      barcode: json['barcode']??"",
-      qrCode: json['qrCode']??"",
+      createdAt: json[ApiKeys.createdAt] ?? "",
+      updatedAt: json[ApiKeys.updatedAt] ?? "",
+      barcode: json[ApiKeys.barcode] ?? "",
+      qrCode: json[ApiKeys.qrCode] ?? "",
     );
   }
 }

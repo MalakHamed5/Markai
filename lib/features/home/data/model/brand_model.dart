@@ -6,8 +6,8 @@ class BrandModel {
 
   factory BrandModel.fromJson(Map<String,dynamic> json){
     return BrandModel(
-      name: json['name'] ?? '',
-      emoji: json['emoji'] ?? '',
+      name: json['name'] ?? "",
+      emoji: json['emoji'] ?? "",
     );
   }
 }

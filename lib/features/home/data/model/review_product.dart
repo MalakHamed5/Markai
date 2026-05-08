@@ -1,3 +1,5 @@
+import 'package:ecommerse/core/api/urls.dart';
+
 class ReviewProduct {
   final int rating;
   final String comment;
@@ -14,11 +16,11 @@ class ReviewProduct {
 
   factory ReviewProduct.fromJson(Map<String, dynamic> json) {
     return ReviewProduct(
-      rating: json['rating'] ?? 0,
-      comment: json['comment'] ?? '',
-      date: json['date'] ?? '',
-      reviewerName: json['reviewerName'] ?? '',
-      reviewerEmail: json['reviewerEmail'] ?? '',
+      rating: json[ApiKeys.rating] ?? 0,
+      comment: json[ApiKeys.comment] ?? "",
+      date: json[ApiKeys.date] ?? "",
+      reviewerName: json[ApiKeys.reviewerName] ?? "",
+      reviewerEmail: json[ApiKeys.reviewerEmail] ?? "",
     );
   }
 }

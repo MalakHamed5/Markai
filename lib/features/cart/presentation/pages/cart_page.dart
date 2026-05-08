@@ -32,8 +32,7 @@ class _CartPageState extends State<CartPage> {
         builder: (context, state) {
         return state.maybeWhen(
             success: (products) {
-              return GridView.builder(
-                shrinkWrap: true,
+              return SliverGrid.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 0,

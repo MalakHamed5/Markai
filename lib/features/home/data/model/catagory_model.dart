@@ -12,10 +12,10 @@ class CatagoryModel {
 
   factory CatagoryModel.fromJson(Map<String, dynamic> json) {
     return CatagoryModel(
-      slug: json['slug'] ?? '',
-      name: json['name'] ?? '',
-      url: json['url'] ?? '',
-      image: json['image'] ?? '',
+      slug: json['slug'] ?? "",
+      name: json['name'] ?? "",
+      url: json['url'] ?? "",
+      image: json['image'] ?? "",
     );
   }
 }

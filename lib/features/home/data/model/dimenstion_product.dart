@@ -1,3 +1,5 @@
+import '../../../../core/api/urls.dart';
+
 class DimensionProduct {
   final double width;
   final double height;
@@ -8,9 +10,9 @@ class DimensionProduct {
 
   factory DimensionProduct.fromJson(Map<String, dynamic> json) {
     return DimensionProduct(
-      width: (json['width'] ?? 0.0).toDouble(),
-      height: (json['height'] ?? 0.0).toDouble(),
-      depth: (json['depth'] ?? 0.0).toDouble(),
+      width: (json[ApiKeys.width] ?? 0).toDouble(),
+      height: (json[ApiKeys.height] ?? 0).toDouble(),
+      depth: (json[ApiKeys.depth] ?? 0).toDouble(),
     );
   }
 }

@@ -1,3 +1,7 @@
+// ignore_for_file: collection_methods_unrelated_type
+
+
+import '../../../../core/api/urls.dart';
 import 'dimenstion_product.dart';
 import 'meta_product.dart';
 import 'review_product.dart';
@@ -56,44 +60,31 @@ class ProductModel {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'] ?? 0,
-      title: json['title'] ?? '',
-      description: json['description'] ?? '',
-      category: json['category'] ?? "",
-      price: (json['price'] ?? 0.0).toDouble(),
-      discountPercentage: (json['discountPercentage'] ?? 0.0).toDouble(),
-      rating: (json['rating'] ?? 0.0).toDouble(),
-      stock: json['stock'] ?? 0,
-      tags: List<String>.from(json['tags'] ?? []),
-      brand: json['brand'] ?? "",
-      sku: json['sku'] ?? '',
-      weight: json['weight'] ?? 0,
-      dimensions: json['dimensions'] != null
-          ? DimensionProduct.fromJson(json['dimensions'] ?? {})
-          : const DimensionProduct(
-              width: 0,
-              height: 0,
-              depth: 0,
-            ),
-      reviews: (json['reviews'] as List<dynamic>?)
-              ?.map((e) => ReviewProduct.fromJson(e))
-              .toList() ??
-          [],
-      meta: json['meta'] != null
-          ? MetaProduct.fromJson(json['meta'] ?? {})
-          : const MetaProduct(
-              createdAt: "",
-              updatedAt: "",
-              barcode: "",
-              qrCode: "",
-            ),
-      thumbnail: json['thumbnail'] ?? "",
-      images: List<String>.from(json['images'] ?? []),
-      returnPolicy: json['returnPolicy'] ?? "",
-      minimumOrderQuantity: json['minimumOrderQuantity'] ?? 0,
-      warrantyInfo: json['warrantyInfo'] ?? "",
-      shippingInfo: json['shippingInfo'] ?? "",
-      avaliabilityStatus: json['avaliabilityStatus'] ?? "",
+      id: json[ApiKeys.id] ?? 0,
+      title: json[ApiKeys.title] ?? "",
+      description: json[ApiKeys.description] ?? "",
+      category: json[ApiKeys.category] ?? "",
+      price: (json[ApiKeys.price] ?? 0).toDouble(),
+      discountPercentage: (json[ApiKeys.discountPercentage] ?? 0).toDouble(),
+      rating: (json[ApiKeys.rating] ?? 0).toDouble(),
+      stock: json[ApiKeys.stock] ?? 0,
+      tags: List<String>.from(json[ApiKeys.tags] ?? []),
+      brand: json[ApiKeys.brand] ?? "",
+      sku: json[ApiKeys.sku] ?? "",
+      weight: json[ApiKeys.weight] ?? 0,
+      dimensions: DimensionProduct.fromJson(json[ApiKeys.dimensions] ?? {}),
+      reviews: (json[ApiKeys.reviews] as List<dynamic>? ?? [])
+          .map((e) => ReviewProduct.fromJson(e))
+          .toList(),
+      meta: MetaProduct.fromJson(json[ApiKeys.meta] ?? {}),
+      thumbnail: json[ApiKeys.thumbnail] ?? "",
+      images: List<String>.from(json[ApiKeys.images] ?? []),
+      returnPolicy: json[ApiKeys.returnPolicy] ?? "",
+      minimumOrderQuantity: json[ApiKeys.minimumOrderQuantity] ?? 0,
+      warrantyInfo: json[ApiKeys.warrantyInformation] ?? "",
+      shippingInfo: json[ApiKeys.shippingInformation] ?? "",
+      avaliabilityStatus: json[ApiKeys.availabilityStatus] ?? "",
     );
   }
 }
+

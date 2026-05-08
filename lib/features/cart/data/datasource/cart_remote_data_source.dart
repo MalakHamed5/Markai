@@ -17,8 +17,11 @@ abstract interface class CartRemoteDataSource {
 //----------------- Impelementation -------------------
 @LazySingleton(as: CartRemoteDataSource)
 class CartRemoteDataSourceImpl implements CartRemoteDataSource {
+  // api consumer
   final ApiConsumer api;
   CartRemoteDataSourceImpl({required this.api});
+
+  // get cart
   @override
   Future<List<ProductModel>> getCart() async {
     try {

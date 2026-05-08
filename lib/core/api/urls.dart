@@ -56,4 +56,38 @@ class ApiKeys {
 
   // favorite
   static const String productId = "productId";
+
+  // Product Model info
+  static const String title = "title";
+  static const String description = "description";
+  static const String category = "category";
+  static const String price = "price";
+  static const String discountPercentage = "discountPercentage";
+  static const String rating = "rating";
+  static const String stock = "stock";
+  static const String tags = "tags";
+  static const String brand = "brand";
+  static const String sku = "sku";
+  static const String weight = "weight";
+  static const String dimensions = "dimensions";
+  static const String width = "width";
+  static const String height = "height";
+  static const String depth = "depth";
+  static const String warrantyInformation = "warrantyInformation";
+  static const String shippingInformation = "shippingInformation";
+  static const String availabilityStatus = "availabilityStatus";
+  static const String reviews = "reviews";
+  static const String comment = "comment";
+  static const String date = "date";
+  static const String reviewerName = "reviewerName";
+  static const String reviewerEmail = "reviewerEmail";
+  static const String returnPolicy = "returnPolicy";
+  static const String minimumOrderQuantity = "minimumOrderQuantity";
+  static const String meta = "meta";
+  static const String createdAt = "createdAt";
+  static const String updatedAt = "updatedAt";
+  static const String barcode = "barcode";
+  static const String qrCode = "qrCode";
+  static const String images = "images";
+  static const String thumbnail = "thumbnail";
 }
