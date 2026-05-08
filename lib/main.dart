@@ -1,6 +1,7 @@
 import 'package:ecommerse/core/services/service_locator.dart';
 import 'package:ecommerse/core/theme/cubit/theme_cubit.dart';
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:ecommerse/features/cart/presentation/cart/cart_bloc.dart';
 import 'package:ecommerse/features/favorites/presentation/favorite/favorite_bloc.dart';
 import 'package:ecommerse/features/home/presentation/bloc/brand/brand_bloc.dart';
 import 'package:ecommerse/features/home/presentation/bloc/catagory/catagory_bloc.dart';
@@ -24,7 +25,7 @@ void main() async {
         BlocProvider(create: (context) => sl<CatagoryBloc>()),
         BlocProvider(create: (context) => sl<BrandBloc>()),
         BlocProvider(create: (context) => sl<FavoriteBloc>()),
-        
+        BlocProvider(create: (context) => sl<CartBloc>()),
       ],
       child: const MarketiApp(),
     ),

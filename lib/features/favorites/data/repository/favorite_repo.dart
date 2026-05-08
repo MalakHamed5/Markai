@@ -10,7 +10,7 @@ abstract class FavoriteRepo {
   Future<Either<Failure, String>> deleteFavorite(String productId);
   Future<Either<Failure, List<ProductModel>>> getFavorites();
 }
-
+//--------------------- Implementation ----------------------------------
 @LazySingleton(as: FavoriteRepo)
 class FavoriteRepoImpl implements FavoriteRepo {
   final FavoriteDataSource favoriteDataSource;

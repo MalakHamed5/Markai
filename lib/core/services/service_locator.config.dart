@@ -24,6 +24,12 @@ import 'package:ecommerse/features/auth/data/repositories/auth_repo.dart'
     as _i619;
 import 'package:ecommerse/features/auth/presentation/bloc/auth/auth_bloc.dart'
     as _i60;
+import 'package:ecommerse/features/cart/data/datasource/cart_remote_data_source.dart'
+    as _i170;
+import 'package:ecommerse/features/cart/data/repository/cart_repo.dart'
+    as _i863;
+import 'package:ecommerse/features/cart/presentation/cart/cart_bloc.dart'
+    as _i1058;
 import 'package:ecommerse/features/favorites/data/datasource/favorite_data_source.dart'
     as _i502;
 import 'package:ecommerse/features/favorites/data/repository/favorite_repo.dart'
@@ -85,6 +91,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i429.ProfileRemoteDataSourceImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i404.ProductDataSource>(
         () => _i404.ProductDataSourceImpl(api: gh<_i915.ApiConsumer>()));
+    gh.lazySingleton<_i170.CartRemoteDataSource>(
+        () => _i170.CartRemoteDataSourceImpl(api: gh<_i915.ApiConsumer>()));
     gh.lazySingleton<_i673.ProdcutRepository>(() => _i673.ProductRepositoryImpl(
         productDataSource: gh<_i404.ProductDataSource>()));
     gh.lazySingleton<_i502.FavoriteDataSource>(() =>
@@ -107,11 +115,15 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i462.ProductDetailsCubit(repo: gh<_i673.ProdcutRepository>()));
     gh.factory<_i124.CatagoryBloc>(() =>
         _i124.CatagoryBloc(prodcutRepository: gh<_i673.ProdcutRepository>()));
+    gh.lazySingleton<_i863.CartRepository>(() => _i863.CartRepositoryImpl(
+        cartRemoteDataSource: gh<_i170.CartRemoteDataSource>()));
     gh.factory<_i135.BrandBloc>(() =>
         _i135.BrandBloc(productRepository: gh<_i673.ProdcutRepository>()));
     gh.factory<_i60.AuthBloc>(() => _i60.AuthBloc(repo: gh<_i619.AuthRepo>()));
     gh.factory<_i858.ProfileBloc>(
         () => _i858.ProfileBloc(profileRepo: gh<_i432.ProfileRepo>()));
+    gh.factory<_i1058.CartBloc>(
+        () => _i1058.CartBloc(repo: gh<_i863.CartRepository>()));
     return this;
   }
 }

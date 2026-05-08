@@ -1,5 +1,5 @@
+[] cart 
+
 [] payment 
-[] favoirte & cart with hive 
-[] pagination 
-[] user state 
+[] pagination
 [] read me 

@@ -8,9 +8,9 @@ class DimensionProduct {
 
   factory DimensionProduct.fromJson(Map<String, dynamic> json) {
     return DimensionProduct(
-      width: (json['width'] ?? 0).toDouble(),
-      height: (json['height'] ?? 0).toDouble(),
-      depth: (json['depth'] ?? 0).toDouble(),
+      width: (json['width'] ?? 0.0).toDouble(),
+      height: (json['height'] ?? 0.0).toDouble(),
+      depth: (json['depth'] ?? 0.0).toDouble(),
     );
   }
 }
