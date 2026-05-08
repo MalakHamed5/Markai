@@ -57,36 +57,22 @@ class ProductModel {
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'] ?? 0,
-      title: json['title'] ?? '',
-      description: json['description'] ?? '',
+      title: json['title'] ?? "",
+      description: json['description'] ?? "",
       category: json['category'] ?? "",
-      price: (json['price'] ?? 0.0).toDouble(),
-      discountPercentage: (json['discountPercentage'] ?? 0.0).toDouble(),
-      rating: (json['rating'] ?? 0.0).toDouble(),
+      price: (json['price'] ?? 0).toDouble(),
+      discountPercentage: (json['discountPercentage'] ?? 0).toDouble(),
+      rating: (json['rating'] ?? 0).toDouble(),
       stock: json['stock'] ?? 0,
       tags: List<String>.from(json['tags'] ?? []),
       brand: json['brand'] ?? "",
-      sku: json['sku'] ?? '',
+      sku: json['sku'] ?? "",
       weight: json['weight'] ?? 0,
-      dimensions: json['dimensions'] != null
-          ? DimensionProduct.fromJson(json['dimensions'] ?? {})
-          : const DimensionProduct(
-              width: 0,
-              height: 0,
-              depth: 0,
-            ),
-      reviews: (json['reviews'] as List<dynamic>?)
-              ?.map((e) => ReviewProduct.fromJson(e))
-              .toList() ??
-          [],
-      meta: json['meta'] != null
-          ? MetaProduct.fromJson(json['meta'] ?? {})
-          : const MetaProduct(
-              createdAt: "",
-              updatedAt: "",
-              barcode: "",
-              qrCode: "",
-            ),
+      dimensions: DimensionProduct.fromJson(json['dimensions'] ?? {}),
+      reviews: (json['reviews'] as List<dynamic>? ?? [])
+          .map((e) => ReviewProduct.fromJson(e))
+          .toList(),
+      meta: MetaProduct.fromJson(json['meta'] ?? {}),
       thumbnail: json['thumbnail'] ?? "",
       images: List<String>.from(json['images'] ?? []),
       returnPolicy: json['returnPolicy'] ?? "",
@@ -97,3 +83,4 @@ class ProductModel {
     );
   }
 }
+

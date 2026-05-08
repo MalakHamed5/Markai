@@ -12,10 +12,10 @@ class MetaProduct {
 
   factory MetaProduct.fromJson(Map<String, dynamic> json) {
     return MetaProduct(
-      createdAt: json['createdAt']??"",
-      updatedAt: json['updatedAt']??"",
-      barcode: json['barcode']??"",
-      qrCode: json['qrCode']??"",
+      createdAt: json['createdAt'] ?? "",
+      updatedAt: json['updatedAt'] ?? "",
+      barcode: json['barcode'] ?? "",
+      qrCode: json['qrCode'] ?? "",
     );
   }
 }
