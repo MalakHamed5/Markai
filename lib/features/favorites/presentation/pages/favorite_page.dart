@@ -34,7 +34,7 @@ class _FavoritePageState extends State<FavoritePage> {
             itemCount: products.length,
             itemBuilder: (context, i) {
               final ProductModel p = products[i];
-              return CustomCard(
+              return ProductCard(
                 product: p,
                 off: p.discountPercentage,
                 image: p.images.first,

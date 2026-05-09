@@ -1,4 +1,3 @@
-
 import 'package:ecommerse/features/home/presentation/bloc/product/product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +43,7 @@ class _ProductPageState extends State<ProductPage> {
               final product = products[i];
 
               // Product Card Widget
-              return CustomCard(
+              return ProductCard(
                 product: product,
                 off: product.discountPercentage,
                 name: product.title,

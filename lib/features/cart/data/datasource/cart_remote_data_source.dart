@@ -10,8 +10,8 @@ import '../model/cart_model.dart';
 
 abstract interface class CartRemoteDataSource {
   Future<List<ProductModel>> getCart();
-  Future addCart(String produictId);
-  Future deleteCart(String produictId);
+  Future<String> addCart(String productId);
+  Future<String> deleteCart(String productId);
 }
 
 //----------------- Impelementation -------------------
@@ -41,14 +41,26 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   }
 
   @override
-  Future addCart(String produictId) {
-    // TODO: implement addCart
-    throw UnimplementedError();
+  Future<String> addCart(String productId) async {
+    try {
+      // api call
+      final response = await api.post(Urls.addCart, data: productId);
+
+      return response['message'];
+    } catch (e) {
+      throw ServerFailure(e.toString());
+    }
   }
 
   @override
-  Future deleteCart(String produictId) {
-    // TODO: implement deleteCart
-    throw UnimplementedError();
+  Future<String> deleteCart(String productId) async {
+    try {
+      // api call
+      final response = await api.delete(Urls.deleteCart, data: productId);
+
+      return response['message'];
+    } catch (e) {
+      throw ServerFailure(e.toString());
+    }
   }
 }

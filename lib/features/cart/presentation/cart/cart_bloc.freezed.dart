@@ -14,24 +14,78 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$CartState {
+  List<ProductModel> get cartProducts;
+  bool get isLoading;
+  String? get error;
+
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CartStateCopyWith<CartState> get copyWith =>
+      _$CartStateCopyWithImpl<CartState>(this as CartState, _$identity);
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is CartState);
+        (other.runtimeType == runtimeType &&
+            other is CartState &&
+            const DeepCollectionEquality()
+                .equals(other.cartProducts, cartProducts) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(cartProducts), isLoading, error);
 
   @override
   String toString() {
-    return 'CartState()';
+    return 'CartState(cartProducts: $cartProducts, isLoading: $isLoading, error: $error)';
   }
 }
 
 /// @nodoc
-class $CartStateCopyWith<$Res> {
-  $CartStateCopyWith(CartState _, $Res Function(CartState) __);
+abstract mixin class $CartStateCopyWith<$Res> {
+  factory $CartStateCopyWith(CartState value, $Res Function(CartState) _then) =
+      _$CartStateCopyWithImpl;
+  @useResult
+  $Res call({List<ProductModel> cartProducts, bool isLoading, String? error});
+}
+
+/// @nodoc
+class _$CartStateCopyWithImpl<$Res> implements $CartStateCopyWith<$Res> {
+  _$CartStateCopyWithImpl(this._self, this._then);
+
+  final CartState _self;
+  final $Res Function(CartState) _then;
+
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cartProducts = null,
+    Object? isLoading = null,
+    Object? error = freezed,
+  }) {
+    return _then(_self.copyWith(
+      cartProducts: null == cartProducts
+          ? _self.cartProducts
+          : cartProducts // ignore: cast_nullable_to_non_nullable
+              as List<ProductModel>,
+      isLoading: null == isLoading
+          ? _self.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// Adds pattern-matching-related methods to [CartState].
@@ -49,23 +103,14 @@ extension CartStatePatterns on CartState {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
-    TResult Function(_Loading value)? loading,
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_CartState value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _Initial() when initial != null:
-        return initial(_that);
-      case _Success() when success != null:
-        return success(_that);
-      case _Error() when error != null:
-        return error(_that);
-      case _Loading() when loading != null:
-        return loading(_that);
+      case _CartState() when $default != null:
+        return $default(_that);
       case _:
         return orElse();
     }
@@ -85,22 +130,15 @@ extension CartStatePatterns on CartState {
   /// ```
 
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
-    required TResult Function(_Loading value) loading,
-  }) {
+  TResult map<TResult extends Object?>(
+    TResult Function(_CartState value) $default,
+  ) {
     final _that = this;
     switch (_that) {
-      case _Initial():
-        return initial(_that);
-      case _Success():
-        return success(_that);
-      case _Error():
-        return error(_that);
-      case _Loading():
-        return loading(_that);
+      case _CartState():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
     }
   }
 
@@ -117,22 +155,13 @@ extension CartStatePatterns on CartState {
   /// ```
 
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
-    TResult? Function(_Loading value)? loading,
-  }) {
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_CartState value)? $default,
+  ) {
     final _that = this;
     switch (_that) {
-      case _Initial() when initial != null:
-        return initial(_that);
-      case _Success() when success != null:
-        return success(_that);
-      case _Error() when error != null:
-        return error(_that);
-      case _Loading() when loading != null:
-        return loading(_that);
+      case _CartState() when $default != null:
+        return $default(_that);
       case _:
         return null;
     }
@@ -151,23 +180,16 @@ extension CartStatePatterns on CartState {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<ProductModel> cartProducts)? success,
-    TResult Function(String error)? error,
-    TResult Function()? loading,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            List<ProductModel> cartProducts, bool isLoading, String? error)?
+        $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _Initial() when initial != null:
-        return initial();
-      case _Success() when success != null:
-        return success(_that.cartProducts);
-      case _Error() when error != null:
-        return error(_that.error);
-      case _Loading() when loading != null:
-        return loading();
+      case _CartState() when $default != null:
+        return $default(_that.cartProducts, _that.isLoading, _that.error);
       case _:
         return orElse();
     }
@@ -187,22 +209,17 @@ extension CartStatePatterns on CartState {
   /// ```
 
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<ProductModel> cartProducts) success,
-    required TResult Function(String error) error,
-    required TResult Function() loading,
-  }) {
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            List<ProductModel> cartProducts, bool isLoading, String? error)
+        $default,
+  ) {
     final _that = this;
     switch (_that) {
-      case _Initial():
-        return initial();
-      case _Success():
-        return success(_that.cartProducts);
-      case _Error():
-        return error(_that.error);
-      case _Loading():
-        return loading();
+      case _CartState():
+        return $default(_that.cartProducts, _that.isLoading, _that.error);
+      case _:
+        throw StateError('Unexpected subclass');
     }
   }
 
@@ -219,22 +236,15 @@ extension CartStatePatterns on CartState {
   /// ```
 
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<ProductModel> cartProducts)? success,
-    TResult? Function(String error)? error,
-    TResult? Function()? loading,
-  }) {
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            List<ProductModel> cartProducts, bool isLoading, String? error)?
+        $default,
+  ) {
     final _that = this;
     switch (_that) {
-      case _Initial() when initial != null:
-        return initial();
-      case _Success() when success != null:
-        return success(_that.cartProducts);
-      case _Error() when error != null:
-        return error(_that.error);
-      case _Loading() when loading != null:
-        return loading();
+      case _CartState() when $default != null:
+        return $default(_that.cartProducts, _that.isLoading, _that.error);
       case _:
         return null;
     }
@@ -243,172 +253,99 @@ extension CartStatePatterns on CartState {
 
 /// @nodoc
 
-class _Initial implements CartState {
-  const _Initial();
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Initial);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  String toString() {
-    return 'CartState.initial()';
-  }
-}
-
-/// @nodoc
-
-class _Success implements CartState {
-  const _Success(final List<ProductModel> cartProducts)
+class _CartState implements CartState {
+  const _CartState(
+      {final List<ProductModel> cartProducts = const <ProductModel>[],
+      this.isLoading = false,
+      this.error})
       : _cartProducts = cartProducts;
 
   final List<ProductModel> _cartProducts;
+  @override
+  @JsonKey()
   List<ProductModel> get cartProducts {
     if (_cartProducts is EqualUnmodifiableListView) return _cartProducts;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_cartProducts);
   }
 
+  @override
+  @JsonKey()
+  final bool isLoading;
+  @override
+  final String? error;
+
   /// Create a copy of CartState
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$SuccessCopyWith<_Success> get copyWith =>
-      __$SuccessCopyWithImpl<_Success>(this, _$identity);
+  _$CartStateCopyWith<_CartState> get copyWith =>
+      __$CartStateCopyWithImpl<_CartState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Success &&
+            other is _CartState &&
             const DeepCollectionEquality()
-                .equals(other._cartProducts, _cartProducts));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_cartProducts));
-
-  @override
-  String toString() {
-    return 'CartState.success(cartProducts: $cartProducts)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$SuccessCopyWith<$Res>
-    implements $CartStateCopyWith<$Res> {
-  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
-      __$SuccessCopyWithImpl;
-  @useResult
-  $Res call({List<ProductModel> cartProducts});
-}
-
-/// @nodoc
-class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
-  __$SuccessCopyWithImpl(this._self, this._then);
-
-  final _Success _self;
-  final $Res Function(_Success) _then;
-
-  /// Create a copy of CartState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? cartProducts = null,
-  }) {
-    return _then(_Success(
-      null == cartProducts
-          ? _self._cartProducts
-          : cartProducts // ignore: cast_nullable_to_non_nullable
-              as List<ProductModel>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _Error implements CartState {
-  const _Error(this.error);
-
-  final String error;
-
-  /// Create a copy of CartState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$ErrorCopyWith<_Error> get copyWith =>
-      __$ErrorCopyWithImpl<_Error>(this, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _Error &&
+                .equals(other._cartProducts, _cartProducts) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_cartProducts), isLoading, error);
 
   @override
   String toString() {
-    return 'CartState.error(error: $error)';
+    return 'CartState(cartProducts: $cartProducts, isLoading: $isLoading, error: $error)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $CartStateCopyWith<$Res> {
-  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) =
-      __$ErrorCopyWithImpl;
+abstract mixin class _$CartStateCopyWith<$Res>
+    implements $CartStateCopyWith<$Res> {
+  factory _$CartStateCopyWith(
+          _CartState value, $Res Function(_CartState) _then) =
+      __$CartStateCopyWithImpl;
+  @override
   @useResult
-  $Res call({String error});
+  $Res call({List<ProductModel> cartProducts, bool isLoading, String? error});
 }
 
 /// @nodoc
-class __$ErrorCopyWithImpl<$Res> implements _$ErrorCopyWith<$Res> {
-  __$ErrorCopyWithImpl(this._self, this._then);
+class __$CartStateCopyWithImpl<$Res> implements _$CartStateCopyWith<$Res> {
+  __$CartStateCopyWithImpl(this._self, this._then);
 
-  final _Error _self;
-  final $Res Function(_Error) _then;
+  final _CartState _self;
+  final $Res Function(_CartState) _then;
 
   /// Create a copy of CartState
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? error = null,
+    Object? cartProducts = null,
+    Object? isLoading = null,
+    Object? error = freezed,
   }) {
-    return _then(_Error(
-      null == error
+    return _then(_CartState(
+      cartProducts: null == cartProducts
+          ? _self._cartProducts
+          : cartProducts // ignore: cast_nullable_to_non_nullable
+              as List<ProductModel>,
+      isLoading: null == isLoading
+          ? _self.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error
           ? _self.error
           : error // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
-  }
-}
-
-/// @nodoc
-
-class _Loading implements CartState {
-  const _Loading();
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Loading);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  String toString() {
-    return 'CartState.loading()';
   }
 }
 
@@ -451,18 +388,15 @@ extension CartEventPatterns on CartEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCart value)? getCart,
-    TResult Function(_AddCart value)? addCart,
-    TResult Function(_DeleteCart value)? deleteCart,
+    TResult Function(_Toggle value)? toggle,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _GetCart() when getCart != null:
         return getCart(_that);
-      case _AddCart() when addCart != null:
-        return addCart(_that);
-      case _DeleteCart() when deleteCart != null:
-        return deleteCart(_that);
+      case _Toggle() when toggle != null:
+        return toggle(_that);
       case _:
         return orElse();
     }
@@ -484,17 +418,14 @@ extension CartEventPatterns on CartEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCart value) getCart,
-    required TResult Function(_AddCart value) addCart,
-    required TResult Function(_DeleteCart value) deleteCart,
+    required TResult Function(_Toggle value) toggle,
   }) {
     final _that = this;
     switch (_that) {
       case _GetCart():
         return getCart(_that);
-      case _AddCart():
-        return addCart(_that);
-      case _DeleteCart():
-        return deleteCart(_that);
+      case _Toggle():
+        return toggle(_that);
     }
   }
 
@@ -513,17 +444,14 @@ extension CartEventPatterns on CartEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCart value)? getCart,
-    TResult? Function(_AddCart value)? addCart,
-    TResult? Function(_DeleteCart value)? deleteCart,
+    TResult? Function(_Toggle value)? toggle,
   }) {
     final _that = this;
     switch (_that) {
       case _GetCart() when getCart != null:
         return getCart(_that);
-      case _AddCart() when addCart != null:
-        return addCart(_that);
-      case _DeleteCart() when deleteCart != null:
-        return deleteCart(_that);
+      case _Toggle() when toggle != null:
+        return toggle(_that);
       case _:
         return null;
     }
@@ -544,18 +472,15 @@ extension CartEventPatterns on CartEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCart,
-    TResult Function(String produictId)? addCart,
-    TResult Function(String produictId)? deleteCart,
+    TResult Function(ProductModel product)? toggle,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _GetCart() when getCart != null:
         return getCart();
-      case _AddCart() when addCart != null:
-        return addCart(_that.produictId);
-      case _DeleteCart() when deleteCart != null:
-        return deleteCart(_that.produictId);
+      case _Toggle() when toggle != null:
+        return toggle(_that.product);
       case _:
         return orElse();
     }
@@ -577,17 +502,14 @@ extension CartEventPatterns on CartEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCart,
-    required TResult Function(String produictId) addCart,
-    required TResult Function(String produictId) deleteCart,
+    required TResult Function(ProductModel product) toggle,
   }) {
     final _that = this;
     switch (_that) {
       case _GetCart():
         return getCart();
-      case _AddCart():
-        return addCart(_that.produictId);
-      case _DeleteCart():
-        return deleteCart(_that.produictId);
+      case _Toggle():
+        return toggle(_that.product);
     }
   }
 
@@ -606,17 +528,14 @@ extension CartEventPatterns on CartEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCart,
-    TResult? Function(String produictId)? addCart,
-    TResult? Function(String produictId)? deleteCart,
+    TResult? Function(ProductModel product)? toggle,
   }) {
     final _that = this;
     switch (_that) {
       case _GetCart() when getCart != null:
         return getCart();
-      case _AddCart() when addCart != null:
-        return addCart(_that.produictId);
-      case _DeleteCart() when deleteCart != null:
-        return deleteCart(_that.produictId);
+      case _Toggle() when toggle != null:
+        return toggle(_that.product);
       case _:
         return null;
     }
@@ -645,127 +564,62 @@ class _GetCart implements CartEvent {
 
 /// @nodoc
 
-class _AddCart implements CartEvent {
-  const _AddCart(this.produictId);
+class _Toggle implements CartEvent {
+  const _Toggle({required this.product});
 
-  final String produictId;
-
-  /// Create a copy of CartEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$AddCartCopyWith<_AddCart> get copyWith =>
-      __$AddCartCopyWithImpl<_AddCart>(this, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _AddCart &&
-            (identical(other.produictId, produictId) ||
-                other.produictId == produictId));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, produictId);
-
-  @override
-  String toString() {
-    return 'CartEvent.addCart(produictId: $produictId)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$AddCartCopyWith<$Res>
-    implements $CartEventCopyWith<$Res> {
-  factory _$AddCartCopyWith(_AddCart value, $Res Function(_AddCart) _then) =
-      __$AddCartCopyWithImpl;
-  @useResult
-  $Res call({String produictId});
-}
-
-/// @nodoc
-class __$AddCartCopyWithImpl<$Res> implements _$AddCartCopyWith<$Res> {
-  __$AddCartCopyWithImpl(this._self, this._then);
-
-  final _AddCart _self;
-  final $Res Function(_AddCart) _then;
-
-  /// Create a copy of CartEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? produictId = null,
-  }) {
-    return _then(_AddCart(
-      null == produictId
-          ? _self.produictId
-          : produictId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _DeleteCart implements CartEvent {
-  const _DeleteCart(this.produictId);
-
-  final String produictId;
+  final ProductModel product;
 
   /// Create a copy of CartEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$DeleteCartCopyWith<_DeleteCart> get copyWith =>
-      __$DeleteCartCopyWithImpl<_DeleteCart>(this, _$identity);
+  _$ToggleCopyWith<_Toggle> get copyWith =>
+      __$ToggleCopyWithImpl<_Toggle>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DeleteCart &&
-            (identical(other.produictId, produictId) ||
-                other.produictId == produictId));
+            other is _Toggle &&
+            (identical(other.product, product) || other.product == product));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, produictId);
+  int get hashCode => Object.hash(runtimeType, product);
 
   @override
   String toString() {
-    return 'CartEvent.deleteCart(produictId: $produictId)';
+    return 'CartEvent.toggle(product: $product)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$DeleteCartCopyWith<$Res>
+abstract mixin class _$ToggleCopyWith<$Res>
     implements $CartEventCopyWith<$Res> {
-  factory _$DeleteCartCopyWith(
-          _DeleteCart value, $Res Function(_DeleteCart) _then) =
-      __$DeleteCartCopyWithImpl;
+  factory _$ToggleCopyWith(_Toggle value, $Res Function(_Toggle) _then) =
+      __$ToggleCopyWithImpl;
   @useResult
-  $Res call({String produictId});
+  $Res call({ProductModel product});
 }
 
 /// @nodoc
-class __$DeleteCartCopyWithImpl<$Res> implements _$DeleteCartCopyWith<$Res> {
-  __$DeleteCartCopyWithImpl(this._self, this._then);
+class __$ToggleCopyWithImpl<$Res> implements _$ToggleCopyWith<$Res> {
+  __$ToggleCopyWithImpl(this._self, this._then);
 
-  final _DeleteCart _self;
-  final $Res Function(_DeleteCart) _then;
+  final _Toggle _self;
+  final $Res Function(_Toggle) _then;
 
   /// Create a copy of CartEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? produictId = null,
+    Object? product = null,
   }) {
-    return _then(_DeleteCart(
-      null == produictId
-          ? _self.produictId
-          : produictId // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_Toggle(
+      product: null == product
+          ? _self.product
+          : product // ignore: cast_nullable_to_non_nullable
+              as ProductModel,
     ));
   }
 }

@@ -23,9 +23,6 @@ class FavouritButton extends StatelessWidget {
           builder: (context, state) {
             final isFav =
                 state.favProducts.any((e) => e.id == product.id);
-            log('isFavor$isFav');
-            log('STATE LIST: ${state.favProducts.map((e) => e.id)}');
-            log('CURRENT ID: $product');
             return IconButton(
               onPressed: () {
                 log('you in here in UI');

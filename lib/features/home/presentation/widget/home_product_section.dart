@@ -27,7 +27,7 @@ class HomeProductSection extends StatelessWidget {
                     itemBuilder: (context, i) {
                       final product = visibleProducts[i];
 
-                      return CustomCard(
+                      return ProductCard(
                         product: product,
                         image: product.thumbnail,
                         name: product.title,
@@ -35,7 +35,6 @@ class HomeProductSection extends StatelessWidget {
                         rating: product.rating,
                         off: product.discountPercentage,
                         navigate: () {},
-                        
                       );
                     },
                   ),

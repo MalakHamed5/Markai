@@ -23,13 +23,13 @@ class HomeBuyAgainSection extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 8,
                 itemBuilder: (context, i) {
-                  return const CustomCard(
+                  return const ProductCard(
                     isShowFav: false,
                     off: 25,
                     image: Assets.imagesAirpods,
                     name: 'Smart Watch Samsung a15',
                     price: 400,
-                    rating: 4.5, 
+                    rating: 4.5,
                   );
                 },
               ),

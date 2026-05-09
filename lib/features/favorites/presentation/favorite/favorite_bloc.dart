@@ -13,10 +13,11 @@ part 'favorite_bloc.freezed.dart';
 @injectable
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final FavoriteRepo repo;
-  FavoriteBloc({required this.repo}) : super(FavoriteState()) {
+  FavoriteBloc({required this.repo}) : super(const FavoriteState()) {
     on<FavoriteEvent>(
       (event, emit) async {
         await event.maybeWhen(
+          
           getFavorites: () async {
             emit(state.copyWith(loading: true));
             final result = await repo.getFavorites();

@@ -34,13 +34,19 @@ class CartRepositoryImpl implements CartRepository {
 
   @override
   Future<Either<Failure, String>> addCart(String produictId) async {
-    // TODO: implement addCart
-    throw UnimplementedError();
+    try {
+      return Right(await cartRemoteDataSource.addCart(produictId));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failure, String>> deleteCart(String produictId) async {
-    // TODO: implement deleteCart
-    throw UnimplementedError();
+  Future<Either<Failure, String>> deleteCart(String product) async {
+    try {
+      return Right(await cartRemoteDataSource.deleteCart(product));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 }

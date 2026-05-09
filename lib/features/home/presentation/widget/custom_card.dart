@@ -1,13 +1,12 @@
+import 'package:ecommerse/features/cart/presentation/widgets/add_to_cart_button.dart';
 import 'package:ecommerse/features/home/data/model/product_model.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/helper/tools.dart';
 import '../../../../core/shared/widgets/product_network_image.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../../../favorites/presentation/widgets/favorite_button.dart';
 
 //---------------------- CUSTOM CARD----------------------
-class CustomCard extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final String image;
   final double off;
   final String name;
@@ -20,7 +19,7 @@ class CustomCard extends StatelessWidget {
 
   // navigate params
   final Function()? navigate;
-  const CustomCard(
+  const ProductCard(
       {super.key,
       required this.image,
       required this.off,
@@ -29,7 +28,7 @@ class CustomCard extends StatelessWidget {
       required this.rating,
       this.isGrid = false,
       this.isShowFav = true,
-       this.product,
+      this.product,
       this.navigate});
 
   @override
@@ -120,7 +119,7 @@ class CustomCard extends StatelessWidget {
                     ],
                   ),
                   vSpace(2),
-                  const _AddButton(),
+                  AddToCartButton(product: product!),
                 ],
               ),
             ),
@@ -131,40 +130,6 @@ class CustomCard extends StatelessWidget {
   }
 }
 
-class _AddButton extends StatelessWidget {
-  const _AddButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final cardWidth = constraints.maxWidth;
-      return Center(
-        child: SizedBox(
-          width: cardWidth * 0.8,
-          height: 40,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: AppColors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(22),
-                side: const BorderSide(color: AppColors.primary),
-              ),
-            ),
-            onPressed: () {},
-            child: const Text(
-              "Add",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-        ),
-      );
-    });
-  }
-}
 
 // class _OffButton extends StatelessWidget {
 //   const _OffButton({required this.widget});
